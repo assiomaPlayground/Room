@@ -28,6 +28,11 @@ namespace RoomService
                 sp.GetRequiredService<IOptions<RoomServiceMongoSettings>>().Value);
 
             services.AddSingleton<UserService>();
+            services.AddSingleton<BuildingService>();
+            services.AddSingleton<ReservationService>();
+            services.AddSingleton<WorkSpaceService>();
+            services.AddSingleton<QRMapService>();
+            services.AddSingleton<FavouritesService>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
