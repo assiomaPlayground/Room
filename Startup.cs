@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using RoomService.Services;
+using RoomService.Settings;
 
 namespace RoomService
 {
@@ -20,6 +23,12 @@ namespace RoomService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Configuration.GetSection(nameof(RoomServiceMongoSettings));
+            services.AddSingleton<IRoomServiceMongoSettings>(sp =>
+                sp.GetRequiredService<IOptions<RoomServiceMongoSettings>>().Value);
+
+            services.AddSingleton<UserService>();
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
