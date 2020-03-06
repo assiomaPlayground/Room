@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace RoomService.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class FavouritesController : AbstractMongoCrudController<Favourites, FavouritesService>
     {
         public FavouritesController(FavouritesService service) : base(service) { }
