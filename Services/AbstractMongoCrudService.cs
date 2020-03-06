@@ -14,8 +14,8 @@ namespace RoomService.Services
         protected IMongoCollection<TModel> Collection { get; private set; }
         public virtual void Init(IMongoSettings settings, string baseCollection)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient("mongodb+srv://admin:sUPGGykTKpLA0eT2@roomservice-djrjx.azure.mongodb.net/");
+            var database = client.GetDatabase("RoomService");
 
             Collection = database.GetCollection<TModel>(baseCollection);
         }

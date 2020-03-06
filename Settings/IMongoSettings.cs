@@ -9,6 +9,5 @@ namespace RoomService.Settings
     {
         string ConnectionString { get; set; }
         string DatabaseName     { get; set; }
-        string BaseCollection   { get; set; }
     }
 }
