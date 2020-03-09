@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-1">
+
+    </div>
+    <div class="coll_1">
+      <table>
+        <tr>
+          <th>
+            Username
+          </th>
+          <th>
+            Password
+          </th>
+          <th>
+            Role
+          </th>
+          <th>
+            Edit
+          </th>
+          <th>
+            User
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <input placeholder="Username" [(ngModel)]="roomins.username">
+          </td>
+          <td>
+            <input placeholder="Password" [(ngModel)]="roomins.Password">
+          </td>
+          <td>
+            <select placeholder="Role" [(ngModel)]="roomins.Role">
+              <option value="ADMIN">ADMIN</option>
+              <option value="USER">USER</option>
+              
+            </select>
+          </td>
+          <td>
+            <button (click)="insert(roomins)">Insert</button>
+          </td>
+          <td>
+            <button (click)="clear()">Clear</button>
+          </td>
+        </tr>
+        <tr *ngFor="let room of room">
+          <td>
+            <input [(ngModel)]="room.Username">
+          </td>
+          <td>
+            <input [(ngModel)]="room.Password">
+          </td>
+          <td>
+            <input [(ngModel)] = "room.Role">
+          </td>
+          <td>
+            <button (click)=update(room)>Update</button>
+          </td>
+          <td>
+            <button (click)="delete(room)">Delete</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-1">
+
+    </div>
+  </div>
+</div>
