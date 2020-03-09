@@ -24,15 +24,15 @@
         </tr>
         <tr>
           <td>
-            <input placeholder="Username" [(ngModel)]="usersins.Username">
+            <input placeholder="username" [(ngModel)]="usersins.username">
           </td>
           <td>
-            <input placeholder="Password" [(ngModel)]="usersins.Password">
+            <input placeholder="password" [(ngModel)]="usersins.password">
           </td>
           <td>
-            <select placeholder="Role" [(ngModel)]="usersins.Role">
-              <option value="ADMIN">ADMIN</option>
-              <option value="USER">USER</option>
+            <select placeholder="userType" [(ngModel)]="usersins.userType">
+              <option [value]=1>ADMIN</option>
+              <option [value]=0>USER</option>
               
             </select>
           </td>
@@ -45,13 +45,13 @@
         </tr>
         <tr *ngFor="let user of users">
           <td>
-            <input [(ngModel)]="user.Username">
+            <input [(ngModel)]="user.username">
           </td>
           <td>
-            <input [(ngModel)]="user.Password">
+            <input [(ngModel)]="user.password">
           </td>
           <td>
-            <input [(ngModel)] = "user.Role">
+            <input [(ngModel)] = "user.userType">
           </td>
           <td>
             <button (click)=update(user)>Update</button>

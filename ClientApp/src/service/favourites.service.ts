@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Abstractservice } from './abstractservice.service';
 import { Favourites } from 'src/model/favourites';
 import { HttpClient } from '@angular/common/http';
@@ -8,9 +8,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FavouritesService extends Abstractservice<Favourites>{
   
-  constructor(http: HttpClient) { 
-    super(http)
-    this.type='';
-    this.port='';
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl : String) { 
+    super(http, baseUrl)
+    this.type='user';
+    
+    
   }
 }

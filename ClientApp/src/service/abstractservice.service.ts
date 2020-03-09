@@ -7,11 +7,11 @@ import { Service } from './service.service';
 
 
 export class Abstractservice<Entity>implements Service<Entity> {
-  protected baseUrl : string;
+  protected  baseUrl: String;
   protected type: string;
   protected port: string;
-  constructor(protected http:HttpClient, @Inject('BASE_URL') baseUrl: string) {
-   this.baseUrl=baseUrl; 
+  constructor(protected http:HttpClient, @Inject('BASE_URL') baseUrl : String) {
+    this.baseUrl=baseUrl
    }
 
   
@@ -19,13 +19,13 @@ export class Abstractservice<Entity>implements Service<Entity> {
     return  this.http.get<Entity>('');
   }
   delete(id: String): Observable<Entity> {
-    return this.http.delete<Entity>(this.baseUrl + this.type + '/Delete'+ id);
+    return this.http.delete<Entity>(this.baseUrl +this.type + '/Delete'+ id);
   }
   update(entity: Entity): Observable<Entity> {
     return this.http.put<Entity>(this.baseUrl + this.type + '/Update', entity)
   }
   insert(entity: Entity): Observable<any> {
-    return this.http.post<Entity>(this.baseUrl + this.type + '/Create',entity);
+    return this.http.post<Entity>(this.baseUrl +this.type +'/Create',entity);
   }
   List(): Observable<Entity[]> {
     return this.http.get<Entity[]>(this.baseUrl + this.type + '/Getall');

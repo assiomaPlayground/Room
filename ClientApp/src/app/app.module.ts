@@ -15,6 +15,9 @@ import { BuildingComponent } from './building/building.component';
 import { RoomComponent } from './room/room.component';
 import { QrmapComponent } from './qrmap/qrmap.component';
 import { FavouritesComponent } from './favourites/favourites.component';
+import { getBaseUrl } from 'src/main';
+import { UserModule } from './user/user.module';
+import { RoomModule } from './room/room.module';
 
 @NgModule({
   declarations: [
@@ -34,20 +37,17 @@ import { FavouritesComponent } from './favourites/favourites.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    UserModule,
+    RoomModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      {path: 'user', component: UserComponent},
-      {path: 'building', component: BuildingComponent},
-      {path: 'favourites', component: FavouritesComponent},
-      {path: 'qrmap', component: QrmapComponent},
-      {path: 'reservation', component:ReservationComponent},
-      {path:'room', component:RoomComponent},
 
-    ])
+    ]),
+    
   ],
-  providers: [],
+  
+providers: [
+  {provide:'BASE_URL', useFactory : getBaseUrl}
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

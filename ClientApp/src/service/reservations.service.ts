@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Reservation } from 'src/model/reservation';
 import { Abstractservice } from './abstractservice.service';
 import { HttpClient } from '@angular/common/http';
@@ -7,10 +7,10 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ReservationsService extends Abstractservice<Reservation>{
-  
-  constructor(http: HttpClient) { 
-    super(http)
-    this.type='';
-    this.port='';
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl : String) { 
+    super(http, baseUrl)
+    this.type='user';
+    
+    
   }
 }

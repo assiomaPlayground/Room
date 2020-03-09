@@ -7,35 +7,50 @@
       <table>
         <tr>
           <th>
-            Username
+            Name
           </th>
           <th>
-            Password
+            Features
           </th>
           <th>
-            Role
+            AllSeats
+          </th>
+          <th>
+            Seats
+          </th>
+          <th>
+            SubMap
+          </th>
+          <th>
+            Building
           </th>
           <th>
             Edit
           </th>
           <th>
-            User
+            Room
           </th>
         </tr>
         <tr>
           <td>
-            <input placeholder="Username" [(ngModel)]="roomins.username">
+            <input placeholder="Name" [(ngModel)]="roomins.name">
           </td>
           <td>
-            <input placeholder="Password" [(ngModel)]="roomins.Password">
+            <input placeholder="Features" [(ngModel)]="roomins.features">
           </td>
           <td>
-            <select placeholder="Role" [(ngModel)]="roomins.Role">
-              <option value="ADMIN">ADMIN</option>
-              <option value="USER">USER</option>
-              
-            </select>
+            <input placeholder="AllSeats" [(ngModel)]="roomins.allSeats">
           </td>
+          <td>
+            <input placeholder="Seats" [(ngModel)]="roomins.seats">
+          </td>
+          <td>
+            <input placeholder="SubMap" [(ngModel)]="roomins.subMap">
+          </td>
+          <td>
+            <input placeholder="Building" [(ngModel)]="roomins.building">
+          </td>
+          
           <td>
             <button (click)="insert(roomins)">Insert</button>
           </td>
@@ -45,13 +60,22 @@
         </tr>
         <tr *ngFor="let room of room">
           <td>
-            <input [(ngModel)]="room.Username">
+            <input [(ngModel)]="room.name">
           </td>
           <td>
-            <input [(ngModel)]="room.Password">
+            <input [(ngModel)]="room.features">
           </td>
           <td>
-            <input [(ngModel)] = "room.Role">
+            <input [(ngModel)] = "room.allSeats">
+          </td>
+          <td>
+            <input [(ngModel)] = "room.seats">
+          </td>
+          <td>
+            <input [(ngModel)] = "room.subMap">
+          </td>
+          <td>
+            <input [(ngModel)] = "room.building">
           </td>
           <td>
             <button (click)=update(room)>Update</button>

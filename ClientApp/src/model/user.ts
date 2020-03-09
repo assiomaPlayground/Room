@@ -1,10 +1,10 @@
-import { Role } from "./role";
+import { Usertype } from "./usertype";
 
 export class User{
     Id: String;
     Username: String;
     Password: String;
-    Role: Role;
+    Usertype: Usertype;
 
 
 }
