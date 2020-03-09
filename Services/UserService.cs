@@ -10,6 +10,6 @@ namespace RoomService.Services
     public class UserService : AbstractMongoCrudService<UserModel>
     {
         public UserService(IRoomServiceMongoSettings settings)
-            => base.Init(settings, "User");
+            => base.Init(settings, settings.UserCollection);
     }
 }
