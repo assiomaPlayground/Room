@@ -10,7 +10,7 @@ namespace RoomService.Services
     public class FavouritesService : AbstractMongoCrudService<Favourites>
     {
        public FavouritesService(IRoomServiceMongoSettings settings)
-            => base.Init(settings, "Favourites");
+            => base.Init(settings, settings.FavouritesCollection);
     }
 }
 

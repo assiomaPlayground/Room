@@ -10,6 +10,6 @@ namespace RoomService.Services
     public class BuildingService : AbstractMongoCrudService<Building>
     {
         public BuildingService(IRoomServiceMongoSettings settings)
-            => base.Init(settings, "Building");
+            => base.Init(settings, settings.BuildingCollection);
     }
 }

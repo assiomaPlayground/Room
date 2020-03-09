@@ -10,6 +10,6 @@ namespace RoomService.Services
     public class ReservationService : AbstractMongoCrudService<Reservation>
     {
         public ReservationService(IRoomServiceMongoSettings settings)
-            => base.Init(settings, "Reservation");
+            => base.Init(settings, settings.ReservationCollection);
     }
 }

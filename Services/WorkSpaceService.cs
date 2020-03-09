@@ -10,7 +10,7 @@ namespace RoomService.Services
     public class WorkSpaceService : AbstractMongoCrudService<WorkSpace>
     {
         public WorkSpaceService(IRoomServiceMongoSettings settings)
-            => base.Init(settings, "WorkSpace");
+            => base.Init(settings, settings.WorkSpaceCollection);
     }
     
 }

@@ -23,17 +23,19 @@ namespace RoomService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Configuration.GetSection(nameof(RoomServiceMongoSettings));
+            //Setup config file class wrapper
+            services.Configure<RoomServiceMongoSettings>(
+                Configuration.GetSection(nameof(RoomServiceMongoSettings)));
             services.AddSingleton<IRoomServiceMongoSettings>(sp =>
                 sp.GetRequiredService<IOptions<RoomServiceMongoSettings>>().Value);
-
+            //Services as singleton
             services.AddSingleton<UserService>();
             services.AddSingleton<BuildingService>();
             services.AddSingleton<ReservationService>();
             services.AddSingleton<WorkSpaceService>();
             services.AddSingleton<QRMapService>();
             services.AddSingleton<FavouritesService>();
-
+            //Controllers
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -41,7 +43,6 @@ namespace RoomService
                 configuration.RootPath = "ClientApp/dist";
             });
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -64,7 +65,7 @@ namespace RoomService
             }
 
             app.UseRouting();
-
+            //Default controllers mapping
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

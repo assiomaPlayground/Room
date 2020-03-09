@@ -10,6 +10,6 @@ namespace RoomService.Services
     public class QRMapService : AbstractMongoCrudService<QRMap>
     {
         public QRMapService(IRoomServiceMongoSettings settings)
-            => base.Init(settings, "QRMap");
+            => base.Init(settings, settings.QRMapCollection);
     }
 }
