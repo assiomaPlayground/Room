@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Services
 {
+    /// <summary>
+    /// Service for QRMap collection crud ops in abstract
+    /// </summary>
     public class QRMapService : AbstractMongoCrudService<QRMap>
     {
         public QRMapService(IRoomServiceMongoSettings settings)

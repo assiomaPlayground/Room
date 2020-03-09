@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Model
 {
+    /// <summary>
+    /// Model for reservation data
+    /// </summary>
     public class Reservation : IModel
     {
         public enum Status

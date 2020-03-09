@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Controllers
 {
+    /// <summary>
+    /// Controller for favourites collection base Crud in abstract class
+    /// </summary>
     public class FavouritesController : AbstractMongoCrudController<Favourites, FavouritesService>
     {
         public FavouritesController(FavouritesService service) : base(service) { }

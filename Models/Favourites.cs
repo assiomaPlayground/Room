@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Models
 {
+    /// <summary>
+    /// Model for favourites data
+    /// </summary>
     public class Favourites : IModel
     {
         [BsonId]

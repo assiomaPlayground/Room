@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Model
 {
+    /// <summary>
+    /// Model for building data
+    /// </summary>
     public class Building : IModel
     {
         [BsonId]

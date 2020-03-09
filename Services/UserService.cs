@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Services
 {
+    /// <summary>
+    /// Service for User collection crud ops in abstract
+    /// </summary>
     public class UserService : AbstractMongoCrudService<UserModel>
     {
         public UserService(IRoomServiceMongoSettings settings)

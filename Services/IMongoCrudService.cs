@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace RoomService.Services
 {
+    /// <summary>
+    /// Interface for Crud service
+    /// </summary>
+    /// <typeparam name="TModel">The target model type</typeparam>
     public interface IMongoCrudService<TModel>
         where TModel : IModel
     {

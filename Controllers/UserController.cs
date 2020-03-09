@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Controllers
 {
+    /// <summary>
+    /// Controller for User collection base Crud in abstract class
+    /// </summary>
     public class UserController : AbstractMongoCrudController<UserModel, UserService>
     {
         public UserController(UserService service) : base(service) { }

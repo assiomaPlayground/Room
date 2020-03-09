@@ -8,41 +8,63 @@ using System.Threading.Tasks;
 
 namespace RoomService.Controllers
 {
+    /// <summary>
+    /// Abstract Crud controller crud ops are virtual
+    /// </summary>
+    /// <typeparam name="TModel">A target class model type</typeparam>
+    /// <typeparam name="TService">Service type that carries out the Crud ops</typeparam>
     public class AbstractMongoCrudController<TModel, TService> : ControllerBase, IMongoCrudController<TModel>
         where TModel : class, IModel
         where TService : AbstractMongoCrudService<TModel>
     {
+        /// <summary>
+        /// Service ref
+        /// </summary>
+        protected TService Service { get; private set; }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="service">Injected service</param>
         public AbstractMongoCrudController(TService service)
             => this.Service = service;
-        protected TService Service { get; set; }
+        /// <summary>
+        /// Create op
+        /// </summary>
+        /// <param name="model">Json serialized TModel type in Body</param>
         [HttpPost]
         public virtual void Create([FromBody] TModel model)
-        {
-            Service.Create(model);
-        }
+            =>  Service.Create(model);
+        /// <summary>
+        /// Delete op
+        /// </summary>
+        /// <param name="id">The id : 24 string to delete</param>
+        /// <returns>True : success, false : else</returns>
         [HttpDelete("{id:length(24)}")]
         public virtual bool Delete(string id)
-        {
-            return Service.Delete(id);
-        }
+            => Service.Delete(id);
+        /// <summary>
+        /// get all op
+        /// @TODO pagination or result limit
+        /// </summary>
+        /// <returns>ICollection<TModel> (List) eventually 0 sized</returns>
         [HttpGet]
-        public virtual ICollection<IModel> GetAll()
-        {
-            var rawList = Service.GetAll();
-            var result = new List<IModel>();
-            foreach (var item in rawList)
-                result.Add(item as TModel);
-            return result;
-        }
+        public virtual ICollection<TModel> GetAll()
+            => Service.GetAll();
+        /// <summary>
+        /// get op
+        /// </summary>
+        /// <param name="id">The id : 24 string to Read</param>
+        /// <returns>The json serialized object eventually default</returns>
         [HttpGet("{id:length(24)}")]
         public TModel Read(string id)
-        {
-            return Service.Read(id);
-        }
+            =>  Service.Read(id);
+        /// <summary>
+        /// update op
+        /// </summary>
+        /// <param name="model">the new Json serialized TModel type in Body</param>
+        /// <returns>True : success, false : else</returns>
         [HttpPut]
         public bool Update([FromBody] TModel model)
-        {
-            return Service.Update(model);
-        }
+            =>  Service.Update(model);  
     }
 }

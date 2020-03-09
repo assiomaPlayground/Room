@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Settings
 {
+    /// <summary>
+    /// Interface for mongo database connection
+    /// </summary>
     public interface IMongoSettings
     {
         string ConnectionString { get; set; }

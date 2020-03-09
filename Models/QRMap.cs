@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Model
 {
+    /// <summary>
+    /// Model for QRMap data
+    /// </summary>
     public class QRMap : IModel
     {
         [BsonId]

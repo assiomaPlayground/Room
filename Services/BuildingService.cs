@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Services
 {
+    /// <summary>
+    /// Service for Building collection crud ops in abstract
+    /// </summary>
     public class BuildingService : AbstractMongoCrudService<Building>
     {
         public BuildingService(IRoomServiceMongoSettings settings)

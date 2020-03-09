@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Model
 {
+    /// <summary>
+    /// Model for workspace data
+    /// </summary>
     public class WorkSpace : IModel
     {
         [BsonId]

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Settings
 {
+    /// <summary>
+    /// Settings for RoomService mongo connection app
+    /// </summary>
     public class RoomServiceMongoSettings : IRoomServiceMongoSettings
     {
         public string UserCollection { get; set; }

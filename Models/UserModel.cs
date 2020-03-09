@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RoomService.Models
 {
+    /// <summary>
+    /// Model for user data
+    /// </summary>
     public class UserModel : IModel
     {
         public enum UserTypes
