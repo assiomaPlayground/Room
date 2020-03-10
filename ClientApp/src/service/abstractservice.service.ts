@@ -19,16 +19,16 @@ export class Abstractservice<Entity>implements Service<Entity> {
     return  this.http.get<Entity>('');
   }
   delete(id: String): Observable<Entity> {
-    return this.http.delete<Entity>(this.baseUrl +this.type + '/Delete'+ id);
+    return this.http.delete<Entity>(this.baseUrl + 'api/'+this.type + id);
   }
   update(entity: Entity): Observable<Entity> {
-    return this.http.put<Entity>(this.baseUrl + this.type + '/Update', entity)
+    return this.http.put<Entity>(this.baseUrl + 'api/'+ this.type , entity)
   }
   insert(entity: Entity): Observable<any> {
-    return this.http.post<Entity>(this.baseUrl +this.type +'/Create',entity);
+    return this.http.post<Entity>(this.baseUrl + 'api/'+this.type ,entity);
   }
   List(): Observable<Entity[]> {
-    return this.http.get<Entity[]>(this.baseUrl + this.type + '/Getall');
+    return this.http.get<Entity[]>(this.baseUrl +'api/'+  this.type );
     
    
   }
