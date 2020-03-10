@@ -6,7 +6,8 @@ import { AuthenticationService } from 'src/service/authenticationservice.service
 
 
 
-@Component({ selector: 'app', templateUrl: 'app.component.html' })
+@Component({ selector: 'app-app',
+ templateUrl: './app.component.html' })
 export class AppComponent {
     currentUser: User;
 
