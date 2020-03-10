@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RoomService.DTO;
 using RoomService.Model;
 using RoomService.Models;
 using RoomService.Services;
@@ -14,5 +15,9 @@ namespace RoomService.Controllers
     public class BuildingController : AbstractMongoCrudController<Building, BuildingService>
     {
         public BuildingController(BuildingService service) : base(service) { }
+
+        [HttpGet("{id:length(24)}/rooms")]
+        public BuildingSpacesDTO GetBuildingSpaces([FromRoute] string id)
+            => Service.GetBuildingSpaces(id);
     }
 }

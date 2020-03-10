@@ -13,7 +13,9 @@ namespace RoomService.Controllers
     /// </summary>
     /// <typeparam name="TModel">A target class model type</typeparam>
     /// <typeparam name="TService">Service type that carries out the Crud ops</typeparam>
-    public class AbstractMongoCrudController<TModel, TService> : ControllerBase, IMongoCrudController<TModel>
+    [ApiController]
+    [Route("api/[controller]")]
+    public abstract class AbstractMongoCrudController<TModel, TService> : ControllerBase, IMongoCrudController<TModel>
         where TModel : class, IModel
         where TService : AbstractMongoCrudService<TModel>
     {
@@ -33,7 +35,7 @@ namespace RoomService.Controllers
         /// <param name="model">Json serialized TModel type in Body</param>
         [HttpPost]
         public virtual void Create([FromBody] TModel model)
-            =>  Service.Create(model);
+            => Service.Create(model);
         /// <summary>
         /// Delete op
         /// </summary>
@@ -56,7 +58,7 @@ namespace RoomService.Controllers
         /// <param name="id">The id : 24 string to Read</param>
         /// <returns>The json serialized object eventually default</returns>
         [HttpGet("{id:length(24)}")]
-        public TModel Read(string id)
+        public TModel Read([FromRoute] string id)
             =>  Service.Read(id);
         /// <summary>
         /// update op

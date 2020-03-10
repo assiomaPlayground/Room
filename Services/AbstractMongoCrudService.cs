@@ -18,7 +18,7 @@ namespace RoomService.Services
         /// <summary>
         /// The mongo repository
         /// </summary>
-        protected IMongoCollection<TModel> Collection { get; private set; }
+        public IMongoCollection<TModel> Collection { get; private set; }
         /// <summary>
         /// Init the mongo client and database
         /// @TODO: build specific settings class instead of passing everything

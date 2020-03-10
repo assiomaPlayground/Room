@@ -18,6 +18,6 @@ namespace RoomService.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public string Map { get; set; }
-        public List<string> Rooms { get; set; }
+        public ICollection<string> Rooms { get; set; }
     }
 }
