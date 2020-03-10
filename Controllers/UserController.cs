@@ -24,12 +24,10 @@ namespace RoomService.Controllers
         [HttpGet("{id:length(24)}")]
         public override UserModel Read([FromRoute] string id)
             => base.Read(id).WithoutPassword();
-
         public override IEnumerable<UserModel> GetAll()
-            => base.GetAll().WithoutPasswords();
-
+            => base.GetAll().WithoutPasswords().WithoutTokens();
         [HttpPost("Token")]
         public UserModel GenerateToken([FromBody] AuthDTO model)
-            => Service.Login(model);
+            => Service.Login(model).WithoutPassword();
     }
 }
