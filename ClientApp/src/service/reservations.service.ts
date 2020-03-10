@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ReservationsService extends Abstractservice<Reservation>{
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl : String) { 
     super(http, baseUrl)
-    this.type='user';
+    this.type='reservation';
     
     
   }

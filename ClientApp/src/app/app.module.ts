@@ -18,6 +18,9 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { getBaseUrl } from 'src/main';
 import { UserModule } from './user/user.module';
 import { RoomModule } from './room/room.module';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { RoomModule } from './room/room.module';
     BuildingComponent,
     RoomComponent,
     QrmapComponent,
-    FavouritesComponent
+    FavouritesComponent,
+    LoginComponent,
+    RegisterComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

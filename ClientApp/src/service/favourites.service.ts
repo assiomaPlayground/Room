@@ -10,7 +10,7 @@ export class FavouritesService extends Abstractservice<Favourites>{
   
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl : String) { 
     super(http, baseUrl)
-    this.type='user';
+    this.type='favourites';
     
     
   }
