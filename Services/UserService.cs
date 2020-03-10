@@ -20,18 +20,34 @@ namespace RoomService.Services
     public class UserService : AbstractMongoCrudService<UserModel>
     {
         private readonly string _sectet;
-        public UserService(IRoomServiceMongoSettings settings, IAppSettings appSettings)
+        private readonly RSAProvider _rsaProvider;
+        public UserService(IRoomServiceMongoSettings settings, IAppSettings appSettings, RSAProvider rsaProvider)
         {
             base.Init(settings, settings.UserCollection);
             this._sectet = appSettings.Secret;
+            this._rsaProvider = rsaProvider;
         }
+
+        public override void Create(UserModel model)
+        {
+            model.Password = _rsaProvider.Encrypt(model.Password);
+            base.Create(model);
+        }
+
+        public override bool Update(string id, UserModel newModel)
+        {
+            newModel.Password = _rsaProvider.Encrypt(newModel.Password);
+            return base.Update(id, newModel);
+        }
+
         public UserModel Login(AuthDTO authData)
         {
+            authData.Password = _rsaProvider.Encrypt(authData.Password);
             var user = Collection.Find<UserModel>
                 (user =>
                      user.Username == authData.Username &&
                      user.Password == authData.Password
-                ).First<UserModel>();
+                ).FirstOrDefault<UserModel>();
             if (user == null) return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -49,10 +65,8 @@ namespace RoomService.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
-
-            this.Update(user.Id, user);
             
-            return user.WithoutPassword();
+            return user;
         }
     }
 }
