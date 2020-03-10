@@ -55,10 +55,11 @@ namespace RoomService.Services
         /// <summary>
         /// update op
         /// </summary>
+        /// <param name="id">Target resource id</param>
         /// <param name="model">TModel type object</param>
         /// <returns>True : success, false : else</returns>
-        public virtual bool Update(TModel newModel) 
-            => Collection.ReplaceOne<TModel>(model => newModel.Id == model.Id, newModel).IsAcknowledged;
+        public virtual bool Update(string id, TModel newModel) 
+            => Collection.ReplaceOne<TModel>(model => id == model.Id, newModel).IsAcknowledged;
         /// <summary>
         /// get all op
         /// @TODO pagination or result limit

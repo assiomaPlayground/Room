@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RoomService.Models;
 using RoomService.Services;
 using System;
@@ -50,7 +51,7 @@ namespace RoomService.Controllers
         /// </summary>
         /// <returns>ICollection<TModel> (List) eventually 0 sized</returns>
         [HttpGet]
-        public virtual ICollection<TModel> GetAll()
+        public virtual IEnumerable<TModel> GetAll()
             => Service.GetAll();
         /// <summary>
         /// get op
@@ -58,15 +59,16 @@ namespace RoomService.Controllers
         /// <param name="id">The id : 24 string to Read</param>
         /// <returns>The json serialized object eventually default</returns>
         [HttpGet("{id:length(24)}")]
-        public TModel Read([FromRoute] string id)
-            =>  Service.Read(id);
+        public virtual TModel Read([FromRoute] string id)
+            => Service.Read(id);
         /// <summary>
         /// update op
         /// </summary>
+        /// <param name="id">Target resource id</param>
         /// <param name="model">the new Json serialized TModel type in Body</param>
         /// <returns>True : success, false : else</returns>
-        [HttpPut]
-        public bool Update([FromBody] TModel model)
-            =>  Service.Update(model);  
+        [HttpPut("{id:length(24)}")]
+        public virtual bool Update([FromRoute] string id, [FromBody] TModel model)
+            => Service.Update(id, model);
     }
 }

@@ -18,7 +18,7 @@ namespace RoomService.Services
         void Create(TModel model);
         bool Delete(string id);
         TModel Read(string id);
-        bool Update(TModel newModel);
+        bool Update(string id, TModel newModel);
         ICollection<TModel> GetAll();
     }
 }

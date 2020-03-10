@@ -1,13 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.Extensions.Hosting;
 using RoomService.Services;
 using RoomService.Settings;
+using System.Text;
+using RoomService.Utils;
 
 namespace RoomService
 {
@@ -23,18 +32,7 @@ namespace RoomService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Setup config file class wrapper
-            services.Configure<RoomServiceMongoSettings>(
-                Configuration.GetSection(nameof(RoomServiceMongoSettings)));
-            services.AddSingleton<IRoomServiceMongoSettings>(sp =>
-                sp.GetRequiredService<IOptions<RoomServiceMongoSettings>>().Value);
-            //Services as singleton
-            services.AddSingleton<UserService>();
-            services.AddSingleton<BuildingService>();
-            services.AddSingleton<ReservationService>();
-            services.AddSingleton<WorkSpaceService>();
-            services.AddSingleton<QRMapService>();
-            services.AddSingleton<FavouritesService>();
+            (new ConfigUtils(services, Configuration)).ConfigureApp();
             //Controllers
             services.AddControllers();
             // In production, the Angular files will be served from this directory
@@ -48,6 +46,7 @@ namespace RoomService
         {
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseStaticFiles();

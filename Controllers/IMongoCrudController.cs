@@ -13,10 +13,10 @@ namespace RoomService.Controllers
     public interface IMongoCrudController<TModel> 
         where TModel : class, IModel
     {
-        ICollection<TModel> GetAll();
+        IEnumerable<TModel> GetAll();
         void Create(TModel model);
         TModel Read(string id);
-        bool Update(TModel model);
+        bool Update(string id, TModel model);
         bool Delete(string id);
     }
 }
