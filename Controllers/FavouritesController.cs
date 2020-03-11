@@ -20,7 +20,7 @@ namespace RoomService.Controllers
         {
             this._acs = acs;
         }
-        [HttpGet("User/{id:length(24)}")]
+        /*[HttpGet("User/{id:length(24)}")]
         public ActionResult<UserFavouriteRoomsDTO> GetUserFavouritesRooms([FromRoute] string id)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
@@ -30,7 +30,7 @@ namespace RoomService.Controllers
             if (res == null)
                 return NotFound();
             return new OkObjectResult(res);
-        }
+        }*/
         protected override bool CanCreate(string id, Favourites model)
             => _acs.IsOwner(id, model);
         protected override bool CanDelete(string id, string tid)
