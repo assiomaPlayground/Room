@@ -1,9 +1,13 @@
-<h1>Hi {{currentUser.firstName}}!</h1>
-<p>You're logged in with Angular 7!!</p>
-<h3>All registered users:</h3>
-<ul>
-    <li *ngFor="let user of users">
-        {{user.username}} ({{user.firstName}} {{user.lastName}})
-        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-    </li>
-</ul>
+<div class="row">
+    <div class="col-md-4 offset-md-4 text-center">
+        <div class="card my-4">
+<div class="card" style="width: 30rem;">
+    <img class="card-img-top" src="../../assets/Creative_Wallpaper_____Lamp_with_shade_093797_.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Home</h5>
+      
+      <a routerLink="/qrmap" class="btn btn-warning btn-block p-2">Checkin</a>
+        <a routerLink="/room" class="btn btn-warning btn-block p-2">Luoghi</a>
+        <a routerLink="/user" class="btn btn-warning btn-block p-2">Colleghi</a>
+    </div>
+  </div>
