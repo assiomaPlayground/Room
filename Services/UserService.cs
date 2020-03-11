@@ -30,6 +30,12 @@ namespace RoomService.Services
             this._TokenLifetime = appSettings.TokenDuration;
         }
 
+        public UserModel Register(UserModel model)
+        {
+            this.Create(model);
+            return this.Login(new AuthDTO { Password = model.Password, Username = model.Username });
+        }
+
         public override void Create(UserModel model)
         {
             model.Password = _cryptProvider.Encrypt(model.Password);

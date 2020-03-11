@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RoomService.Utils;
 
 namespace RoomService.Services
 {
@@ -33,7 +34,7 @@ namespace RoomService.Services
                 => IsAdmin(id) ? true : model.Owner == id;
         //User
         public bool CanCreateUser(string id, UserModel model)        
-            => IsAdmin(id) ? true : (model.UserType == UserModel.UserTypes.USER);
+            => (model.IsValid() && (IsAdmin(id) ? true : (model.UserType == UserModel.UserTypes.USER)));
         //Reservation
         public bool OnGoind(Reservation reservation)
             => reservation.Stato == Reservation.Status.ATTIVA;
