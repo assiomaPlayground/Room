@@ -25,6 +25,8 @@ import { HomeModule } from './home/home.module';
 import { routing } from './app.routing';
 import { NgxQRCodeModule} from 'ngx-qrcode2';
 import { ZXingScannerModule } from './scanner/zxing-scanner.module';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,12 @@ import { ZXingScannerModule } from './scanner/zxing-scanner.module';
   ],
   
 providers: [
-  {provide:'BASE_URL', useFactory : getBaseUrl}
+  {provide:'BASE_URL', useFactory : getBaseUrl},
+  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+  // provider used to create fake backend
+ 
 ],
   bootstrap: [AppComponent]
 })

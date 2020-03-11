@@ -33,22 +33,22 @@
         </tr>
         <tr>
           <td>
-            <input placeholder="Name" [(ngModel)]="roomins.name">
+            <input placeholder="Name" [(ngModel)]="roomins.Name">
           </td>
           <td>
-            <input placeholder="Features" [(ngModel)]="roomins.features">
+            <input placeholder="Features" [(ngModel)]="roomins.Features">
           </td>
           <td>
-            <input placeholder="AllSeats" [(ngModel)]="roomins.allSeats">
+            <input placeholder="AllSeats" [(ngModel)]="roomins.AllSeats">
           </td>
           <td>
-            <input placeholder="Seats" [(ngModel)]="roomins.seats">
+            <input placeholder="Seats" [(ngModel)]="roomins.Seats">
           </td>
           <td>
-            <input placeholder="SubMap" [(ngModel)]="roomins.subMap">
+            <input placeholder="SubMap" [(ngModel)]="roomins.SubMap">
           </td>
           <td>
-            <input placeholder="Building" [(ngModel)]="roomins.building">
+            <input placeholder="Building" [(ngModel)]="roomins.Building">
           </td>
           
           <td>
@@ -60,22 +60,22 @@
         </tr>
         <tr *ngFor="let room of room">
           <td>
-            <input [(ngModel)]="room.name">
+            <input [(ngModel)]="room.Name">
           </td>
           <td>
-            <input [(ngModel)]="room.features">
+            <input [(ngModel)]="room.Features">
           </td>
           <td>
-            <input [(ngModel)] = "room.allSeats">
+            <input [(ngModel)] = "room.AllSeats">
           </td>
           <td>
-            <input [(ngModel)] = "room.seats">
+            <input [(ngModel)] = "room.Seats">
           </td>
           <td>
-            <input [(ngModel)] = "room.subMap">
+            <input [(ngModel)] = "room.SubMap">
           </td>
           <td>
-            <input [(ngModel)] = "room.building">
+            <input [(ngModel)] = "room.Building">
           </td>
           <td>
             <button (click)=update(room)>Update</button>

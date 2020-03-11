@@ -45,13 +45,13 @@
         </tr>
         <tr *ngFor="let user of users">
           <td>
-            <input [(ngModel)]="user.username">
+            <input [(ngModel)]="user.Username">
           </td>
           <td>
-            <input [(ngModel)]="user.password">
+            <input [(ngModel)]="user.Password">
           </td>
           <td>
-            <input [(ngModel)] = "user.userType">
+            <input [(ngModel)] = "user.UserType">
           </td>
           <td>
             <button (click)=update(user)>Update</button>
