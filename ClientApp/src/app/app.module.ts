@@ -48,7 +48,7 @@ import { HomeModule } from './home/home.module';
     UserModule,
     HomeModule,
     RoomModule,
-    RouterModule.forRoot([
+    RouterModule.forChild([
 
     ]),
     
