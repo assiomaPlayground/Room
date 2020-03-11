@@ -19,7 +19,7 @@ namespace RoomService.Controllers
             this._acs = acs;
         }
         protected override bool CanCreate(string id, WorkSpace model)
-            => _acs.IsAdmin(id);
+            => _acs.IsAuth(id);
         protected override bool CanDelete(string id, string tid)
             => _acs.IsAdmin(id);
         protected override bool CanRead(string id, string tid)

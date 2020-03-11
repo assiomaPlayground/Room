@@ -73,7 +73,7 @@ namespace RoomService.Controllers
                 return Forbid();
             var res = Service.GetAll();
             if (res == null)
-                return BadRequest();
+                return NotFound();
             return new OkObjectResult(res);
         }
         /// <summary>
