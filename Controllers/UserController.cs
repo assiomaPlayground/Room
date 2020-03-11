@@ -50,13 +50,12 @@ namespace RoomService.Controllers
             return new OkObjectResult(res);
         }
         [AllowAnonymous]
+        public override IActionResult Create([FromBody] UserModel model)
+            => base.Create(model);
+        [AllowAnonymous]
         [HttpPost("Token")]
         public UserModel GenerateToken([FromBody] AuthDTO model)
             => Service.Login(model).WithoutPassword();
-        [AllowAnonymous]
-        public override IActionResult Create([FromBody] UserModel model)
-            => base.Create(model);
-
         protected override bool CanCreate(string id, UserModel model)
             => _acs.CanCreateUser(id, model);
         protected override bool CanRead(string id, string tid)
