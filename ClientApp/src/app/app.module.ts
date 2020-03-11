@@ -23,6 +23,8 @@ import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from './alert/alert.component';
 import { HomeModule } from './home/home.module';
 import { routing } from './app.routing';
+import { NgxQRCodeModule} from 'ngx-qrcode2';
+import { ZXingScannerModule } from './scanner/zxing-scanner.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { routing } from './app.routing';
     HomeModule,
     RoomModule,
     routing,
+    NgxQRCodeModule,
+    ZXingScannerModule
   ],
   
 providers: [
