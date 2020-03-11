@@ -24,7 +24,7 @@ namespace RoomService.Controllers
         public ActionResult<UserFavouriteRoomsDTO> GetUserFavouritesRooms([FromRoute] string id)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
-            if ( rid != id )
+            if ( rid != id  || !_acs.IsAdmin(id)) //@TODO Move method into acs
                 return Forbid();
             var res = Service.GetUserFavouritesRooms(id);
             if (res == null)
