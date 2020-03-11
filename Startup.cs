@@ -17,6 +17,7 @@ using RoomService.Services;
 using RoomService.Settings;
 using System.Text;
 using RoomService.Utils;
+using Newtonsoft.Json.Bson;
 
 namespace RoomService
 {
@@ -34,7 +35,7 @@ namespace RoomService
         {
             (new ConfigUtils(services, Configuration)).ConfigureApp();
             //Controllers
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

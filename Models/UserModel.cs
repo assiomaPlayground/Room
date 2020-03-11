@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,16 @@ namespace RoomService.Models
         [BsonRequired]
         public string Username { get; set; }
         [BsonRequired]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Password { get; set; }
         [BsonIgnore]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Token { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Photo { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public UserTypes UserType { get; set; }
-        [BsonIgnore]
+        [BsonIgnore][JsonIgnore]
         public string Owner {get => Id; }
     }
 }
