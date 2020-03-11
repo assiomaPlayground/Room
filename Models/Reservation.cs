@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using RoomService.Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace RoomService.Models
     /// </summary>
     public class Reservation : IModel, IOwnable
     {
-        public enum Status
+        public enum Statuses
         {
             ATTIVA,
             INCORSO,
@@ -21,13 +22,32 @@ namespace RoomService.Models
             CHECKIN,
             CANCELLATA
         }
+        public enum DayTimes
+        {
+            MATTINA,
+            POMERIGGIO,
+            SERA
+        }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public Status Stato { get; set; }
-        public List<DateTime> Ingresso { get; set; }
-        public List<DateTime> Uscita { get; set; }
+        [BsonIgnore]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public Statuses Status { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public IEnumerable<string> CheckIn   { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public IEnumerable<string> CheckOut  { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public string StartTime { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public string ExitTime  { get; set; }
+        [BsonRequired]
         public string Owner  { get; set; }
+        [BsonRequired]
         public string Target { get; set; }
+        [BsonIgnore]
+        [JsonIgnore]
+        public DayTimes DayTime { get; set; }
     }
 }

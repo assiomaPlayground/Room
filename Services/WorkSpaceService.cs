@@ -1,4 +1,5 @@
-﻿using RoomService.Models;
+﻿using MongoDB.Driver;
+using RoomService.Models;
 using RoomService.Settings;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,19 @@ namespace RoomService.Services
     /// </summary>
     public class WorkSpaceService : AbstractMongoCrudService<WorkSpace>
     {
-        public WorkSpaceService(IRoomServiceMongoSettings settings)
-            => base.Init(settings, settings.WorkSpaceCollection);
+        private readonly ReservationService _reservationService;
+        public WorkSpaceService(IRoomServiceMongoSettings settings, ReservationService reservationService)
+        {
+            base.Init(settings, settings.WorkSpaceCollection);
+            _reservationService = reservationService;
+        }
+        public DeleteResult DeleteByBuildingId(string id)
+            => Collection.DeleteMany(room => room.Building == id);
+        public override DeleteResult Delete(string id)
+        {
+            _reservationService.DeleteByRoomId(id); //Delete reservation on room deleted
+            return base.Delete(id);
+        }
     }
     
 }

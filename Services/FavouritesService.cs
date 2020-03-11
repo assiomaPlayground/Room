@@ -1,4 +1,5 @@
-﻿using RoomService.Models;
+﻿using MongoDB.Driver;
+using RoomService.Models;
 using RoomService.Settings;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace RoomService.Services
     {
        public FavouritesService(IRoomServiceMongoSettings settings)
             => base.Init(settings, settings.FavouritesCollection);
+
+        public DeleteResult DeleteByUserId(string id)
+            => Collection.DeleteMany(fav => fav.Owner == id);
     }
 }
 

@@ -66,6 +66,6 @@ namespace RoomService.Services
         /// </summary>
         /// <returns>ICollection<TModel> (List) eventually 0 sized</returns>
         public virtual IEnumerable<TModel> GetAll() 
-            => Collection.Find<TModel>(model => true).ToList<TModel>();
+            => Collection.Find<TModel>(model => true).ToEnumerable<TModel>();
     }
 }

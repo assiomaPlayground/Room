@@ -17,11 +17,11 @@ namespace RoomService.Services
         /// <summary>
         /// Join repository
         /// </summary>
-        private readonly IMongoCollection<WorkSpace> workSpaceRepo;
+        private readonly WorkSpaceService workSpaceService;
         public BuildingService(IRoomServiceMongoSettings settings, WorkSpaceService workSpaceService)
         {
             base.Init(settings, settings.BuildingCollection);
-            this.workSpaceRepo = workSpaceService.Collection;
+            this.workSpaceService = workSpaceService;
         }
         /// <summary>
         /// Join Building RoomsId with workspace data
@@ -32,7 +32,7 @@ namespace RoomService.Services
         {
             var building = Read(id);
             var qres =
-                from space in workSpaceRepo.AsQueryable()
+                from space in workSpaceService.Collection.AsQueryable()
                 where building.Rooms.Contains(space.Id)
                 select new WorkSpace
                 {
@@ -46,6 +46,12 @@ namespace RoomService.Services
                     SubMap = space.SubMap
                 };
             return new BuildingSpacesDTO { Id = building.Id, Map = building.Map, Name = building.Name, Rooms = qres.ToArray() };
+        }
+
+        public override DeleteResult Delete(string id)
+        {
+            workSpaceService.DeleteByBuildingId(id);//Cascade delete rooms in building
+            return base.Delete(id);
         }
     }
 }

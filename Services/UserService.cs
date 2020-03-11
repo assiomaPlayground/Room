@@ -16,18 +16,30 @@ namespace RoomService.Services
 {
     /// <summary>
     /// Service for User collection crud ops in abstract
+    /// @TODO: refactor -- less responsabilities -- new classes
     /// </summary>
     public class UserService : AbstractMongoCrudService<UserModel>
     {
         private readonly string _sectet;
         private readonly double _TokenLifetime;
         private readonly CrypProvider _cryptProvider;
-        public UserService(IRoomServiceMongoSettings settings, IAppSettings appSettings, CrypProvider cryptProvider)
+
+        private readonly ReservationService _reservationService;
+        private readonly FavouritesService  _favouriteService;
+        public UserService(IRoomServiceMongoSettings settings, 
+            IAppSettings appSettings, 
+            CrypProvider cryptProvider,
+            ReservationService reservationService,
+            FavouritesService favouritesService
+            )
         {
             base.Init(settings, settings.UserCollection);
             this._sectet = appSettings.Secret;
             this._cryptProvider = cryptProvider;
             this._TokenLifetime = appSettings.TokenDuration;
+
+            this._reservationService = reservationService;
+            this._favouriteService = favouritesService;
         }
 
         public UserModel Register(UserModel model)
@@ -76,5 +88,18 @@ namespace RoomService.Services
             
             return user;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override DeleteResult Delete(string id)
+        {
+            _reservationService.DeleteByUserId(id); //Delete user reservation //Cascade delete
+            _favouriteService.DeleteByUserId(id); //Delete user favourites //Cascade delete
+            return base.Delete(id);
+        }
+        public UserModel FindByUserName(string username)
+            => Collection.Find(user => user.Username == username).FirstOrDefault();
     }
 }

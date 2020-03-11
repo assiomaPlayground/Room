@@ -1,4 +1,5 @@
-﻿using RoomService.Models;
+﻿using MongoDB.Driver;
+using RoomService.Models;
 using RoomService.Settings;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,14 @@ namespace RoomService.Services
     {
         public ReservationService(IRoomServiceMongoSettings settings)
             => base.Init(settings, settings.ReservationCollection);
+
+        public DeleteResult DeleteByUserId(string id)
+            => Collection.DeleteMany(res => res.Owner == id);
+
+        public DeleteResult DeleteByRoomId(string id)
+            => Collection.DeleteMany(res => res.Target == id);
+
+        public IEnumerable<Reservation> GetUserReservations(string id)
+            => Collection.Find(res => res.Owner == id).ToEnumerable();
     }
 }
