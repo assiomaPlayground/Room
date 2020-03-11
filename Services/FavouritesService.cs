@@ -15,21 +15,21 @@ namespace RoomService.Services
     public class FavouritesService : AbstractMongoCrudService<Favourites>
     {
         private readonly WorkSpaceService _workSpaceService;
-        private readonly UserService      _userService;
+        //private readonly UserService      _userService;
         public FavouritesService(
             IRoomServiceMongoSettings settings, 
-            WorkSpaceService workSpaceService,
-            UserService userService
+            WorkSpaceService workSpaceService//,
+            //UserService userService
         )
         {
             this._workSpaceService = workSpaceService;
-            this._userService = userService;
+            //this._userService = userService;
             base.Init(settings, settings.FavouritesCollection);
         }
 
         public DeleteResult DeleteByUserId(string id)
             => Collection.DeleteMany(fav => fav.Owner == id);
-
+        /*
         public UserFavouriteRoomsDTO GetUserFavouritesRooms(string id)
         {
             var favs = Collection.Find(fav => fav.Owner == id).ToEnumerable();
@@ -43,7 +43,7 @@ namespace RoomService.Services
                            UsageTimes = fav.UsageTimes
                        };
             return new UserFavouriteRoomsDTO { Owner = user, Rooms = qres.ToArray() };
-        }
+        }*/
     }
 }
 
