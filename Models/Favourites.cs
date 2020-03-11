@@ -10,7 +10,7 @@ namespace RoomService.Models
     /// <summary>
     /// Model for favourites data
     /// </summary>
-    public class Favourites : IModel
+    public class Favourites : IModel, IOwnable
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

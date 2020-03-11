@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoomService.Model
+namespace RoomService.Models
 {
     /// <summary>
     /// Model for reservation data
     /// </summary>
-    public class Reservation : IModel
+    public class Reservation : IModel, IOwnable
     {
         public enum Status
         {

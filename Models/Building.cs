@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoomService.Model
+namespace RoomService.Models
 {
     /// <summary>
     /// Model for building data

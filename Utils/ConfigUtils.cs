@@ -77,7 +77,8 @@ namespace RoomService.Utils
             ServiceCollection.AddSingleton<WorkSpaceService>();
             ServiceCollection.AddSingleton<QRMapService>();
             ServiceCollection.AddSingleton<FavouritesService>();
-            ServiceCollection.AddSingleton<RSAProvider>();
+            ServiceCollection.AddSingleton<CrypProvider>();
+            ServiceCollection.AddSingleton<AccessControlService>();
         }
     }
 }

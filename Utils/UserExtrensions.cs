@@ -12,7 +12,6 @@ namespace RoomService.Utils
             => users.Select(x => x.WithoutPassword());
         public static IEnumerable<UserModel> WithoutTokens(this IEnumerable<UserModel> users)
             => users.Select(x => x.WithoutToken());
-
         public static UserModel WithoutPassword(this UserModel user)
         {
             user.Password = null;

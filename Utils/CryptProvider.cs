@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace RoomService.Utils
 {
-    public class RSAProvider
+    public class CrypProvider
     {
         private ASCIIEncoding ASCIIEncoder      { get; set; }
         private RSACryptoServiceProvider RSAalg { get; set; }
-        public RSAProvider()
+        public CrypProvider()
         {
             this.ASCIIEncoder = new ASCIIEncoding();
             this.RSAalg       = new RSACryptoServiceProvider();

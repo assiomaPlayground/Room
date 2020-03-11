@@ -5,6 +5,7 @@ using RoomService.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RoomService.Controllers
@@ -14,6 +15,7 @@ namespace RoomService.Controllers
     /// </summary>
     /// <typeparam name="TModel">A target class model type</typeparam>
     /// <typeparam name="TService">Service type that carries out the Crud ops</typeparam>
+    [Authorize] 
     [ApiController]
     [Route("api/[controller]")]
     public abstract class AbstractMongoCrudController<TModel, TService> : ControllerBase, IMongoCrudController<TModel>
@@ -35,32 +37,61 @@ namespace RoomService.Controllers
         /// </summary>
         /// <param name="model">Json serialized TModel type in Body</param>
         [HttpPost]
-        public virtual void Create([FromBody] TModel model)
-            => Service.Create(model);
+        public virtual IActionResult Create([FromBody] TModel model)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanCreate(rid, model))
+                return Forbid();
+            Service.Create(model);
+            return Ok();
+        }
         /// <summary>
         /// Delete op
         /// </summary>
         /// <param name="id">The id : 24 string to delete</param>
         /// <returns>True : success, false : else</returns>
         [HttpDelete("{id:length(24)}")]
-        public virtual bool Delete(string id)
-            => Service.Delete(id);
+        public virtual IActionResult Delete(string id)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanDelete(rid, id))
+                return Forbid();
+            if (Service.Delete(id).IsAcknowledged)
+                return Ok();
+            return BadRequest();
+        }
         /// <summary>
         /// get all op
         /// @TODO pagination or result limit
         /// </summary>
         /// <returns>ICollection<TModel> (List) eventually 0 sized</returns>
         [HttpGet]
-        public virtual IEnumerable<TModel> GetAll()
-            => Service.GetAll();
+        public virtual ActionResult<IEnumerable<TModel>> GetAll()
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanReadAll(rid))
+                return Forbid();
+            var res = Service.GetAll();
+            if (res == null)
+                return BadRequest();
+            return new OkObjectResult(res);
+        }
         /// <summary>
         /// get op
         /// </summary>
         /// <param name="id">The id : 24 string to Read</param>
         /// <returns>The json serialized object eventually default</returns>
         [HttpGet("{id:length(24)}")]
-        public virtual TModel Read([FromRoute] string id)
-            => Service.Read(id);
+        public virtual ActionResult<TModel> Read([FromRoute] string id)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanRead(rid, id))
+                return Forbid();
+            var item = Service.Read(id);
+            if (item == null)
+                return NotFound();
+            return item;
+        }
         /// <summary>
         /// update op
         /// </summary>
@@ -68,7 +99,20 @@ namespace RoomService.Controllers
         /// <param name="model">the new Json serialized TModel type in Body</param>
         /// <returns>True : success, false : else</returns>
         [HttpPut("{id:length(24)}")]
-        public virtual bool Update([FromRoute] string id, [FromBody] TModel model)
-            => Service.Update(id, model);
+        public virtual IActionResult Update([FromRoute] string id, [FromBody] TModel model)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanUpdate(rid, model))
+                return Forbid();
+            if (Service.Update(id, model).IsAcknowledged)
+                return Ok();
+            return BadRequest();
+        }
+        //Crud Access Controls
+        protected abstract bool CanCreate(string id, TModel model);
+        protected abstract bool CanRead(string id, string tid);
+        protected abstract bool CanUpdate(string id, TModel model);
+        protected abstract bool CanDelete(string id, string tid);
+        protected abstract bool CanReadAll(string id);
     }
 }

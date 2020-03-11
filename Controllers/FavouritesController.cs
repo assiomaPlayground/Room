@@ -13,6 +13,20 @@ namespace RoomService.Controllers
     /// </summary>
     public class FavouritesController : AbstractMongoCrudController<Favourites, FavouritesService>
     {
-        public FavouritesController(FavouritesService service) : base(service) { }
+        private readonly AccessControlService _acs;
+        public FavouritesController(FavouritesService service, AccessControlService acs) : base(service) 
+        {
+            this._acs = acs;
+        }
+        protected override bool CanCreate(string id, Favourites model)
+            => _acs.IsOwner(id, model);
+        protected override bool CanDelete(string id, string tid)
+            => _acs.IsOwner<FavouritesService, Favourites>(id, tid, Service);
+        protected override bool CanRead(string id, string tid)
+            => _acs.IsOwner<FavouritesService, Favourites>(id, tid, Service);
+        protected override bool CanReadAll(string id)
+            => _acs.IsAdmin(id);
+        protected override bool CanUpdate(string id, Favourites model)
+            => _acs.IsOwner(id, model);
     }
 }

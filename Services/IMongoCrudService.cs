@@ -1,4 +1,5 @@
-﻿using RoomService.Models;
+﻿using MongoDB.Driver;
+using RoomService.Models;
 using RoomService.Settings;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace RoomService.Services
     {
         void Init(IMongoSettings settings, string baseCollection);
         void Create(TModel model);
-        bool Delete(string id);
+        DeleteResult Delete(string id);
         TModel Read(string id);
-        bool Update(string id, TModel newModel);
-        ICollection<TModel> GetAll();
+        ReplaceOneResult Update(string id, TModel newModel);
+        IEnumerable<TModel> GetAll();
     }
 }

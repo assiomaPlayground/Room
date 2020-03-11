@@ -1,4 +1,4 @@
-﻿using RoomService.Model;
+﻿using RoomService.Models;
 using RoomService.Settings;
 using System;
 using System.Collections.Generic;

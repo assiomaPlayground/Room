@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoomService.Model
+namespace RoomService.Models
 {
     /// <summary>
     /// Model for workspace data
     /// </summary>
-    public class WorkSpace : IModel
+    public class WorkSpace : IModel, IOwnable
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -24,5 +24,7 @@ namespace RoomService.Model
         public string SubMap { get; set; }
         public string Building { get; set; }
         public Point2d Pivot { get; set; }
+        [BsonIgnore]
+        public string Owner { get => Building; }
     }
 }

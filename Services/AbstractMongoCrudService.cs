@@ -43,8 +43,8 @@ namespace RoomService.Services
         /// </summary>
         /// <param name="id">The id : 24 string to delete</param>
         /// <returns>True : success, false : else</returns>
-        public virtual bool Delete(string id) 
-            => Collection.DeleteOne(model => model.Id == id).IsAcknowledged;
+        public virtual DeleteResult Delete(string id) 
+            => Collection.DeleteOne(model => model.Id == id);
         /// <summary>
         /// get op
         /// </summary>
@@ -58,14 +58,14 @@ namespace RoomService.Services
         /// <param name="id">Target resource id</param>
         /// <param name="model">TModel type object</param>
         /// <returns>True : success, false : else</returns>
-        public virtual bool Update(string id, TModel newModel) 
-            => Collection.ReplaceOne<TModel>(model => id == model.Id, newModel).IsAcknowledged;
+        public virtual ReplaceOneResult Update(string id, TModel newModel) 
+            => Collection.ReplaceOne<TModel>(model => id == model.Id, newModel);
         /// <summary>
         /// get all op
         /// @TODO pagination or result limit
         /// </summary>
         /// <returns>ICollection<TModel> (List) eventually 0 sized</returns>
-        public virtual ICollection<TModel> GetAll() 
+        public virtual IEnumerable<TModel> GetAll() 
             => Collection.Find<TModel>(model => true).ToList<TModel>();
     }
 }

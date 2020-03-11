@@ -1,4 +1,5 @@
-﻿using RoomService.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using RoomService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace RoomService.Controllers
     public interface IMongoCrudController<TModel> 
         where TModel : class, IModel
     {
-        IEnumerable<TModel> GetAll();
-        void Create(TModel model);
-        TModel Read(string id);
-        bool Update(string id, TModel model);
-        bool Delete(string id);
+        ActionResult<IEnumerable<TModel>> GetAll();
+        IActionResult Create(TModel model);
+        ActionResult<TModel> Read(string id);
+        IActionResult Update(string id, TModel model);
+        IActionResult Delete(string id);
     }
 }

@@ -20,29 +20,31 @@ namespace RoomService.Services
     public class UserService : AbstractMongoCrudService<UserModel>
     {
         private readonly string _sectet;
-        private readonly RSAProvider _rsaProvider;
-        public UserService(IRoomServiceMongoSettings settings, IAppSettings appSettings, RSAProvider rsaProvider)
+        private readonly double _TokenLifetime;
+        private readonly CrypProvider _cryptProvider;
+        public UserService(IRoomServiceMongoSettings settings, IAppSettings appSettings, CrypProvider cryptProvider)
         {
             base.Init(settings, settings.UserCollection);
             this._sectet = appSettings.Secret;
-            this._rsaProvider = rsaProvider;
+            this._cryptProvider = cryptProvider;
+            this._TokenLifetime = appSettings.TokenDuration;
         }
 
         public override void Create(UserModel model)
         {
-            model.Password = _rsaProvider.Encrypt(model.Password);
+            model.Password = _cryptProvider.Encrypt(model.Password);
             base.Create(model);
         }
 
-        public override bool Update(string id, UserModel newModel)
+        public override ReplaceOneResult Update(string id, UserModel newModel)
         {
-            newModel.Password = _rsaProvider.Encrypt(newModel.Password);
+            newModel.Password = _cryptProvider.Encrypt(newModel.Password);
             return base.Update(id, newModel);
         }
 
         public UserModel Login(AuthDTO authData)
         {
-            authData.Password = _rsaProvider.Encrypt(authData.Password);
+            authData.Password = _cryptProvider.Encrypt(authData.Password);
             var user = Collection.Find<UserModel>
                 (user =>
                      user.Username == authData.Username &&
@@ -57,9 +59,9 @@ namespace RoomService.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim("userId", user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddDays(_TokenLifetime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

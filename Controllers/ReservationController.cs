@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RoomService.Model;
 using RoomService.Models;
 using RoomService.Services;
 using System;
@@ -15,6 +14,20 @@ namespace RoomService.Controllers
     /// </summary>
     public class ReservationController : AbstractMongoCrudController<Reservation, ReservationService>
     {
-        public ReservationController(ReservationService service) : base(service) { }
+        private readonly AccessControlService _acs;
+        public ReservationController(ReservationService service, AccessControlService acs) : base(service) 
+        {
+            this._acs = acs;
+        }
+        protected override bool CanCreate(string id, Reservation model)
+            => _acs.IsOwner<Reservation>(id, model);
+        protected override bool CanDelete(string id, string tid)
+            => _acs.IsOwner<ReservationService, Reservation>(id, tid, Service);
+        protected override bool CanRead(string id, string tid)
+            => _acs.OwnOrOnGoing(id, tid);
+        protected override bool CanReadAll(string id)
+            => _acs.IsAdmin(id);
+        protected override bool CanUpdate(string id, Reservation model)
+            => _acs.IsOwner<Reservation>(id, model);
     }
 }
