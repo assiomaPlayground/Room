@@ -4,6 +4,7 @@ using RoomService.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -28,6 +29,26 @@ namespace RoomService.Controllers
                 return Forbid();
             var res = Service.GetUserReservations(id);
             return new OkObjectResult(res);
+        }
+        [HttpPost("CheckIn/{id:length(24)}")]
+        public IActionResult CheckIn([FromRoute] string id, [FromBody] string date)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!_acs.IsOwner<ReservationService,Reservation>(rid, id, Service))
+                return Forbid();
+            if (Service.CheckIn(id, date))
+                return Ok();
+            return BadRequest();
+        }
+        [HttpPost("CheckOut/{id:length(24)}")]
+        public IActionResult CheckOut([FromRoute] string id, [FromBody] string date)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!_acs.IsOwner<ReservationService, Reservation>(rid, id, Service))
+                return Forbid();
+            if (Service.CheckOut(id, date))
+                return Ok();
+            return BadRequest();
         }
         protected override bool CanCreate(string id, Reservation model)
             => _acs.CanCreateReservation(id, model);
