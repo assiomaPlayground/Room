@@ -120,5 +120,11 @@ namespace RoomService.Services
                        };
             return new UserFavouriteRoomsDTO { Owner = user, Rooms = qres.ToArray() };
         }
+        public IEnumerable<UserModel> GetUsersInRoom(string id)
+        {
+            return from res in _reservationService.Collection.AsQueryable()
+                   where res.Target == id && res.Status == Reservation.Statuses.CHECKIN
+                   select Read(res.Owner);
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace RoomService.Services
         {
             this._userService = userService;
             this._reservationService = reservationService;
+            this._workSpaceService = workSpaceService;
         }
         //Shareds
         public bool IsAdmin(string id)

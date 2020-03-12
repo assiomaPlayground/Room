@@ -4,6 +4,7 @@ using RoomService.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RoomService.Controllers
@@ -14,7 +15,7 @@ namespace RoomService.Controllers
     public class WorkSpaceController : AbstractMongoCrudController<WorkSpace, WorkSpaceService>
     {
         private readonly AccessControlService _acs;
-        public WorkSpaceController(WorkSpaceService service, AccessControlService acs) : base(service) 
+        public WorkSpaceController(WorkSpaceService service, AccessControlService acs) : base(service)
         {
             this._acs = acs;
         }

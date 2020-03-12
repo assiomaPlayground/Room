@@ -22,6 +22,17 @@ namespace RoomService.Controllers
         {
             this._acs = acs;
         }
+        [HttpGet("InRoom/{id:length(24)}")]
+        public ActionResult<IEnumerable<UserModel>> GetUsersInRoom([FromRoute] string id)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanRead(rid, id))
+                return Forbid();
+            var res = Service.GetUsersInRoom(id);
+            if (res == null)
+                return NotFound();
+            return new OkObjectResult(res);
+        } 
         /// <summary>
         /// Secure user data get
         /// </summary>

@@ -14,7 +14,10 @@ namespace RoomService.Services
     public class WorkSpaceService : AbstractMongoCrudService<WorkSpace>
     {
         private readonly ReservationService _reservationService;
-        public WorkSpaceService(IRoomServiceMongoSettings settings, ReservationService reservationService)
+        public WorkSpaceService(
+            IRoomServiceMongoSettings settings, 
+            ReservationService reservationService
+        )
         {
             base.Init(settings, settings.WorkSpaceCollection);
             _reservationService = reservationService;
@@ -23,9 +26,8 @@ namespace RoomService.Services
             => Collection.DeleteMany(room => room.Building == id);
         public override DeleteResult Delete(string id)
         {
-            _reservationService.DeleteByRoomId(id); //Delete reservation on room deleted
+            _reservationService.DeleteByRoomId(id);
             return base.Delete(id);
         }
     }
-    
 }
