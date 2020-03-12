@@ -1,69 +1,15 @@
-<div class="container">
-  <div class="row mt-5">
-    <div class="col-md-1">
-
-    </div>
-    <div class="coll_1">
-      <table>
-        <tr>
-          <th>
-            Username
-          </th>
-          <th>
-            Password
-          </th>
-          <th>
-            Role
-          </th>
-          <th>
-            Edit
-          </th>
-          <th>
-            User
-          </th>
-        </tr>
-        <tr>
-          <td>
-            <input placeholder="username" [(ngModel)]="usersins.username">
-          </td>
-          <td>
-            <input placeholder="password" [(ngModel)]="usersins.password">
-          </td>
-          <td>
-            <select placeholder="userType" [(ngModel)]="usersins.userType">
-              <option [value]=1>ADMIN</option>
-              <option [value]=0>USER</option>
-              
-            </select>
-          </td>
-          <td>
-            <button (click)="insert(usersins)">Insert</button>
-          </td>
-          <td>
-            <button (click)="clear()">Clear</button>
-          </td>
-        </tr>
-        <tr *ngFor="let user of users">
-          <td>
-            <input [(ngModel)]="user.Username">
-          </td>
-          <td>
-            <input [(ngModel)]="user.Password">
-          </td>
-          <td>
-            <input [(ngModel)] = "user.UserType">
-          </td>
-          <td>
-            <button (click)=update(user)>Update</button>
-          </td>
-          <td>
-            <button (click)="delete(user)">Delete</button>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-md-1">
-
-    </div>
+<div class="row">
+  <div class="col-md-4 offset-md-4 text-center">
+      <div class="card my-4">
+          <!--Login Component?-->
+          <h5 class="card-title">CERCA UN COLLEGA</h5>
+          <p class="card-text">Scrivi il nome dei tuoi colleghi per verificare in quale edificio e stanza hanno fatto check in</p>
+          <input class="form-control" type="text" placeholder="Scrivi il nome del collega" aria-label="Search">
+          <ul *ngFor="let user of users">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">{{user.Username}}</li>
+            </ul>
+        </ul>
+      </div>
   </div>
 </div>
