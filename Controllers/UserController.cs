@@ -28,7 +28,7 @@ namespace RoomService.Controllers
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanRead(rid, id))
                 return Forbid();
-            var res = Service.GetUsersInRoom(id);
+            var res = Service.GetUsersInRoom(id).WithoutPasswords();
             if (res == null)
                 return NotFound();
             return new OkObjectResult(res);
