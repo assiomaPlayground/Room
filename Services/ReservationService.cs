@@ -24,5 +24,37 @@ namespace RoomService.Services
 
         public IEnumerable<Reservation> GetUserReservations(string id)
             => Collection.Find(res => res.Owner == id).ToEnumerable();
+
+        public bool CheckIn(string id, string date)
+        {
+            //@TODO use external validator
+            var reservation = Read(id);
+            if (reservation.Status == Reservation.Statuses.CANCELLATA || 
+                reservation.Status == Reservation.Statuses.CONCLUSA ||
+                reservation.Status == Reservation.Statuses.CHECKIN
+            )
+                return false;
+            //Valid status
+            if (string.Compare(reservation.StartTime, date) > 0)
+                return false;
+            if (string.Compare(reservation.ExitTime, date) < 0)
+                return false;
+            //Date inside prenotation
+            reservation.CheckIn.ToList().Add(date);
+            reservation.Status = Reservation.Statuses.CHECKIN;
+            return Update(id, reservation).IsAcknowledged;
+        }
+        public bool CheckOut(string id, string date)
+        {
+            var reservation = Read(id);
+            if (reservation.Status != Reservation.Statuses.CHECKIN)
+                return false;
+            if (string.Compare(reservation.StartTime, date) > 0)
+                return false;
+            //Date inside prenotation
+            reservation.CheckOut.ToList().Add(date);
+            reservation.Status = Reservation.Statuses.INCORSO;
+            return Update(id, reservation).IsAcknowledged;
+        }
     }
 }

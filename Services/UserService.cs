@@ -51,19 +51,16 @@ namespace RoomService.Services
             this.Create(model);
             return this.Login(new AuthDTO { Password = model.Password, Username = model.Username });
         }
-
         public override void Create(UserModel model)
         {
             model.Password = _cryptProvider.Encrypt(model.Password);
             base.Create(model);
         }
-
         public override ReplaceOneResult Update(string id, UserModel newModel)
         {
             newModel.Password = _cryptProvider.Encrypt(newModel.Password);
             return base.Update(id, newModel);
         }
-
         public UserModel Login(AuthDTO authData)
         {
             authData.Password = _cryptProvider.Encrypt(authData.Password);
