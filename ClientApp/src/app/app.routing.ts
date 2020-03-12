@@ -1,9 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AuthGuard } from './guard/auth-guard';
+
+
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { QrmapComponent } from './qrmap/qrmap.component';
+
 import { ZXingScannerComponent } from './scanner/zxing-scanner.component';
 import { ReservationComponent } from './reservation/reservation.component';
 
