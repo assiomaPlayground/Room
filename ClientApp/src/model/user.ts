@@ -5,6 +5,7 @@ export class User{
     Username: String;
     Password: String;
     Usertype: Usertype;
+    Photo: String;
     Token : String;
 
 }

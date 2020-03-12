@@ -11,6 +11,9 @@ import { Room } from 'src/model/room';
 export class UserComponent implements OnInit {
   users: User[];
   usersins: User= new User();
+  userFilter: any = { Username: '' };
+  
+  
   constructor(private service : UserService) { }
 
   ngOnInit() {

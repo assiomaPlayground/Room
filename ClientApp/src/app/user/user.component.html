@@ -1,15 +1,34 @@
+<head>
+    
+  
+ 
+  </head>
 <div class="row">
   <div class="col-md-4 offset-md-4 text-center">
       <div class="card my-4">
           <!--Login Component?-->
           <h5 class="card-title">CERCA UN COLLEGA</h5>
           <p class="card-text">Scrivi il nome dei tuoi colleghi per verificare in quale edificio e stanza hanno fatto check in</p>
-          <input class="form-control" type="text" placeholder="Scrivi il nome del collega" aria-label="Search">
-          <ul *ngFor="let user of users">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">{{user.Username}}</li>
+          <input type="text" [(ngModel)]="userFilter.Username" placeholder="Cerca collega">
+          
+            <ul *ngFor="let user of users | filterBy: userFilter">
+           
+              <div class="media border p-3">
+                <div class="media-body">
+                  <h5>{{user.Username}}</h5>
+                  
+                </div>
+                <img src="img_avatar3.png" alt="John Doe" class="ml-3 mt-3 rounded-circle" style="width:60px;">
+              </div>
+              
             </ul>
-        </ul>
+          
       </div>
+       <div class="card-footer">
+      
   </div>
+
 </div>
+            
+            
+ 

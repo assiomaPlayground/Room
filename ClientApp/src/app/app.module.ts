@@ -31,6 +31,8 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    FilterPipeModule,
     FormsModule,
     ReactiveFormsModule,
     UserModule,
