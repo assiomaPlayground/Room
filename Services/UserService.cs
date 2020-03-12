@@ -69,10 +69,11 @@ namespace RoomService.Services
             authData.Password = _cryptProvider.Encrypt(authData.Password);
             var user = Collection.Find<UserModel>
                 (user =>
-                     user.Username == authData.Username &&
-                     user.Password == authData.Password
+                     user.Username == authData.Username 
                 ).FirstOrDefault<UserModel>();
             if (user == null) return null;
+            if (user.Password != authData.Password)
+                return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this._sectet);
