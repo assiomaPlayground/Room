@@ -26,12 +26,15 @@ namespace RoomService.Services
 
         private readonly ReservationService _reservationService;
         private readonly FavouritesService  _favouriteService;
-        public UserService(IRoomServiceMongoSettings settings, 
+        private readonly WorkSpaceService   _workSpaceService;
+        public UserService(
+            IRoomServiceMongoSettings settings, 
             IAppSettings appSettings, 
             CrypProvider cryptProvider,
             ReservationService reservationService,
-            FavouritesService favouritesService
-            )
+            FavouritesService favouritesService,
+            WorkSpaceService workSpaceService
+        )
         {
             base.Init(settings, settings.UserCollection);
             this._sectet = appSettings.Secret;
@@ -40,6 +43,7 @@ namespace RoomService.Services
 
             this._reservationService = reservationService;
             this._favouriteService = favouritesService;
+            this._workSpaceService = workSpaceService;
         }
 
         public UserModel Register(UserModel model)
@@ -101,5 +105,20 @@ namespace RoomService.Services
         }
         public UserModel FindByUserName(string username)
             => Collection.Find(user => user.Username == username).FirstOrDefault();
+
+        public UserFavouriteRoomsDTO GetUserFavouritesRooms(string id)
+        {
+            var favs = _favouriteService.Collection.Find(fav => fav.Owner == id).ToEnumerable();
+            var user = Read(id);
+            var qres = from fav in favs.AsQueryable()
+                       join room in _workSpaceService.Collection.AsQueryable() on fav.Target equals room.Id
+                       select new UserFavouriteRoomsDTO.FavouriteRoom
+                       {
+                           Workspace = room,
+                           Last = fav.Last,
+                           UsageTimes = fav.UsageTimes
+                       };
+            return new UserFavouriteRoomsDTO { Owner = user, Rooms = qres.ToArray() };
+        }
     }
 }

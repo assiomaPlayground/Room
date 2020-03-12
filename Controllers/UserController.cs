@@ -64,6 +64,17 @@ namespace RoomService.Controllers
 
             return new OkObjectResult(Service.Register(model).WithoutPassword());
         }
+        [HttpGet("Favourites/{id:length(24)}")]
+        public ActionResult<UserFavouriteRoomsDTO> GetUserFavouritesRooms([FromRoute] string id)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if ( rid != id  || !_acs.IsAdmin(id)) //@TODO Move method into acs
+                return Forbid();
+            var res = Service.GetUserFavouritesRooms(id);
+            if (res == null)
+                return NotFound();
+            return new OkObjectResult(res);
+        }
         protected override bool CanCreate(string id, UserModel model)
             => _acs.CanCreateUser(id, model);
         protected override bool CanRead(string id, string tid)
