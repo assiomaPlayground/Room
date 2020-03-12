@@ -26,6 +26,11 @@ import { NgxQRCodeModule} from 'ngx-qrcode2';
 import { ZXingScannerModule } from './scanner/zxing-scanner.module';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -54,7 +59,12 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     RoomModule,
     routing,
     NgxQRCodeModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    BrowserAnimationsModule,
+    ButtonsModule.forRoot(),
+    TimepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   
 providers: [

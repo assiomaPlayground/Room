@@ -28,7 +28,6 @@
     "core-js": "^3.3.3",
     "jquery": "3.4.1",
     "ngx-bootstrap": "^5.5.0",
-    "ngx-dropdown": "0.0.22",
     "ngx-qrcode2": "0.0.9",
     "oidc-client": "^1.9.1",
     "popper.js": "^1.16.0",

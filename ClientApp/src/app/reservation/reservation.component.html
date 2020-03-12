@@ -1,39 +1,53 @@
 <div class="row">
   <div class="col-md-4 offset-md-4 text-center">
-      <div class="card my-4">
-<div class="card" style="width: 24rem; height: 40;">
-  <img class="card-img-top" src="../../assets/meeting.jpg" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">Prenota un posto</h5>
-    
-    <div class="btn-group"></div>
-    <button type="button" class="btn btn-light btn-block dropdown-toggle p-2"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Edificio
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
+    <div class="card my-4">
+      <img class="card-img-top" src="../../assets/meeting.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Prenota un posto</h5>
+        <div class="btn-group m-2" dropdown>
+          <button id="db1" dropdownToggle type="button" class="btn btn-primary btn-block dropdown-toggle"
+              aria-controls="dbb1">
+            Edificio <span class="caret"></span>
+          </button>
+          <ul id="dbb1" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="db1">
+            <li role="menuitem"><a class="dropdown-item">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item">Another action</a></li>
+            <li role="menuitem"><a class="dropdown-item">Something else here</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
+          </ul>
+        </div>
+        <div class="btn-group" dropdown>
+          <button id="db2" dropdownToggle type="button" class="btn btn-primary btn-block dropdown-toggle"
+              aria-controls="dbb2">
+            Data <span class="caret"></span>
+          </button>
+          <ul id="dbb2" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="db2">
+            <li role="menuitem"><a class="dropdown-item">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item">Another action</a></li>
+            <li role="menuitem"><a class="dropdown-item">Something else here</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
+          </ul>
+        </div>
+        <div class="btn-group" dropdown>
+          <button id="db3" dropdownToggle type="button" class="btn btn-primary btn-block dropdown-toggle"
+              aria-controls="dbb3">
+            Durata <span class="caret"></span>
+          </button>
+          <ul id="dbb2" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="db3">
+            <li role="menuitem"><a class="dropdown-item">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item">Another action</a></li>
+            <li role="menuitem"><a class="dropdown-item">Something else here</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
+          </ul>
+        </div>
+        <button class="btn btn-block btn-primary">Verifica disponibilitá</button>
+      </div>
     </div>
-    <div class="btn-group"></div>
-    <button type="button" class="btn btn-light btn-block dropdown-toggle p-2"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Data
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-    </div>
-    <div class="btn-group"></div>
-    <button type="button" class="btn btn-light btn-block dropdown-toggle p-2"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Durata
-    </button>
-  </div>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-    </div>
-    <button type="button" class="btn btn-secondary btn-xs mx-16">Verifica disponibilitá</button>
   </div>
 </div>
