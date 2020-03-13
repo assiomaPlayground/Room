@@ -24,19 +24,19 @@
           </tr>
           <tr>
             <td>
-              <input placeholder="username" [(ngModel)]="usertoinsert.username">
+              <input placeholder="username" [(ngModel)]="usersins.username">
             </td>
             <td>
-              <input placeholder="password" [(ngModel)]="usertoinsert.password">
+              <input placeholder="password" [(ngModel)]="usersins.password">
             </td>
             <td>
-              <select placeholder="usertype" [(ngModel)]="usertoinsert.usertype">
+              <select placeholder="usertype" [(ngModel)]="usersins.usertype">
                 <option value="ADMIN">ADMIN</option>
                 <option value="USER">USER</option>
               </select>
             </td>
             <td>
-              <button (click)="insert(usertoinsert)">Insert</button>
+              <button (click)="insert(usersins)">Insert</button>
             </td>
             <td>
               <button (click)="clear()">Clear</button>

@@ -21,7 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from './alert/alert.component';
 import { HomeModule } from './home/home.module';
-import { routing } from './app.routing';
+import { AppRoutingModule } from './app.routing';
 import { NgxQRCodeModule} from 'ngx-qrcode2';
 import { ZXingScannerModule } from './scanner/zxing-scanner.module';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
@@ -32,8 +32,6 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-
-
 
 @NgModule({
   declarations: [
@@ -61,7 +59,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     UserModule,
     HomeModule,
     RoomModule,
-    routing,
+    AppRoutingModule,
     NgxQRCodeModule,
     ZXingScannerModule,
     BrowserAnimationsModule,
@@ -69,7 +67,6 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     TimepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    
   ],
   
 providers: [
