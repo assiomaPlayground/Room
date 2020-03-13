@@ -32,7 +32,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import { QRCodeGenComponent } from './qrcode-gen/qrcode-gen.component';
+
 
 @NgModule({
   declarations: [
@@ -49,8 +49,7 @@ import { QRCodeGenComponent } from './qrcode-gen/qrcode-gen.component';
     FavouritesComponent,
     LoginComponent,
     RegisterComponent,
-    AlertComponent,
-    QRCodeGenComponent
+    AlertComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
