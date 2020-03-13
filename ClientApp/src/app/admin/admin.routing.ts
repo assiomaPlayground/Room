@@ -2,9 +2,11 @@ import { Routes, RouterModule } from "@angular/router";
 import { AdminComponent } from "./admin.component";
 import { AuthGuard } from "../guard/auth-guard";
 import { NgModule } from "@angular/core";
+import { QRCodeGenComponent } from "../qrcode-gen/qrcode-gen.component";
 
 const adminRoutes: Routes = [
-    { path: '', component: AdminComponent, /*canActivate: [AuthGuard],*/ }
+    {  path: 'qrcodegen', component: QRCodeGenComponent},
+      { path: '', component: AdminComponent, /*canActivate: [AuthGuard],*/ }
   ];
 
 @NgModule({
