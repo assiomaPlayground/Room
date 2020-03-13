@@ -16,9 +16,15 @@ namespace RoomService.Controllers
     public class ReservationController : AbstractMongoCrudController<Reservation, ReservationService>
     {
         private readonly AccessControlService _acs;
-        public ReservationController(ReservationService service, AccessControlService acs) : base(service) 
+        private readonly ReservationUpdaterService _rus;
+        public ReservationController(
+            ReservationService service,
+            AccessControlService acs,
+            ReservationUpdaterService rus //Just for instancing
+            ) : base(service) 
         {
             this._acs = acs;
+            this._rus = rus;
         }
         [HttpGet("User/{id:length(24)}")]
         public ActionResult<IEnumerable<Reservation>> GetUserReservations([FromRoute] string id)

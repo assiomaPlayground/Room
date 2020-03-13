@@ -78,6 +78,7 @@ namespace RoomService.Utils
             ServiceCollection.AddSingleton<FavouritesService>();
             ServiceCollection.AddSingleton<CrypProvider>();
             ServiceCollection.AddSingleton<AccessControlService>();
+            ServiceCollection.AddSingleton<ReservationUpdaterService>();
         }
     }
 }
