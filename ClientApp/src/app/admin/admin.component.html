@@ -15,28 +15,32 @@
             <th>
               Usertype
             </th>
+          
             <th>
               Edit
             </th>
             <th>
               User
             </th>
+            <th>
+              <a routerLink="/admin/qrcodegen" class="btn btn-warning btn-block">QRCode</a>
+            </th>
           </tr>
           <tr>
             <td>
-              <input placeholder="username" [(ngModel)]="usersins.username">
+              <input placeholder="username" [(ngModel)]="usertoinsert.username">
             </td>
             <td>
-              <input placeholder="password" [(ngModel)]="usersins.password">
+              <input placeholder="password" [(ngModel)]="usertoinsert.password">
             </td>
             <td>
-              <select placeholder="usertype" [(ngModel)]="usersins.usertype">
+              <select placeholder="usertype" [(ngModel)]="usertoinsert.usertype">
                 <option value="ADMIN">ADMIN</option>
                 <option value="USER">USER</option>
               </select>
             </td>
             <td>
-              <button (click)="insert(usersins)">Insert</button>
+              <button (click)="insert(usertoinsert)">Insert</button>
             </td>
             <td>
               <button (click)="clear()">Clear</button>
@@ -55,6 +59,7 @@
                 <option [selected]="user.usertype===USER" value="USER">USER</option>
               </select>
             </td>
+            
             <td>
               <button (click)=update(user)>Save</button>
             </td>
