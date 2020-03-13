@@ -25,7 +25,7 @@ namespace RoomService.Utils
         }
         public static bool IsValid(this UserModel user)
         {
-            var usernameRegex = new Regex(@"^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$",
+            var usernameRegex = new Regex(@"^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){4,16}[a-zA-Z0-9]$",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase,
                 TimeSpan.FromMilliseconds(1000)
             );

@@ -8,6 +8,9 @@ namespace RoomService.Settings
     public interface IAppSettings
     {
         string Secret { get; set; }
+        string PasswordHash { get; set; }
+        string SaltKey { get; set; }
+        string VIKey { get; set; }
         double TokenDuration { get; set; }
     }
 }

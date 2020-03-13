@@ -28,7 +28,7 @@ namespace RoomService.Controllers
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanRead(rid, id))
                 return Forbid();
-            var res = Service.GetUsersInRoom(id);
+            var res = Service.GetUsersInRoom(id).WithoutPasswords();
             if (res == null)
                 return NotFound();
             return new OkObjectResult(res);
@@ -60,8 +60,6 @@ namespace RoomService.Controllers
                 return BadRequest();
             return new OkObjectResult(res);
         }
-        public override IActionResult Create([FromBody] UserModel model)
-            => base.Create(model);
         [AllowAnonymous]
         [HttpPost("Token")]
         public UserModel GenerateToken([FromBody] AuthDTO model)
@@ -70,6 +68,8 @@ namespace RoomService.Controllers
         [HttpPost("Registration")]
         public ActionResult<UserModel> Registration([FromBody] UserModel model)
         {
+            if (!model.IsValid())
+                BadRequest();
             if (!_acs.CanCreateUser(null, model))
                 return Forbid();
 

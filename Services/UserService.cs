@@ -49,7 +49,7 @@ namespace RoomService.Services
         public UserModel Register(UserModel model)
         {
             this.Create(model);
-            return this.Login(new AuthDTO { Password = model.Password, Username = model.Username });
+            return this.Login(new AuthDTO { Password = _cryptProvider.Decrypt(model.Password), Username = model.Username });
         }
         public override void Create(UserModel model)
         {
@@ -63,15 +63,14 @@ namespace RoomService.Services
         }
         public UserModel Login(AuthDTO authData)
         {
-            authData.Password = _cryptProvider.Encrypt(authData.Password);
             var user = Collection.Find<UserModel>
                 (user =>
                      user.Username == authData.Username 
                 ).FirstOrDefault<UserModel>();
-            if (user == null) return null;
-            if (user.Password != authData.Password)
-                return null;
-
+            if (user == null) return new UserModel();
+            if (_cryptProvider.Decrypt(user.Password) != authData.Password)
+                return new UserModel();
+            
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this._sectet);
 
@@ -107,7 +106,7 @@ namespace RoomService.Services
         public UserFavouriteRoomsDTO GetUserFavouritesRooms(string id)
         {
             var favs = _favouriteService.Collection.Find(fav => fav.Owner == id).ToEnumerable();
-            var user = Read(id);
+            var user = Read(id).WithoutPassword();
             var qres = from fav in favs.AsQueryable()
                        join room in _workSpaceService.Collection.AsQueryable() on fav.Target equals room.Id
                        select new UserFavouriteRoomsDTO.FavouriteRoom

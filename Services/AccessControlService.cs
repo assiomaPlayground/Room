@@ -41,7 +41,7 @@ namespace RoomService.Services
                 => IsAdmin(id) ? true : model.Owner == id;
         //User
         public bool CanCreateUser(string id, UserModel model)        
-            =>  (model.IsValid() && 
+            =>  ( 
                 (IsAdmin(id) ? true : (model.UserType == UserModel.UserTypes.USER)) &&
                 _userService.FindByUserName(model.Username) == null //Unique username
             );

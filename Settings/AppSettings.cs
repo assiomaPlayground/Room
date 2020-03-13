@@ -9,5 +9,8 @@ namespace RoomService.Settings
     {
         public string Secret { get; set; }
         public double TokenDuration { get; set; }
+        public string PasswordHash { get; set; }
+        public string SaltKey { get; set; }
+        public string VIKey { get; set; }
     }
 }
