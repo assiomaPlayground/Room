@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RoomService.Utils;
+using MongoDB.Driver;
 
 namespace RoomService.Services
 {
@@ -63,7 +64,23 @@ namespace RoomService.Services
                 return false;
             if (_workSpaceService.Read(model.Id).Seats < 1)
                 return false;
+
+            HashSet<Reservation.Statuses> filter = new HashSet<Reservation.Statuses>
+            { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
+
+            var qres = from res in _reservationService.Collection.AsQueryable()
+                       where id == res.Owner && filter.Contains(res.Status)
+                       select res;
+
+            foreach (var userRes in qres)
+                if (DataInsersects(userRes.StartTime, userRes.ExitTime, model.StartTime, model.ExitTime))
+                    return false;
+
             return true;
         }
+
+        private bool DataInsersects(string start, string end, string secStart, string secEnd)
+        => !(string.Compare(start, secStart) < 0 ?
+            string.Compare(end, secStart) < 0 : string.Compare(secEnd, start) < 0);
     }
 }
