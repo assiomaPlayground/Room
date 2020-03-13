@@ -42,7 +42,6 @@ namespace RoomService.Services
                     Features = space.Features,
                     Name = space.Name,
                     Pivot = space.Pivot,
-                    Seats = space.Seats,
                     SubMap = space.SubMap
                 };
             return new BuildingSpacesDTO { Id = building.Id, Map = building.Map, Name = building.Name, Rooms = qres.ToArray() };

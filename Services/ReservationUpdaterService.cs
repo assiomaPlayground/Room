@@ -12,6 +12,7 @@ namespace RoomService.Services
     public class ReservationUpdaterService
     {
         private readonly IMongoCollection<Reservation> _reservationRepo;
+        private readonly IMongoCollection<WorkSpace>   _workSpaceRepo;
         //@TODO: Timers Setup and dynamic delegate events
         public ReservationUpdaterService(IRoomServiceMongoSettings settings)
         {
@@ -19,9 +20,10 @@ namespace RoomService.Services
             var database = client.GetDatabase(settings.DatabaseName);
 
             _reservationRepo = database.GetCollection<Reservation>(settings.ReservationCollection);
+            _workSpaceRepo   = database.GetCollection<WorkSpace>(settings.WorkSpaceCollection);
 
-            this.UpdateReservation(null, null);
-            InitTasks(DateTime.Now);
+            //this.UpdateReservation(null, null);
+            //InitTasks(DateTime.Now);
         }
         //@TODO generic task use vector of timers
         private void InitTasks(DateTime dayTask)
@@ -72,6 +74,9 @@ namespace RoomService.Services
                        where validStatuses.Contains(res.Status)
                        select res;
 
+            if (qres == null)
+                return;
+
             foreach(var res in qres)
             {
                 if (string.Compare(res.StartTime, now) < 0) //Not yet started
@@ -81,7 +86,11 @@ namespace RoomService.Services
                 else //Others
                 {
                     if (string.Compare(res.ExitTime, now) < 0) //Expired
-                    { res.Status = Reservation.Statuses.CONCLUSA; }
+                    { 
+                        res.Status = Reservation.Statuses.CONCLUSA;
+                        var wks = _workSpaceRepo.Find<WorkSpace>(x => x.Id == res.Target).FirstOrDefault();
+                        _workSpaceRepo.ReplaceOne<WorkSpace>(x => x.Id == wks.Id, wks);
+                    }
                     else //CHECKIN or INCORSO
                     { 
                         res.Status = 

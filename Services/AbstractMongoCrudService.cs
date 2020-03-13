@@ -16,6 +16,10 @@ namespace RoomService.Services
         where TModel : class, IModel
     {
         /// <summary>
+        /// Database Connection
+        /// </summary>
+        protected IMongoDatabase Database { get; private set; }
+        /// <summary>
         /// The mongo repository
         /// </summary>
         public IMongoCollection<TModel> Collection { get; private set; }
@@ -28,9 +32,9 @@ namespace RoomService.Services
         public virtual void Init(IMongoSettings settings, string baseCollection)
         {
             var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            this.Database = client.GetDatabase(settings.DatabaseName);
 
-            Collection = database.GetCollection<TModel>(baseCollection);
+            Collection = Database.GetCollection<TModel>(baseCollection);
         }
         /// <summary>
         /// Create op

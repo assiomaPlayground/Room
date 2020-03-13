@@ -13,9 +13,13 @@ namespace RoomService.Services
     /// </summary>
     public class ReservationService : AbstractMongoCrudService<Reservation>
     {
+        private readonly IMongoCollection<WorkSpace> _workSpaceRepo;
         public ReservationService(IRoomServiceMongoSettings settings)
-            => base.Init(settings, settings.ReservationCollection);
-
+        {
+            base.Init(settings, settings.ReservationCollection);
+            
+            _workSpaceRepo = Database.GetCollection<WorkSpace>(settings.WorkSpaceCollection);
+        }
         public DeleteResult DeleteByUserId(string id)
             => Collection.DeleteMany(res => res.Owner == id);
 

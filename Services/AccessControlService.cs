@@ -48,7 +48,7 @@ namespace RoomService.Services
             );
         //Reservation
         public bool OnGoind(Reservation reservation)
-            => reservation.Status == Reservation.Statuses.ATTIVA;
+            => reservation.Status == (int)Reservation.Statuses.ATTIVA;
         public bool OwnOrOnGoing(string id, string tid) 
         {
             if (IsAdmin(id))
@@ -62,8 +62,19 @@ namespace RoomService.Services
                 return false;
             if (!IsOwner<Reservation>(id, model)) //Forbid
                 return false;
-            if (_workSpaceService.Read(model.Id).Seats < 1)
-                return false;
+
+            /* var count = _reservationService.Collection.Find
+            (
+                x => x.Target == model.Target &&
+                (
+                    x.Status == Reservation.Statuses.ATTIVA ||
+                    x.Status == Reservation.Statuses.CHECKIN ||
+                    x.Status == Reservation.Statuses.INCORSO
+                )
+           ).CountDocuments();
+
+            if (count < 1)
+                return false; 
 
             HashSet<Reservation.Statuses> filter = new HashSet<Reservation.Statuses>
             { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
@@ -75,7 +86,7 @@ namespace RoomService.Services
             foreach (var userRes in qres)
                 if (DataInsersects(userRes.StartTime, userRes.ExitTime, model.StartTime, model.ExitTime))
                     return false;
-
+            */
             return true;
         }
 

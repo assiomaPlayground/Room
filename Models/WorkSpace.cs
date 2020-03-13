@@ -27,8 +27,6 @@ namespace RoomService.Models
         public int AllSeats { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         [BsonRequired]
-        public int  Seats { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string SubMap { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Building { get; set; }
