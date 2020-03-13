@@ -52,7 +52,7 @@ namespace RoomService.Utils
 
                     cipherTextBytes = memoryStream.ToArray();
 
-					// Close both streams.
+					// Close both streams
 
 					cryptoStream.Close();
 				}
