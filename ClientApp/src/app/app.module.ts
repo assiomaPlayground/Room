@@ -34,6 +34,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,8 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     ButtonsModule.forRoot(),
     TimepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    
   ],
   
 providers: [

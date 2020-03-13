@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import {AdminComponent} from './admin/admin.component'
+
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ZXingScannerComponent } from './scanner/zxing-scanner.component';

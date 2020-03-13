@@ -6,12 +6,11 @@ import { NgModule } from "@angular/core";
 
 const adminRoutes: Routes = [
     {
-      path: 'admin-dashboard', component: AdminComponent, canActivate: [AuthGuard], children: [
-        { path: 'admin', component: AdminComponent },
-        { path: 'users', component: UserComponent },
+      path: 'admin', component: AdminComponent, /*canActivate: [AuthGuard],*/ children: [
+        { path: 'users', component: UserComponent }
         
       ]
     }
   ];
   
-  export const routing = RouterModule.forRoot(adminRoutes);
+  export const adminRouting = RouterModule.forChild(adminRoutes);
