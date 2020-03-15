@@ -26,7 +26,7 @@ namespace RoomService.Utils
 		{
 
 			// Convert our plaintext into a byte array.
-			// Let us assume that plaintext contains UTF8-encoded characters.
+			// Let us assume that plaintext contains UTF8-encoded characters
 			byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
 
