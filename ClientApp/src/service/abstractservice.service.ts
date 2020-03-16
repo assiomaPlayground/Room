@@ -16,7 +16,7 @@ export class Abstractservice<Entity>implements Service<Entity> {
 
   
   read(id: String): Observable<Entity> {
-    return  this.http.get<Entity>('');
+    return  this.http.get<Entity>(this.baseUrl+'api/'+this.type+id);
   }
   delete(id: String): Observable<Entity> {
     return this.http.delete<Entity>(this.baseUrl + 'api/'+this.type + id);

@@ -6,7 +6,8 @@ import { RegisterComponent } from './register/register.component';
 import { ZXingScannerComponent } from './scanner/zxing-scanner.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { HomeComponent } from './home/home.component';
-import { PrenotazioniComponent } from './prenotazioni/prenotazioni.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
 
 const appRoutes: Routes = [ 
     { path: 'home', component: HomeComponent },
@@ -15,7 +16,8 @@ const appRoutes: Routes = [
     { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
     { path: 'qrmap', component: ZXingScannerComponent},
     { path: 'reservation', component: ReservationComponent},
-    { path: 'prenotazioni', component: PrenotazioniComponent},
+    { path: 'reservations', component: ReservationsComponent},
+    {path:'reservationDetails', component: ReservationDetailsComponent},
     { path: '', redirectTo: '/login', pathMatch:'full' },
     //{ path: '**', redirectTo: '/login', pathMatch:'full' },
 ]   

@@ -55,7 +55,7 @@ namespace RoomService.Services
         /// <param name="id">The id : 24 string to Read</param>
         /// <returns>the object maching the id, eventually default</returns>
         public virtual TModel Read(string id) 
-            => Collection.Find<TModel>(model => model.Id == id).FirstOrDefault<TModel>();
+            =>  Collection.Find<TModel>(model => model.Id == id).FirstOrDefault<TModel>();
         /// <summary>
         /// update op
         /// </summary>

@@ -32,7 +32,9 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import { PrenotazioniComponent } from './prenotazioni/prenotazioni.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { PrenotazioniComponent } from './prenotazioni/prenotazioni.component';
     LoginComponent,
     RegisterComponent,
     AlertComponent,
-    PrenotazioniComponent
+    ReservationsComponent,
+    ReservationDetailsComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -11,7 +11,7 @@ export class Reservation{
     Out: Data;
     OutDef: Data;
     StartTime: Data;
-    EndTime: Data;
+    EndTime: Date;
     Owner : String ;
     Target: String;
     

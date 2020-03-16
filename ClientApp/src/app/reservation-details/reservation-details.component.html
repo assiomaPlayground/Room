@@ -6,16 +6,12 @@
              <img class="card-img-top" src="../../assets/Intesa_Sanpaolo.svg.png" alt="Card image cap">
           </div>
             <div class="card-body">  
-              <h4 class="card-title">CERCA COLLEGHI</h4>
-              <p class="card-text">Scrivi il nome dei tuoi colleghi per verificare in quale edificio e stanza hanno fatto check in</p>
-          
-          <input class="form-control py-2" type="search" [(ngModel)]="userFilter.Username" placeholder="Cerca collega" >
- 
-          
-            <span *ngFor="let user of users | filterBy: userFilter">
+              <h4 class="card-title">LE MIE PRENOTAZIONI</h4>
+         
+            <span *ngFor="let reservations of reservations">
            
               <ul class="list-group">
-                <li class="list-group-item">{{user.Username}} </li>
+                <li class="list-group-item">{{reservations.aarget}} </li>
                
               </ul>
             </span>    
@@ -23,7 +19,7 @@
        <div class="card-footer">
         <i class="fa fa-home fa-2x" aria-hidden="true" routerLink="/home" ></i>
         
-        <i class="fa fa-calendar fa-2x col-md-4 offset-md-4" aria-hidden="true" routerLink="/reservations"></i>
+        <i class="fa fa-calendar fa-2x col-md-4 offset-md-4" aria-hidden="true" routerLink="/prenotazioni"></i>
 
         <i class="fa fa-user-o  fa-2x col-md-1 offset-md-1  " aria-hidden="true" ></i>
         
@@ -32,7 +28,4 @@
 
 </div>
       </div>
-      
-            
-            
- 
+
