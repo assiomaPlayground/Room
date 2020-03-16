@@ -64,9 +64,10 @@ namespace RoomService.Controllers
                 return Ok();
             return BadRequest();
         }
-        [HttpGet("WorkSpace/{id:length(24)}")]
-        public ActionResult<WorkSpaceDateDTO> GetReservationMeta([FromRoute] string id, [FromBody] DeltaTime date)
+        [HttpGet("WorkSpace/{id:length(24)}/{start}/{end}")]
+        public ActionResult<WorkSpaceDateDTO> GetReservationMeta([FromRoute] string id, [FromRoute] string start, [FromRoute] string end)
         {
+            var date = new DeltaTime { StartTime = start, EndTime = end };
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!_acs.IsAuth(rid))
                 Forbid();

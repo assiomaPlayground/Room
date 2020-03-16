@@ -22,8 +22,11 @@ export class ReservationsService extends Abstractservice<Reservation>{
     return this.http.get<Reservation>(this.baseUrl +'api/'+this.type + '/user/'+ id);
   }
 
-  wReservation(id: String):Observable<any>{
-    return this.http.get<any>(this.baseUrl+'api/'+this.type+'/workspace/'+id,{})
+  wReservation(id: String, start: String, end: String):Observable<any>{
+    return this.http.get<any>(this.baseUrl+'api/'+this.type+'/workspace/'+id+'/'+start+'/'+end )
   }
 
+  checkIn(roomId : String, date : String){
+
+  }
 }

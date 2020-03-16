@@ -26,8 +26,14 @@ wreservations: WorkspaceReservation[];
     this.service.reseravtion(res.Id).subscribe(reservations=>this.reservations=reservations );
   }
   wreservation(){
-    for(var reservations of this.reservations){
-      this.service.wReservation(reservations.Target,reservations.EndTime).subscribe(wreservation=>this.wreservations=wreservation)
+    for(var reservation of this.reservations){
+      this.service.wReservation(
+        reservation.Target,
+        reservation.StartTime.toISOString(),
+        reservation.EndTime.toISOString()
+      )
+      
+      .subscribe(wreservation=>this.wreservations=wreservation)
     }
   }
 }

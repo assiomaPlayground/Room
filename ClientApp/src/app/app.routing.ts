@@ -6,13 +6,9 @@ import { RegisterComponent } from './register/register.component';
 import { ZXingScannerComponent } from './scanner/zxing-scanner.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { HomeComponent } from './home/home.component';
-<<<<<<< Updated upstream
 import { ReservationsComponent } from './reservations/reservations.component';
-import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
-=======
-import { PrenotazioniComponent } from './prenotazioni/prenotazioni.component';
 import { QrmapComponent } from './qrmap/qrmap.component';
->>>>>>> Stashed changes
+import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
 
 const appRoutes: Routes = [ 
     { path: 'home', component: HomeComponent },
