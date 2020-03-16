@@ -28,7 +28,7 @@ import { ResultAndError } from './ResultAndError';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ZXingScannerComponent implements AfterViewInit, OnDestroy {
-
+  scanSuccessHandler($event:any){console.log($event)}
   /**
    * Supported Hints map.
    */
@@ -69,7 +69,9 @@ export class ZXingScannerComponent implements AfterViewInit, OnDestroy {
    */
   private hasPermission: boolean | null;
 
+  
   /**
+   * 
    * Reference to the preview element, should be the `video` tag.
    */
   @ViewChild('preview', { static: true })
@@ -759,5 +761,5 @@ export class ZXingScannerComponent implements AfterViewInit, OnDestroy {
     this.hasPermission = hasPermission;
     this.permissionResponse.next(hasPermission);
   }
-
+  
 }
