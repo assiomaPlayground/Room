@@ -23,7 +23,12 @@ namespace RoomService.Services
             _reservationService = reservationService;
         }
         public DeleteResult DeleteByBuildingId(string id)
-            => Collection.DeleteMany(room => room.Building == id);
+        {
+            var targets = Collection.Find(room => room.Building == id).ToList();
+            foreach (var work in targets)
+                _reservationService.DeleteByRoomId(work.Id);
+            return Collection.DeleteMany(room => room.Building == id);
+        }
         public override DeleteResult Delete(string id)
         {
             _reservationService.DeleteByRoomId(id);

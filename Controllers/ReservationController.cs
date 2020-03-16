@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RoomService.DTO;
 using RoomService.Models;
+using RoomService.Models.Types;
 using RoomService.Services;
 using System;
 using System.Collections.Generic;
@@ -37,24 +39,32 @@ namespace RoomService.Controllers
             return new OkObjectResult(res);
         }
         [HttpPost("CheckIn/{id:length(24)}")]
-        public IActionResult CheckIn([FromRoute] string id, [FromBody] string date)
+        public IActionResult CheckIn([FromRoute] string id, [FromBody] WorkSpaceDateDTO data)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!_acs.IsOwner<ReservationService,Reservation>(rid, id, Service))
                 return Forbid();
-            if (Service.CheckIn(id, date))
+            if (Service.CheckIn(id, data))
                 return Ok();
             return BadRequest();
         }
         [HttpPost("CheckOut/{id:length(24)}")]
-        public IActionResult CheckOut([FromRoute] string id, [FromBody] string date)
+        public IActionResult CheckOut([FromRoute] string id, [FromBody] WorkSpaceDateDTO data)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!_acs.IsOwner<ReservationService, Reservation>(rid, id, Service))
                 return Forbid();
-            if (Service.CheckOut(id, date))
+            if (Service.CheckOut(id, data))
                 return Ok();
             return BadRequest();
+        }
+        [HttpGet("WorkSpace/{id:length(24)}")]
+        public ActionResult<WorkSpaceDateDTO> GetReservationMeta([FromRoute] string id, [FromBody] DeltaTime date)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!_acs.IsAuth(rid))
+                Forbid();
+            return new OkObjectResult(Service.GetReservationByDeltaTimeAdWorkSpaceId(id, date));
         }
         protected override bool CanCreate(string id, Reservation model)
             => _acs.CanCreateReservation(id, model);
