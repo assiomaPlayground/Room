@@ -17,6 +17,12 @@ namespace RoomService.Services
     {
         private readonly IMongoCollection<WorkSpace> _workSpaceRepo;
         private readonly IMongoCollection<WorkSpaceReservations> _workSpaceReservations;
+        //@TODO use settings or database
+        private readonly HashSet<Reservation.Statuses> _goingStatuses = new HashSet<Reservation.Statuses>
+        { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
+        private readonly HashSet<Reservation.Statuses> _storedStatuses = new HashSet<Reservation.Statuses>
+        { Reservation.Statuses.CANCELLATA, Reservation.Statuses.CONCLUSA };
+
         public ReservationService(IRoomServiceMongoSettings settings)
         {
             base.Init(settings, settings.ReservationCollection);
@@ -30,6 +36,15 @@ namespace RoomService.Services
             => Collection.DeleteMany(res => res.Target == id);
         public IEnumerable<Reservation> GetUserReservations(string id)
             => Collection.Find(res => res.Owner == id).ToEnumerable();
+
+        public string FindOnGoindReservationIdByWorkSpaceAndUserIds(string WorkSpaceId, string UserId)
+            =>
+                Collection.Find
+                (
+                    res => res.Target == WorkSpaceId && 
+                    res.Owner == UserId && 
+                    _goingStatuses.Contains(res.Status)
+                ).FirstOrDefault()?.Id;
 
         public override void Create(Reservation model)
         {

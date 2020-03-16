@@ -14,6 +14,7 @@ namespace RoomService.DTO
         public WorkSpace Room { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public DeltaTime Times { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public int Users { get; set; }
     }
 }

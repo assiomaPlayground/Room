@@ -38,20 +38,26 @@ namespace RoomService.Controllers
             var res = Service.GetUserReservations(id);
             return new OkObjectResult(res);
         }
-        [HttpPost("CheckIn/{id:length(24)}")]
-        public IActionResult CheckIn([FromRoute] string id, [FromBody] WorkSpaceDateDTO data)
+        [HttpPost("CheckIn")]
+        public IActionResult CheckIn([FromBody] WorkSpaceDateDTO data)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            var id = Service.FindOnGoindReservationIdByWorkSpaceAndUserIds(data.WorkSpaceId, rid);
+            if (id == null)
+                return NotFound();
             if (!_acs.IsOwner<ReservationService,Reservation>(rid, id, Service))
                 return Forbid();
             if (Service.CheckIn(id, data))
                 return Ok();
             return BadRequest();
         }
-        [HttpPost("CheckOut/{id:length(24)}")]
-        public IActionResult CheckOut([FromRoute] string id, [FromBody] WorkSpaceDateDTO data)
+        [HttpPost("CheckOut")]
+        public IActionResult CheckOut([FromBody] WorkSpaceDateDTO data)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            var id = Service.FindOnGoindReservationIdByWorkSpaceAndUserIds(data.WorkSpaceId, rid);
+            if (id == null)
+                return NotFound();
             if (!_acs.IsOwner<ReservationService, Reservation>(rid, id, Service))
                 return Forbid();
             if (Service.CheckOut(id, data))
