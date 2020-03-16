@@ -14,11 +14,13 @@ namespace RoomService.Services
     public class ReservationService : AbstractMongoCrudService<Reservation>
     {
         private readonly IMongoCollection<WorkSpace> _workSpaceRepo;
+        private readonly IMongoCollection<WorkSpaceReservations> _workSpaceReservations;
         public ReservationService(IRoomServiceMongoSettings settings)
         {
             base.Init(settings, settings.ReservationCollection);
             
             _workSpaceRepo = Database.GetCollection<WorkSpace>(settings.WorkSpaceCollection);
+            _workSpaceReservations = Database.GetCollection<WorkSpaceReservations>(settings.WorkSpaceReservationCollection);
         }
         public DeleteResult DeleteByUserId(string id)
             => Collection.DeleteMany(res => res.Owner == id);
@@ -39,9 +41,9 @@ namespace RoomService.Services
             )
                 return false;
             //Valid status
-            if (string.Compare(reservation.StartTime, date) > 0)
+            if (string.Compare(reservation.Day.StartTime, date) > 0)
                 return false;
-            if (string.Compare(reservation.ExitTime, date) < 0)
+            if (string.Compare(reservation.Day.EndTime, date) < 0)
                 return false;
             //Date inside prenotation
             reservation.CheckIn.ToList().Add(date);
@@ -53,7 +55,7 @@ namespace RoomService.Services
             var reservation = Read(id);
             if (reservation.Status != Reservation.Statuses.CHECKIN)
                 return false;
-            if (string.Compare(reservation.StartTime, date) > 0)
+            if (string.Compare(reservation.Day.StartTime, date) > 0)
                 return false;
             //Date inside prenotation
             reservation.CheckOut.ToList().Add(date);

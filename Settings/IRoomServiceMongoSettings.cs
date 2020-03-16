@@ -16,5 +16,6 @@ namespace RoomService.Settings
         string WorkSpaceCollection { get; set; }
         string QRMapCollection { get; set; }
         string FavouritesCollection { get; set; }
+        string WorkSpaceReservationCollection { get; set; }
     }
 }

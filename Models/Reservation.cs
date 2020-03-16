@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using RoomService.Models;
+using RoomService.Models.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,23 +32,21 @@ namespace RoomService.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        [BsonIgnore]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [BsonRequired]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public Statuses Status { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> CheckIn   { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> CheckOut  { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-        public string StartTime { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-        public string ExitTime  { get; set; }
         [BsonRequired]
         public string Owner  { get; set; }
         [BsonRequired]
         public string Target { get; set; }
+        [BsonRequired]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public DeltaTime Day { get; set; }
         [BsonIgnore]
-        [JsonIgnore]
         public DayTimes DayTime { get; set; }
     }
 }

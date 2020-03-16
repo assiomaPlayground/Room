@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RoomService.Services;
 using RoomService.Settings;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,18 @@ namespace RoomService.Utils
             ServiceCollection = services;
             Configuration = configuration; 
         }
+        /// <summary>
+        /// Whole app config
+        /// </summary>
         public void ConfigureApp()
         {
             ConfigureSettings();
             GenerateSingletons();
             ConfigureJwt(Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>().Secret);
         }
+        /// <summary>
+        /// Settings file config
+        /// </summary>
         public void ConfigureSettings()
         {
             //Setup config file class wrapper
@@ -79,6 +86,7 @@ namespace RoomService.Utils
             ServiceCollection.AddSingleton<CrypProvider>();
             ServiceCollection.AddSingleton<AccessControlService>();
             ServiceCollection.AddSingleton<ReservationUpdaterService>();
+            ServiceCollection.AddSingleton<ServerTaskUtils>();
         }
     }
 }

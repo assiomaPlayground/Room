@@ -8,12 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 namespace RoomService.Controllers
 {
     /// <summary>
     /// Controller for building collection base Crud in abstract class
     /// </summary>
-    [Authorize]
     public class BuildingController : AbstractMongoCrudController<Building, BuildingService>
     {
         private readonly AccessControlService _acs;

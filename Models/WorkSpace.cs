@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using RoomService.Models;
-using RoomService.Models.Utils;
+using RoomService.Models.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;

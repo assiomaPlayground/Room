@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using RoomService.Models;
 using RoomService.Settings;
+using RoomService.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,93 +14,76 @@ namespace RoomService.Services
     {
         private readonly IMongoCollection<Reservation> _reservationRepo;
         private readonly IMongoCollection<WorkSpace>   _workSpaceRepo;
-        //@TODO: Timers Setup and dynamic delegate events
-        public ReservationUpdaterService(IRoomServiceMongoSettings settings)
+        private readonly ServerTimeTaskData[] _serverTasks;
+        private readonly ServerTaskUtils _serverTaskUtils;
+        //@TODO use settings or database
+        private readonly HashSet<Reservation.Statuses> _goingStatuses = new HashSet<Reservation.Statuses>
+        { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
+
+        private readonly HashSet<Reservation.Statuses> _storedStatuses = new HashSet<Reservation.Statuses>
+        { Reservation.Statuses.CANCELLATA, Reservation.Statuses.CONCLUSA };
+
+        public ReservationUpdaterService(
+            IRoomServiceMongoSettings mongoSettings, 
+            IAppSettings appSettings, 
+            ServerTaskUtils serverTaskService
+        )
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient(mongoSettings.ConnectionString);
+            var database = client.GetDatabase(mongoSettings.DatabaseName);
 
-            _reservationRepo = database.GetCollection<Reservation>(settings.ReservationCollection);
-            _workSpaceRepo   = database.GetCollection<WorkSpace>(settings.WorkSpaceCollection);
+            _reservationRepo = database.GetCollection<Reservation>(mongoSettings.ReservationCollection);
+            _workSpaceRepo   = database.GetCollection<WorkSpace>(mongoSettings.WorkSpaceCollection);
+            _serverTasks     = appSettings.ServerTasks; //Use database for tasks???
+            _serverTaskUtils = serverTaskService;
 
-            //this.UpdateReservation(null, null);
-            //InitTasks(DateTime.Now);
-        }
-        //@TODO generic task use vector of timers
-        private void InitTasks(DateTime dayTask)
-        {
-            DateTime startMorning   = new DateTime(dayTask.Year, dayTask.Month, dayTask.Day, 9, 00, 0, 0);
-            DateTime endMorning     = new DateTime(dayTask.Year, dayTask.Month, dayTask.Day, 13, 00, 0, 0);
-            DateTime startAfternoon = new DateTime(dayTask.Year, dayTask.Month, dayTask.Day, 14, 00, 0, 0);
-            DateTime endaftArnoon   = new DateTime(dayTask.Year, dayTask.Month, dayTask.Day, 18, 00, 0, 0);
-            DateTime lastTask       = new DateTime(dayTask.Year, dayTask.Month, dayTask.Day, 23, 30, 0, 0);
-
-            double tickTimeSM = (double)(startMorning   - DateTime.Now).TotalMilliseconds;
-            double tickTimeEM = (double)(endMorning     - DateTime.Now).TotalMilliseconds;
-            double tickTimeSA = (double)(startAfternoon - DateTime.Now).TotalMilliseconds;
-            double tickTimeEA = (double)(endaftArnoon   - DateTime.Now).TotalMilliseconds;
-            double tickTimeTR = (double)(lastTask - DateTime.Now).TotalMilliseconds;
-
-            var timerSM = new Timer(tickTimeSM);
-            var timerEM = new Timer(tickTimeEM);
-            var timerSA = new Timer(tickTimeSM);
-            var timerEA = new Timer(tickTimeEM);
-            var timerTR = new Timer(tickTimeTR);
-
-            timerSM.Elapsed += new ElapsedEventHandler(UpdateReservation);
-            timerEM.Elapsed += new ElapsedEventHandler(UpdateReservation);
-            timerSA.Elapsed += new ElapsedEventHandler(UpdateReservation);
-            timerEA.Elapsed += new ElapsedEventHandler(UpdateReservation);
-            timerTR.Elapsed += new ElapsedEventHandler(LastJob);
-
-            timerSM.Start();
-            timerEM.Start();
-            timerSA.Start();
-            timerEA.Start();
-            timerTR.Start();
+            this.UpdateReservation();
+            InitTasks(DateTime.Today);
         }
 
-        private void LastJob(object sender, ElapsedEventArgs e)
-            => InitTasks(DateTime.Now.AddDays(1));
-
-        private void UpdateReservation(object sender, ElapsedEventArgs e)
+        private bool InitTasks(DateTime time)
         {
-            HashSet<Reservation.Statuses> validStatuses = //O(1) contains resolution
-                new HashSet<Reservation.Statuses>
-                    { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
+            foreach (var task in _serverTasks)
+                if(task.TaskType == TaskTypes.RESSTATUSUPDATE)
+                    _serverTaskUtils.CreateTimeBasedServerTask(time.AddHours(task.Hour), UpdateReservation);
 
-            var now = DateTime.UtcNow.ToString("o");
+            _serverTaskUtils.CreateTimeBasedServerTask(time.AddHours(23).AddMinutes(59), LastJob);
+
+            return true;
+        }
+        private bool LastJob()
+            => InitTasks(DateTime.Today.AddDays(1));
+
+        private bool UpdateReservation()
+        {
+            var now = DateTime.Now.ToString("o");
 
             var qres = from res in _reservationRepo.AsQueryable()
-                       where validStatuses.Contains(res.Status)
+                       where this._goingStatuses.Contains(res.Status)
                        select res;
 
             if (qres == null)
-                return;
+                return false;
 
-            foreach(var res in qres)
+            foreach (var res in qres)
             {
-                if (string.Compare(res.StartTime, now) < 0) //Not yet started
+                if (string.Compare(res.Day.StartTime, now) > 0) //Not yet started
                 {
                     res.Status = Reservation.Statuses.ATTIVA;
                 }
-                else //Others
+                if(string.Compare(res.Day.EndTime, now) <= 0) //Expired
                 {
-                    if (string.Compare(res.ExitTime, now) < 0) //Expired
-                    { 
-                        res.Status = Reservation.Statuses.CONCLUSA;
-                        var wks = _workSpaceRepo.Find<WorkSpace>(x => x.Id == res.Target).FirstOrDefault();
-                        _workSpaceRepo.ReplaceOne<WorkSpace>(x => x.Id == wks.Id, wks);
-                    }
-                    else //CHECKIN or INCORSO
-                    { 
-                        res.Status = 
-                        res.Status == Reservation.Statuses.CHECKIN ? 
-                        Reservation.Statuses.CHECKIN : Reservation.Statuses.INCORSO;  
-                    }
+                    res.Status = Reservation.Statuses.CONCLUSA;
+                }
+                if(string.Compare(res.Day.StartTime, now) <= 0 && string.Compare(res.Day.EndTime, now) > 0) //CHECKIN or INCORSO
+                {
+                    res.Status =
+                    res.Status == Reservation.Statuses.CHECKIN ?
+                    Reservation.Statuses.CHECKIN : Reservation.Statuses.INCORSO;
                 }
                 _reservationRepo.ReplaceOne<Reservation>(dbres => res.Id == dbres.Id, res);
             }
+            return true;
         }
     }
 }

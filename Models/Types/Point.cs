@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoomService.Models.Utils
+namespace RoomService.Models.Types
 {
     public class Point2d
     {

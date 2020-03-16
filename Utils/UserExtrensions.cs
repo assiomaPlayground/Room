@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RoomService.Utils
 {
-    public static partial class ExtensionMethods
+    public static class UserExtensions
     {
         public static IEnumerable<UserModel> WithoutPasswords(this IEnumerable<UserModel> users)
             => users.Select(x => x.WithoutPassword());

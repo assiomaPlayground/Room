@@ -58,7 +58,7 @@ namespace RoomService.Services
         }
         public bool CanCreateReservation(string id, Reservation model)
         {
-            if (!model.IsValid()) //Invalid
+            if (!model.Day.IsValid()) //Invalid
                 return false;
             if (!IsOwner<Reservation>(id, model)) //Forbid
                 return false;

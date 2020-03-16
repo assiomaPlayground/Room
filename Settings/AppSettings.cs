@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoomService.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace RoomService.Settings
         public string PasswordHash { get; set; }
         public string SaltKey { get; set; }
         public string VIKey { get; set; }
+        public ServerTimeTaskData[] ServerTasks { get; set; }
     }
 }
