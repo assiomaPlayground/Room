@@ -75,6 +75,11 @@ namespace RoomService.Controllers
 
             return new OkObjectResult(Service.Register(model).WithoutPassword());
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">The id of the user</param>
+        /// <returns>The user favorurite rooms</returns>
         [HttpGet("Favourites/{id:length(24)}")]
         public ActionResult<UserFavouriteRoomsDTO> GetUserFavouritesRooms([FromRoute] string id)
         {
@@ -86,6 +91,7 @@ namespace RoomService.Controllers
                 return NotFound();
             return new OkObjectResult(res);
         }
+        //Access control base rules
         protected override bool CanCreate(string id, UserModel model)
             => _acs.CanCreateUser(id, model);
         protected override bool CanRead(string id, string tid)
