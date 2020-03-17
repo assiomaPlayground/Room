@@ -15,34 +15,17 @@
             (click)="setBuilding(building)">{{building?.Name}}</a></li>
           </ul>
         </div>
-        <div class="btn-group btn-block m-2 " dropdown>
-          <button id="db2" dropdownToggle type="button" class="btn btn-light btn-block dropdown-toggle"
-              aria-controls="dbb2">
-            Data <span class="caret"></span>
-          </button>
-          <ul id="dbb2" *dropdownMenu class="dropdown-menu"
-              role="menu" aria-labelledby="db2">
-            <li role="menuitem"><a class="dropdown-item">Action</a></li>
-            <li role="menuitem"><a class="dropdown-item">Another action</a></li>
-            <li role="menuitem"><a class="dropdown-item">Something else here</a></li>
-            <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
-          </ul>
-        </div>
         <div class="btn-group btn-block m-2" dropdown>
-          <button id="db3" dropdownToggle type="button" class="btn btn-light btn-block dropdown-toggle"
-              aria-controls="dbb3">
-            Durata <span class="caret"></span>
-          </button>
-          <ul id="dbb2" *dropdownMenu class="dropdown-menu"
-              role="menu" aria-labelledby="db3">
-            <li role="menuitem"><a class="dropdown-item">Action</a></li>
-            <li role="menuitem"><a class="dropdown-item">Another action</a></li>
-            <li role="menuitem"><a class="dropdown-item">Something else here</a></li>
-            <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
-          </ul>
-        </div>
+          <input type="text"
+                 placeholder="Seleziona data"
+                 class="form-control m-2"
+                 bsDaterangepicker >
+            </div>
+              <timepicker [formControlName]="'Entrata'"></timepicker>
+               
+                <div>
+                  <timepicker [formControlName]="'myControl'"></timepicker>
+                </div>
         <button class="btn btn-block btn-light m-2" (click)= "Verifica()">Verifica disponibilitá</button>
       </div>
     </div>
