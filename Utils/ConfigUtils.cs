@@ -14,10 +14,24 @@ using System.Threading.Tasks;
 
 namespace RoomService.Utils
 {
+    /// <summary>
+    /// Utility class for lighten Starup.cs and group app configs
+    /// </summary>
     public class ConfigUtils
     {
+        /// <summary>
+        /// App services collection
+        /// </summary>
         private IServiceCollection ServiceCollection { get; set; }
+        /// <summary>
+        /// App Configuration files
+        /// </summary>
         private IConfiguration Configuration { get; set; }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="services">The app service collection container</param>
+        /// <param name="configuration">The app configuration files</param>
         public ConfigUtils(IServiceCollection services, IConfiguration configuration)
         {
             ServiceCollection = services;
@@ -75,6 +89,9 @@ namespace RoomService.Utils
                 };
             });
         }
+        /// <summary>
+        /// Services adder as singletons
+        /// </summary>
         public void GenerateSingletons()
         {
             //Services as singleton
