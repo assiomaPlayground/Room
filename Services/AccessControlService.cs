@@ -63,19 +63,6 @@ namespace RoomService.Services
             if (!IsOwner<Reservation>(id, model)) //Forbid
                 return false;
 
-            /* var count = _reservationService.Collection.Find
-            (
-                x => x.Target == model.Target &&
-                (
-                    x.Status == Reservation.Statuses.ATTIVA ||
-                    x.Status == Reservation.Statuses.CHECKIN ||
-                    x.Status == Reservation.Statuses.INCORSO
-                )
-           ).CountDocuments();
-
-            if (count < 1)
-                return false; 
-
             HashSet<Reservation.Statuses> filter = new HashSet<Reservation.Statuses>
             { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
 
@@ -84,9 +71,9 @@ namespace RoomService.Services
                        select res;
 
             foreach (var userRes in qres)
-                if (DataInsersects(userRes.StartTime, userRes.ExitTime, model.StartTime, model.ExitTime))
+                if (DataInsersects(userRes.Day.StartTime, userRes.Day.EndTime, model.Day.StartTime, model.Day.EndTime))
                     return false;
-            */
+            
             return true;
         }
 
