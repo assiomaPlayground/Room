@@ -13,4 +13,5 @@ export class BuildingService extends Abstractservice<Building>{
     
     
   }
+  
 }

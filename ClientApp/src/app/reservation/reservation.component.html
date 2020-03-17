@@ -7,15 +7,12 @@
         <div class="btn-group btn-block m-2" dropdown>
           <button id="db1" dropdownToggle type="button" class="btn btn-light btn-block dropdown-toggle"
               aria-controls="dbb1">
-            Edificio <span class="caret"></span>
+            {{selectedBuilding == null ? "Edificio" : selectedBuilding?.Name}} <span class="caret"></span>
           </button>
           <ul id="dbb1" *dropdownMenu class="dropdown-menu"
               role="menu" aria-labelledby="db1">
-            <li role="menuitem"><a class="dropdown-item">Action</a></li>
-            <li role="menuitem"><a class="dropdown-item">Another action</a></li>
-            <li role="menuitem"><a class="dropdown-item">Something else here</a></li>
-            <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
+            <li role="menuitem" *ngFor="let building of buildings"><a class="dropdown-item"
+            (click)="setBuilding(building)">{{building?.Name}}</a></li>
           </ul>
         </div>
         <div class="btn-group btn-block m-2 " dropdown>
@@ -46,7 +43,7 @@
             <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
           </ul>
         </div>
-        <button class="btn btn-block btn-light m-2">Verifica disponibilitá</button>
+        <button class="btn btn-block btn-light m-2" (click)= "Verifica()">Verifica disponibilitá</button>
       </div>
     </div>
   </div>

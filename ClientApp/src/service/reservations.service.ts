@@ -5,11 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from 'src/model/user';
 import { Data } from '@angular/router';
+import { BuildingService } from './building.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationsService extends Abstractservice<Reservation>{
+  
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl : String) { 
     super(http, baseUrl)
     this.type='reservation';
@@ -30,4 +32,5 @@ export class ReservationsService extends Abstractservice<Reservation>{
     return this.http.post<any>(this.baseUrl + 'api/'+this.type + "checkIn",{ "WorkSpaceId" : roomId,"Date" : date });
 
   }
-}
+  
+  }

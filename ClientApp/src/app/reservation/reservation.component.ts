@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { ReservationsService } from 'src/service/reservations.service';
 import { Reservation } from 'src/model/reservation';
+import { BuildingService } from 'src/service/building.service';
+import { Building } from 'src/model/building';
 
 @Component({
   selector: 'app-reservation',
@@ -10,7 +12,9 @@ import { Reservation } from 'src/model/reservation';
 })
 export class ReservationComponent implements OnInit {
   reservation: Reservation[];
-  constructor(private service: ReservationsService) { }
+  buildingList: Building[];
+  selectedBuilding : Building;
+  constructor(private service: ReservationsService,private buildingService: BuildingService) { }
 
   ngOnInit() {
     this.list();
@@ -27,5 +31,13 @@ export class ReservationComponent implements OnInit {
   delete(reservation:Reservation){
     this.service.delete(reservation.Id).subscribe(()=> this.list());
   }
+  verifica(){
+   // this.service.wReservation()
+  }
+  getBuildingList(){
+    this.buildingService.List().subscribe(building=> this.buildingList=building);
 }
-
+  setBuilding(building : Building){
+    this.selectedBuilding = building;
+  }
+}
