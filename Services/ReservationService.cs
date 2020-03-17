@@ -57,7 +57,7 @@ namespace RoomService.Services
 
             var Iterator = model.Clone();
             Iterator.Interval = Iterator.Interval.First();
-            Console.WriteLine("First Start: " + Iterator.Interval.StartTime + " End: " + Iterator.Interval.EndTime + " Id: " + Iterator.Id);
+            
             if (this.CanCreateReservation(Iterator))
                 Buffer.Add(Iterator.Clone());
             else
@@ -67,7 +67,6 @@ namespace RoomService.Services
             
             while ((Iterator.Interval = Iterator.Interval.Next()) != null) 
             {
-                Console.WriteLine("Start: " + Iterator.Interval.StartTime + " End: " + Iterator.Interval.EndTime + " Id: " + Iterator.Id);
                 if (this.CanCreateReservation(Iterator))
                     Buffer.Add(Iterator.Clone());
                 else
