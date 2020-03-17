@@ -81,6 +81,26 @@ namespace RoomService.Services
             else _workSpaceReservations.InsertOne(target);
         }
 
+        public override DeleteResult Delete(string id)
+        {
+            var item = Read(id);
+
+            var qres = from wsr in _workSpaceReservations.AsQueryable()
+                       where wsr.Owner == item.Target && wsr.Times.Equals(item.Day)
+                       select wsr;
+
+            WorkSpaceReservations target;
+
+            if ((target = qres.FirstOrDefault()) == null)
+                return base.Delete(id);
+
+            var edit = target.Reservations.ToHashSet();
+            edit.Remove(id);
+            target.Reservations = edit.AsEnumerable();
+            _workSpaceReservations.ReplaceOne<WorkSpaceReservations>(_wsr => _wsr.Id == target.Id, target);
+            return base.Delete(id);
+        }
+
         public bool CheckIn(string id, WorkSpaceDateDTO data)
         {
             //@TODO use external validator
