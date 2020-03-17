@@ -67,15 +67,15 @@ namespace RoomService.Services
 
             foreach (var res in qres)
             {
-                if (string.Compare(res.Day.StartTime, now) > 0) //Not yet started
+                if (string.Compare(res.Interval.StartTime, now) > 0) //Not yet started
                 {
                     res.Status = Reservation.Statuses.ATTIVA;
                 }
-                if(string.Compare(res.Day.EndTime, now) <= 0) //Expired
+                if(string.Compare(res.Interval.EndTime, now) <= 0) //Expired
                 {
                     res.Status = Reservation.Statuses.CONCLUSA;
                 }
-                if(string.Compare(res.Day.StartTime, now) <= 0 && string.Compare(res.Day.EndTime, now) > 0) //CHECKIN or INCORSO
+                if(string.Compare(res.Interval.StartTime, now) <= 0 && string.Compare(res.Interval.EndTime, now) > 0) //CHECKIN or INCORSO
                 {
                     res.Status =
                     res.Status == Reservation.Statuses.CHECKIN ?

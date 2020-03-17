@@ -72,6 +72,16 @@ namespace RoomService.Controllers
                 Forbid();
             return new OkObjectResult(Service.GetReservationByDeltaTimeAdWorkSpaceId(id, date));
         }
+        public override ActionResult<Reservation> Create([FromBody] Reservation model)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanCreate(rid, model))
+                return Forbid();
+            model = Service.Create(model);
+            if (model.Id == null)
+                return BadRequest();
+            return new OkObjectResult(model);
+        }
         protected override bool CanCreate(string id, Reservation model)
             => _acs.CanCreateReservation(id, model);
         protected override bool CanDelete(string id, string tid)

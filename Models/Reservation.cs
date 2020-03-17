@@ -39,6 +39,6 @@ namespace RoomService.Models
         public string Target { get; set; }
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public DeltaTime Day { get; set; }
+        public DeltaTime Interval { get; set; }
     }
 }

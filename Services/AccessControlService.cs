@@ -58,7 +58,7 @@ namespace RoomService.Services
         }
         public bool CanCreateReservation(string id, Reservation model)
         {
-            if (!model.Day.IsValid()) //Invalid
+            if (!model.Interval.IsValid()) //Invalid
                 return false;
             if (!IsOwner<Reservation>(id, model)) //Forbid
                 return false;
@@ -71,7 +71,7 @@ namespace RoomService.Services
                        select res;
 
             foreach (var userRes in qres)
-                if (DataInsersects(userRes.Day.StartTime, userRes.Day.EndTime, model.Day.StartTime, model.Day.EndTime))
+                if (DataInsersects(userRes.Interval.StartTime, userRes.Interval.EndTime, model.Interval.StartTime, model.Interval.EndTime))
                     return false;
             
             return true;

@@ -16,7 +16,7 @@ namespace RoomService.Services
         where TModel : IModel
     {
         void Init(IMongoSettings settings, string baseCollection);
-        void Create(TModel model);
+        TModel Create(TModel model);
         DeleteResult Delete(string id);
         TModel Read(string id);
         ReplaceOneResult Update(string id, TModel newModel);

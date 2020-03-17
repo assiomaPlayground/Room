@@ -40,8 +40,11 @@ namespace RoomService.Services
         /// Create op
         /// </summary>
         /// <param name="model">TModel type class</param>
-        public virtual void Create(TModel model) 
-            => Collection.InsertOne(model);
+        public virtual TModel Create(TModel model)
+        {
+            Collection.InsertOne(model);
+            return model;
+        }
         /// <summary>
         /// Delete op
         /// </summary>

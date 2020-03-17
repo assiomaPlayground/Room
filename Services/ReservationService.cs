@@ -3,8 +3,10 @@ using RoomService.DTO;
 using RoomService.Models;
 using RoomService.Models.Types;
 using RoomService.Settings;
+using RoomService.Utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +19,7 @@ namespace RoomService.Services
     {
         private readonly IMongoCollection<WorkSpace> _workSpaceRepo;
         private readonly IMongoCollection<WorkSpaceReservations> _workSpaceReservations;
+
         //@TODO use settings or database
         private readonly HashSet<Reservation.Statuses> _goingStatuses = new HashSet<Reservation.Statuses>
         { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
@@ -45,22 +48,59 @@ namespace RoomService.Services
                     res.Owner == UserId && 
                     _goingStatuses.Contains(res.Status)
                 ).FirstOrDefault()?.Id;
+        public override Reservation Create(Reservation model)
+        {
+            model.Interval = model.Interval.Clamp();
+            if (!model.Interval.IsValid()) 
+                return new Reservation();
+            var Buffer = new List<Reservation>();
 
-        public override void Create(Reservation model)
+            var Iterator = model.Clone();
+            Iterator.Interval = Iterator.Interval.First();
+            Console.WriteLine("First Start: " + Iterator.Interval.StartTime + " End: " + Iterator.Interval.EndTime + " Id: " + Iterator.Id);
+            if (this.CanCreateReservation(Iterator))
+                Buffer.Add(Iterator.Clone());
+            else
+                return new Reservation();
+
+            Iterator.Interval.EndTime = model.Interval.EndTime;
+            
+            while ((Iterator.Interval = Iterator.Interval.Next()) != null) 
+            {
+                Console.WriteLine("Start: " + Iterator.Interval.StartTime + " End: " + Iterator.Interval.EndTime + " Id: " + Iterator.Id);
+                if (this.CanCreateReservation(Iterator))
+                    Buffer.Add(Iterator.Clone());
+                else
+                    return new Reservation();
+
+                Iterator.Interval.EndTime = model.Interval.EndTime;
+            }
+
+            Reservation last = null;
+
+            foreach (var res in Buffer)
+                last = CreationHelper(res);
+
+            if (last != null)
+                return last;
+
+            return new Reservation();
+        }
+        private Reservation CreationHelper(Reservation model)
         {
             Collection.InsertOne(model);
 
             WorkSpaceReservations target;
 
             var qres = from wsr in _workSpaceReservations.AsQueryable()
-                       where wsr.Owner == model.Target && wsr.Times.Equals(model.Day)
+                       where wsr.Owner == model.Target && wsr.Times.Equals(model.Interval)
                        select wsr;
 
             if ((target = qres.FirstOrDefault()) == null)
                 target = new WorkSpaceReservations
                 {
                     Owner = model.Target,
-                    Times = model.Day,
+                    Times = model.Interval,
                     Reservations = new List<string>()
                 };
 
@@ -70,23 +110,24 @@ namespace RoomService.Services
 
                 var workspace = _workSpaceRepo.Find(wrs => wrs.Id == target.Owner).FirstOrDefault();
                 if (workspace == null) //error room not exists
-                    return;
+                    return new Reservation();
                 if (workspace.AllSeats < target.Reservations.Count()) //Room is full
-                    return;
+                    return new Reservation();
             }
-            else return; //Failed to add (Already exists)
+            else return new Reservation(); //Failed to add (Already exists)
 
             if (target.Id != null)
                 _workSpaceReservations.ReplaceOne<WorkSpaceReservations>(_wsr => _wsr.Id == target.Id, target);
             else _workSpaceReservations.InsertOne(target);
-        }
 
+            return model;
+        }
         public override DeleteResult Delete(string id)
         {
             var item = Read(id);
 
             var qres = from wsr in _workSpaceReservations.AsQueryable()
-                       where wsr.Owner == item.Target && wsr.Times.Equals(item.Day)
+                       where wsr.Owner == item.Target && wsr.Times.Equals(item.Interval)
                        select wsr;
 
             WorkSpaceReservations target;
@@ -100,7 +141,6 @@ namespace RoomService.Services
             _workSpaceReservations.ReplaceOne<WorkSpaceReservations>(_wsr => _wsr.Id == target.Id, target);
             return base.Delete(id);
         }
-
         public bool CheckIn(string id, WorkSpaceDateDTO data)
         {
             //@TODO use external validator
@@ -111,9 +151,9 @@ namespace RoomService.Services
             )
                 return false;
             //Valid status
-            if (string.Compare(reservation.Day.StartTime, data.Date) > 0)
+            if (string.Compare(reservation.Interval.StartTime, data.Date) > 0)
                 return false;
-            if (string.Compare(reservation.Day.EndTime, data.Date) < 0)
+            if (string.Compare(reservation.Interval.EndTime, data.Date) < 0)
                 return false;
             //Date inside prenotation
             reservation.CheckIn = reservation.CheckIn.Append(data.Date);
@@ -125,14 +165,13 @@ namespace RoomService.Services
             var reservation = Read(id);
             if (reservation.Status != Reservation.Statuses.CHECKIN)
                 return false;
-            if (string.Compare(reservation.Day.StartTime, data.Date) > 0)
+            if (string.Compare(reservation.Interval.StartTime, data.Date) > 0)
                 return false;
             //Date inside prenotation
             reservation.CheckOut = reservation.CheckOut.Append(data.Date);
             reservation.Status = Reservation.Statuses.INCORSO;
             return Update(id, reservation).IsAcknowledged;
         }
-
         public WorkSpaceReservationDTO GetReservationByDeltaTimeAdWorkSpaceId(string id, DeltaTime deltaTime)
         {
             var res = _workSpaceReservations.Find(wsr => wsr.Owner == id && wsr.Times.Equals(deltaTime)).FirstOrDefault();
@@ -143,5 +182,25 @@ namespace RoomService.Services
                 Users = res.Reservations.Count()
             };
         }
+        public bool CanCreateReservation(Reservation model)
+        {
+            if (!model.Interval.IsValid()) //Invalid
+                return false;
+
+            HashSet<Reservation.Statuses> filter = new HashSet<Reservation.Statuses>
+            { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
+            var qres = from res in Collection.AsQueryable()
+                       where model.Owner == res.Owner && filter.Contains(res.Status)
+                       select res;
+
+            foreach (var userRes in qres)
+                if (DataInsersects(userRes.Interval.StartTime, userRes.Interval.EndTime, model.Interval.StartTime, model.Interval.EndTime))
+                    return false;
+
+            return true;
+        }
+        private bool DataInsersects(string start, string end, string secStart, string secEnd)
+        => !(string.Compare(start, secStart) < 0 ?
+            string.Compare(end, secStart) < 0 : string.Compare(secEnd, start) < 0);
     }
 }

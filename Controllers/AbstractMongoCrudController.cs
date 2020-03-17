@@ -37,13 +37,13 @@ namespace RoomService.Controllers
         /// </summary>
         /// <param name="model">Json serialized TModel type in Body</param>
         [HttpPost]
-        public virtual IActionResult Create([FromBody] TModel model)
+        public virtual ActionResult<TModel> Create([FromBody] TModel model)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanCreate(rid, model))
                 return Forbid();
-            Service.Create(model);
-            return Ok();
+            model = Service.Create(model);
+            return new OkObjectResult(model);
         }
         /// <summary>
         /// Delete op

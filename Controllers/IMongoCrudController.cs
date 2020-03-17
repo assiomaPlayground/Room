@@ -15,7 +15,7 @@ namespace RoomService.Controllers
         where TModel : class, IModel
     {
         ActionResult<IEnumerable<TModel>> GetAll();
-        IActionResult Create(TModel model);
+        ActionResult<TModel> Create(TModel model);
         ActionResult<TModel> Read(string id);
         IActionResult Update(string id, TModel model);
         IActionResult Delete(string id);
