@@ -20,20 +20,34 @@ namespace RoomService.Models
         }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+
+        //Id
         public string Id { get; set; }
         [BsonRequired]
+
+        //Username
         public string Username { get; set; }
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+
+        //Password
         public string Password { get; set; }
         [BsonIgnore]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+
+        //Token
         public string Token { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+
+        //Photo
         public string Photo { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+
+        //UserType
         public UserTypes UserType { get; set; }
         [BsonIgnore][JsonIgnore]
+
+        //Owner
         public string Owner {get => Id; }
     }
 }

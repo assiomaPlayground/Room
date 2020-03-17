@@ -7,6 +7,8 @@ namespace RoomService.Models
 {
     public interface IOwnable
     {
+
+        //Owner
         public string Owner { get; }
     }
 }

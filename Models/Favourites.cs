@@ -13,18 +13,28 @@ namespace RoomService.Models
     /// </summary>
     public class Favourites : IModel, IOwnable
     {
+
+        //Id
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+
+        //Target
         public string Target { get; set; }
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+
+        //Owner
         public string Owner { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)] 
+
+        //Last
         public bool Last { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+
+        //UsageTimes
         public int UsageTimes { get; set; }
     }
 }

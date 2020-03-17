@@ -11,10 +11,16 @@ namespace RoomService.DTO
     public class WorkSpaceReservationDTO
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+
+        //Room
         public WorkSpace Room { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+
+        //Times
         public DeltaTime Times { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+
+        //Users
         public int Users { get; set; }
     }
 }
