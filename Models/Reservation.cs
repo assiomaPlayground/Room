@@ -23,12 +23,6 @@ namespace RoomService.Models
             CHECKIN,
             CANCELLATA
         }
-        public enum DayTimes
-        {
-            MATTINA,
-            POMERIGGIO,
-            SERA
-        }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
@@ -46,7 +40,5 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public DeltaTime Day { get; set; }
-        [BsonIgnore]
-        public DayTimes DayTime { get; set; }
     }
 }

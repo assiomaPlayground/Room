@@ -9,7 +9,6 @@ namespace RoomService.Models.Types
     {
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-
         public override bool Equals(object obj)
             => ((obj as DeltaTime).StartTime == this.StartTime && (obj as DeltaTime).EndTime == this.EndTime);
         public override int GetHashCode()
