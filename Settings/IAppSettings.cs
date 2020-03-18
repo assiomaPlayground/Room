@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace RoomService.Settings
 {
+    /// <summary>
+    /// Compatibility Interface for App Settings
+    /// <see cref="AppSettings"/>
+    /// </summary>
     public interface IAppSettings
     {
         string Secret { get; set; }

@@ -7,6 +7,7 @@ namespace RoomService.Settings
 {
     /// <summary>
     /// Interface for mongo database connection
+    /// <see cref="RoomServiceMongoSettings"/>
     /// </summary>
     public interface IMongoSettings
     {

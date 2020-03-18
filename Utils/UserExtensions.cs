@@ -21,7 +21,7 @@ namespace RoomService.Utils
             => users.Select(x => x.WithoutPassword());
         /// <summary>
         /// A pipe that removes the tokens from an users IEnumerable
-        /// @TODO: Delete token are now ignored by BSON and NewSoftJson
+        /// @TODO: Delete -- token are now ignored by BSON and NewSoftJson
         /// </summary>
         /// <param name="users">The user IEnumerable</param>
         /// <returns>The modified users IEnumerable</returns>
@@ -39,6 +39,7 @@ namespace RoomService.Utils
         }
         /// <summary>
         /// A pipe that removes the token from an user
+        /// @TODO: Delete -- token are now ignored by BSON and NewSoftJson 
         /// </summary>
         /// <param name="user">The user</param>
         /// <returns>The modified user</returns>

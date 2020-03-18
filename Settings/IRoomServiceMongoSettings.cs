@@ -7,6 +7,7 @@ namespace RoomService.Settings
 {
     /// <summary>
     /// Interface for specific mongo database RoomService avable collections
+    /// <see cref="RoomServiceMongoSettings"/>
     /// </summary>
     public interface IRoomServiceMongoSettings : IMongoSettings
     {
