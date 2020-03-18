@@ -7,6 +7,7 @@ import { User } from 'src/model/user';
 import { Data } from '@angular/router';
 import { BuildingService } from './building.service';
 import { datepickerAnimation } from 'ngx-bootstrap/datepicker/datepicker-animations';
+import { Building } from 'src/model/building';
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +40,7 @@ export class ReservationsService extends Abstractservice<Reservation>{
 
   
   }
+  getAllBuildings(id: String): Observable<Building[]> {
+    return this.http.get<Building[]>(this.baseUrl +'api/'+ "Building/" + id);
 } 
+}

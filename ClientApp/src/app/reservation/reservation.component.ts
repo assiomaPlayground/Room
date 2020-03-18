@@ -16,6 +16,7 @@ export class ReservationComponent implements OnInit {
   reservation: Reservation[];
   buildingList: Building[];
   selectedBuilding : Building;
+  rooms : any;
   constructor(private service: ReservationsService,private buildingService: BuildingService) { }
 
   ngOnInit() {
@@ -80,13 +81,12 @@ export class ReservationComponent implements OnInit {
     
       default: return;
      }
-    
+    this.service.availableRooms( this.selectedBuilding.Id , startDate, endDate).subscribe(result => this.rooms=result);
   }
   getBuildingList(){
     this.buildingService.List().subscribe(building=> this.buildingList=building);
 }
-  setBuilding(building : Building){
-    this.selectedBuilding = building;
+
   }
   
-}
+
