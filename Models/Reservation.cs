@@ -15,76 +15,75 @@ namespace RoomService.Models
     /// </summary>
     public class Reservation : IModel, IOwnable
     {
-
         /// <summary>
-        /// reservation status of users
+        /// Reservation status of users
+        /// <para>
+        ///     Attiva  when the start time is before the current time and whose end time is after the current time
+        ///     Incorso where the reservation is in force
+        ///     Conclusa ended when checkout is done
+        ///     Checkin when the user uses the booked service 
+        ///     Cancellata when the user cancels his reservation
+        /// </para>
         /// </summary>
         public enum Statuses
         {
-
-            /// <summary>
-            /// reservation status of users
-            /// Attiva  when the start time is before the current time and whose end time is after the current time
-            /// Incorso where the reservation is in force
-            /// Conclusa ended when checkout is done
-            /// Checkin when the user uses the booked service 
-            /// Cancellata when the user cancels his reservation
-            /// </summary>
             ATTIVA,
             INCORSO,
             CONCLUSA,
             CHECKIN,
             CANCELLATA
         }
-
-
+        /// <summary>
+        /// Id <see cref="IModel"/>
+        /// </summary>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-
-        /// <summary>
-        /// Id
-        /// </summary>
         public string Id { get; set; }
-        [BsonRequired]
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
         /// <summary>
         /// Status
-        /// Un valued properties are simply ignored
+        /// Required reservation status prop
         /// </summary>
+        [BsonRequired]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public Statuses Status { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-
         /// <summary>
         /// Checkin
-        /// Un valued properties are simply ignored
         /// </summary>
-        public IEnumerable<string> CheckIn   { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-
+        public IEnumerable<string> CheckIn   { get; set; }
         /// <summary>
         /// Checkout
         /// </summary>
-        public IEnumerable<string> CheckOut  { get; set; }
-        [BsonRequired]
-
-        /// <summary>
-        /// Owner
-        /// </summary>
-        public string Owner  { get; set; }
-        [BsonRequired]
-
-        /// <summary>
-        /// Target
-        /// Un valued properties are simply ignored
-        /// </summary>
-        public string Target { get; set; }
-        [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-
+        public IEnumerable<string> CheckOut  { get; set; }
         /// <summary>
-        /// Interval of DeltaTime
+        /// Owner in this case the user of the reservation
+        /// Refers the UserId
+        /// <see cref="IOwnable"/>
         /// </summary>
+        [BsonRequired]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public string Owner  { get; set; }
+        /// <summary>
+        /// Target refers the WorkSpace Id
+        /// Un valued properties are simply ignored
+        /// @TODO: ITargetable?
+        /// </summary>
+        [BsonRequired]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public string Target { get; set; }
+        /// <summary>
+        /// Interval of DeltaTime describes the reservation start and end day/hour
+        /// </summary>
+        [BsonRequired]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public DeltaTime Interval { get; set; }
+        /// <summary>
+        /// Refers WorkSpaceReservations Id
+        /// the reservation instance in workspace and deltatime context
+        /// <see cref="WorkSpaceReservations"/>
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public string ReservationSocket { get; set; }
     }
 }

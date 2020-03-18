@@ -12,8 +12,8 @@ import { JsonPipe } from '@angular/common';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
-reservations: any[];
-wreservations: any[];
+  
+  public wreservations: Array<any> = new Array<any>();
 
   constructor(private service: ReservationsService) { }
 
@@ -21,31 +21,10 @@ wreservations: any[];
     this.list();
   }
   list(){
-    const res= JSON.parse(localStorage.getItem('currentUser')) ;
-   
-    this.service.reservation(res.Id).subscribe(reservations=>{
-      this.reservations=reservations; 
-      this.reservations.forEach(reservation => {
-       
-       
-        this.service.wReservation(
-          reservation.Target,
-          reservation.Interval.StartTime,
-          reservation.Interval.EndTime,
-          
-        )
-        
-        
-        .subscribe(wreservation=>{
-          this.wreservations=wreservation;
-          this.wreservations.forEach(w=>{
-            localStorage.setItem('prova',JSON.stringify(w))
-          })
-        });
-      });  
-    });
- 
-   
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+    this.service.userReservationsWorkSpaceavailability(user.Id).subscribe(res => {
+      this.wreservations = res;
+    })
   }
 }
 

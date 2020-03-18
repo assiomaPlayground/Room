@@ -39,6 +39,23 @@ namespace RoomService.Services
             => Collection.DeleteMany(res => res.Target == id);
         public IEnumerable<Reservation> GetUserReservations(string id)
             => Collection.Find(res => res.Owner == id).ToEnumerable();
+        
+        public IEnumerable<WorkSpaceAvailabilityDTO> GetUserReservationsAndWorkSpaces(string id)
+        {
+            var reservations = Collection.Find(res => res.Owner == id).ToEnumerable();
+            var qres = from res in reservations.AsQueryable()
+                       join workspace in _workSpaceRepo.AsQueryable() on res.Target equals workspace.Id
+                       join workres in _workSpaceReservations.AsQueryable() on res.ReservationSocket equals workres.Id
+                       select new WorkSpaceAvailabilityDTO
+                       {
+                           ReservationId = res.Id,
+                           Availability = workspace.AllSeats - workres.Reservations.Count(),
+                           Interval = res.Interval,
+                           TargetWorkSpace = workspace
+                       };
+
+            return qres.AsEnumerable();
+        }
 
         public string FindOnGoindReservationIdByWorkSpaceAndUserIds(string WorkSpaceId, string UserId)
             =>
@@ -119,6 +136,8 @@ namespace RoomService.Services
                 _workSpaceReservations.ReplaceOne<WorkSpaceReservations>(_wsr => _wsr.Id == target.Id, target);
             else _workSpaceReservations.InsertOne(target);
 
+            model.ReservationSocket = target.Id;
+            Update(model.Id, model);
             return model;
         }
         public override DeleteResult Delete(string id)

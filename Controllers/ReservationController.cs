@@ -72,6 +72,14 @@ namespace RoomService.Controllers
                 Forbid();
             return new OkObjectResult(Service.GetReservationByDeltaTimeAdWorkSpaceId(id, date));
         }
+        [HttpGet("WorkSpace/User/{id:length(24)}")]
+        public ActionResult<IEnumerable<WorkSpaceAvailabilityDTO>> GetUserReservationsAndWorkSpaces(string id)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!this._acs.IsAuth(rid))
+                return Forbid();
+            return new OkObjectResult(Service.GetUserReservationsAndWorkSpaces(id));
+        }
         public override ActionResult<Reservation> Create([FromBody] Reservation model)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;

@@ -9,8 +9,9 @@ namespace RoomService.DTO
 {
     public class WorkSpaceAvailabilityDTO
     {
+        public string ReservationId { get; set; }
         public WorkSpace TargetWorkSpace { get; set; }
-        public int Availability { get; set; }
         public DeltaTime Interval { get; set; }
+        public int Availability { get; set; }
     }
 }

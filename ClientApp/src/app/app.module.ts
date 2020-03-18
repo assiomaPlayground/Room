@@ -35,7 +35,9 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
-
+import { MomentModule } from 'ngx-moment';
+import { OrderModule } from 'ngx-order-pipe';
+import 'moment/locale/it';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     NgxQRCodeModule,
     ZXingScannerModule,
     BrowserAnimationsModule,
+    MomentModule,
+    OrderModule,
     ButtonsModule.forRoot(),
     TimepickerModule.forRoot(),
     BsDropdownModule.forRoot(),

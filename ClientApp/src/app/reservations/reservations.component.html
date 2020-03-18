@@ -8,13 +8,14 @@
             <div class="card-body">  
               <h4 class="card-title">LE MIE PRENOTAZIONI</h4>
          
-            <span *ngFor="let reservation of wreseravtion">
-           
-              <ul class="list-group">
-                <li class="list-group-item">{{reservation.Room.Name}} </li>
-               
+            <div *ngFor="let reservation of wreservations | orderBy: 'reservation.Interval.StartTime'">
+              <ul class="list-group m-2">
+                <li class="list-group-item">Stanza: {{reservation.TargetWorkSpace.Name}}</li>
+                <li class="list-group-item">Disponibilitá: {{reservation.Availability}} su {{reservation.TargetWorkSpace.AllSeats}}</li>
+                <li class="list-group-item">Inizio: {{reservation.Interval.StartTime | amLocale:'it' | amTimeAgo}} </li>
+                <li class="list-group-item">Fino: {{reservation.Interval.EndTime | amLocale:'it' | amCalendar}}</li>
               </ul>
-            </span>    
+            </div>    
       </div>
        <div class="card-footer">
         <i class="fa fa-home fa-2x" aria-hidden="true" routerLink="/home" ></i>
