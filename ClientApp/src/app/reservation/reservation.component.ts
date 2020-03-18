@@ -21,6 +21,7 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit() {
     this.list();
+    this.getBuildingList();
   }
   list(){
     this.service.List().subscribe(reservation=> this.reservation= reservation);
@@ -83,8 +84,8 @@ export class ReservationComponent implements OnInit {
      }
     this.service.availableRooms( this.selectedBuilding.Id , startDate, endDate).subscribe(result => this.rooms=result);
   }
-  getBuildingList(id : String){
-    this.service.getAllBuildings(id).subscribe(building=> this.buildingList=building);
+  getBuildingList(){
+    this.service.getAllBuildings().subscribe(building=> this.buildingList=building);
 }
 
   }
