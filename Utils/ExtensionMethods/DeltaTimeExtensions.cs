@@ -103,7 +103,6 @@ namespace RoomService.Utils
             if (end > last)
                 return null;
             //Return the new DeltaTime having "o" (ISO 8601) DateTime string formatted 
-            Console.WriteLine(start.ToString("o") + " " + end.ToString("o"));
             return new DeltaTime { StartTime = start.ToString("o"), EndTime = end.ToString("o") };
         }
         /// <summary>

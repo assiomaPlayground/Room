@@ -64,17 +64,21 @@ namespace RoomService.Services
             foreach (var workSpace in qres)
             {
                 Tester.Target = workSpace.Id;
-                var Result = Heper(Tester);
+                var Result = AvailabilityHeper(Tester);
                 if (Result.Result)
                 {
                     var resultBuffer = new List<WorkSpaceAvailabilityDTO>();
                     foreach (var item in Result.Buffer)
                     {
                         var avbl = GetReservationByDeltaTimeAdWorkSpaceId(item.Target, item.Interval);
+                        WorkSpace wrksp = null;
+                        if (avbl == null)
+                            wrksp = _workSpaceRepo.Find<WorkSpace>(ws => ws.Id == item.Target).FirstOrDefault();
                         resultBuffer.Add(new WorkSpaceAvailabilityDTO
                         {
-                            TargetWorkSpace = avbl.Room,
-                            Availability = avbl.Room.AllSeats - avbl.Users
+                            TargetWorkSpace = avbl != null ? avbl.Room : wrksp,
+                            Availability = avbl != null ? avbl.Room.AllSeats - avbl.Users : wrksp.AllSeats,
+                            Interval = item.Interval
                         });
                     }
                     return new BuildingAvailabilityDTO { TargetBuilding = building, Available = resultBuffer };
@@ -82,7 +86,7 @@ namespace RoomService.Services
             }
             return null;
         }
-        private BoolAndBuffer Heper(Reservation model)
+        private BoolAndBuffer AvailabilityHeper(Reservation model)
         {
             model.Interval = model.Interval.Clamp();
             if (!model.Interval.IsValid())

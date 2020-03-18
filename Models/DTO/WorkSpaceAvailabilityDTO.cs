@@ -1,4 +1,5 @@
 ﻿using RoomService.Models;
+using RoomService.Models.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace RoomService.DTO
     {
         public WorkSpace TargetWorkSpace { get; set; }
         public int Availability { get; set; }
+        public DeltaTime Interval { get; set; }
     }
 }
