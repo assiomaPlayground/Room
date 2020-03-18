@@ -34,6 +34,17 @@ namespace RoomService.Controllers
                 return NotFound();
             return item;
         }
+        [HttpGet("CheckAvailability/{id:length(24)}")]
+        public ActionResult<BuildingAvailabilityDTO> CheckAvailability([FromRoute] string id, [FromQuery] string start, [FromQuery] string end)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanRead(rid, id))
+                return Forbid();
+            var item = Service.GetAvailableBuildingSpaces(id, start, end);
+            if (item == null)
+                return NotFound();
+            return item;
+        }
         protected override bool CanCreate(string id, Building model)
             => _acs.IsAdmin(id);
         protected override bool CanDelete(string id, string tid)

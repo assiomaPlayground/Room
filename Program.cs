@@ -18,7 +18,11 @@ namespace RoomService
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureAppConfiguration( (hostingContext, config) => 
+                {
+                    config.AddJsonFile("./Utils/ResponseModels/responsemetasettings.json", optional: false, reloadOnChange: true);
+                })
+                .ConfigureWebHostDefaults( webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });

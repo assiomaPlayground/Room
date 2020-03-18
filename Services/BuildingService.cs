@@ -18,10 +18,13 @@ namespace RoomService.Services
         /// Join repository
         /// </summary>
         private readonly WorkSpaceService workSpaceService;
+
+        private readonly IMongoCollection<WorkSpaceReservations> _workSpaceReservationsRepo;
         public BuildingService(IRoomServiceMongoSettings settings, WorkSpaceService workSpaceService)
         {
             base.Init(settings, settings.BuildingCollection);
             this.workSpaceService = workSpaceService;
+            this._workSpaceReservationsRepo = Database.GetCollection<WorkSpaceReservations>(settings.ReservationCollection);
         }
         /// <summary>
         /// Join Building RoomsId with workspace data
@@ -34,17 +37,28 @@ namespace RoomService.Services
             var qres =
                 from space in workSpaceService.Collection.AsQueryable()
                 where building.Rooms.Contains(space.Id)
-                select new WorkSpace
-                {
-                    Id = space.Id,
-                    AllSeats = space.AllSeats,
-                    Building = space.Building,
-                    Features = space.Features,
-                    Name = space.Name,
-                    Pivot = space.Pivot,
-                    SubMap = space.SubMap
-                };
+                select space;
             return new BuildingSpacesDTO { Id = building.Id, Map = building.Map, Name = building.Name, Rooms = qres.ToArray() };
+        }
+
+        public BuildingAvailabilityDTO GetAvailableBuildingSpaces(string id, string start, string end)
+        {
+            var building = Read(id); if (building == null) return null;
+            var qres =
+                from space in workSpaceService.Collection.AsQueryable()
+                where building.Rooms.Contains(space.Id)
+                join res in _workSpaceReservationsRepo.AsQueryable() on space.Id equals res.Owner
+                into WorkSpaces from ews in WorkSpaces.DefaultIfEmpty()
+                where ews.Reservations.Count() < space.AllSeats
+                select new WorkSpaceAvailabilityDTO{ 
+                    TargetWorkSpace = space,
+                    Availability = ews == null ? space.AllSeats : space.AllSeats - ews.Reservations.Count()
+                };
+            return new BuildingAvailabilityDTO
+            {
+                TargetBuilding = building,
+                Available = qres.ToArray()
+            };
         }
 
         public override DeleteResult Delete(string id)
