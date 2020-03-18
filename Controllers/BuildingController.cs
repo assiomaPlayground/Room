@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RoomService.DTO;
 using RoomService.Models;
+using RoomService.Models.Types;
 using RoomService.Services;
 using System;
 using System.Collections.Generic;
@@ -34,13 +35,13 @@ namespace RoomService.Controllers
                 return NotFound();
             return item;
         }
-        [HttpGet("CheckAvailability/{id:length(24)}")]
-        public ActionResult<BuildingAvailabilityDTO> CheckAvailability([FromRoute] string id, [FromQuery] string start, [FromQuery] string end)
+        [HttpPost("CheckAvailability/{id:length(24)}")]
+        public ActionResult<BuildingAvailabilityDTO> CheckAvailability([FromRoute] string id, [FromBody] DeltaTime Interval)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanRead(rid, id))
                 return Forbid();
-            var item = Service.GetAvailableBuildingSpaces(id, start, end);
+            var item = Service.GetAvailableBuildingSpaces(rid, id, Interval);
             if (item == null)
                 return NotFound();
             return item;

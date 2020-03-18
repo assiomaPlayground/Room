@@ -20,9 +20,7 @@ namespace RoomService.Utils
             => new Reservation
             {
                 Id = target.Id,
-                CheckIn = target.CheckIn,
-                CheckOut = target.CheckOut,
-                Interval = target.Interval,
+                Interval = new Models.Types.DeltaTime { StartTime = target.Interval.StartTime, EndTime = target.Interval.EndTime },
                 Owner = target.Owner,
                 Status = target.Status,
                 Target = target.Target

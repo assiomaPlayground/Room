@@ -174,6 +174,8 @@ namespace RoomService.Services
         public WorkSpaceReservationDTO GetReservationByDeltaTimeAdWorkSpaceId(string id, DeltaTime deltaTime)
         {
             var res = _workSpaceReservations.Find(wsr => wsr.Owner == id && wsr.Times.Equals(deltaTime)).FirstOrDefault();
+            if (res == null)
+                return null;
             return new WorkSpaceReservationDTO
             {
                 Room = _workSpaceRepo.Find<WorkSpace>(wrk => wrk.Id == id).FirstOrDefault(),
@@ -191,6 +193,11 @@ namespace RoomService.Services
             var qres = from res in Collection.AsQueryable()
                        where model.Owner == res.Owner && filter.Contains(res.Status)
                        select res;
+
+            var wsr = GetReservationByDeltaTimeAdWorkSpaceId(model.Target, model.Interval);
+            if (wsr != null)
+                if (wsr.Room.AllSeats <= wsr.Users)
+                    return false;
 
             foreach (var userRes in qres)
                 if (DataInsersects(userRes.Interval.StartTime, userRes.Interval.EndTime, model.Interval.StartTime, model.Interval.EndTime))

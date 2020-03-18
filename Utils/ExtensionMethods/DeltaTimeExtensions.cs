@@ -93,7 +93,7 @@ namespace RoomService.Utils
                 end   = end  .AddHours(_afternoonEndHour   - _morningStartHour);
             }
             //Add a Day if the next unit is the last of the day and restart from first time hook
-            if (start.Hour == _afternoonStartHour)
+            else if (start.Hour == _afternoonStartHour)
             {
                 start = start.AddDays(1).AddHours(_morningStartHour - _afternoonStartHour);
                 end   = end  .AddDays(1).AddHours(_morningEndHour   - _afternoonStartHour);
@@ -103,6 +103,7 @@ namespace RoomService.Utils
             if (end > last)
                 return null;
             //Return the new DeltaTime having "o" (ISO 8601) DateTime string formatted 
+            Console.WriteLine(start.ToString("o") + " " + end.ToString("o"));
             return new DeltaTime { StartTime = start.ToString("o"), EndTime = end.ToString("o") };
         }
         /// <summary>
