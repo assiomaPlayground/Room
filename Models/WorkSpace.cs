@@ -18,26 +18,38 @@ namespace RoomService.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
 
-        //Id
+        /// <summary>
+        /// Id
+        /// Un valued properties are simply ignored
+        /// </summary>
         public string Id { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
-        //Name
+        /// <summary>
+        /// Name
+        /// Un valued properties are simply ignored
+        /// </summary>
         public string Name { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
-        //ICollection
-        //Features
+        /// <summary>
+        /// Features of ICollection
+        /// </summary>
         public ICollection<string> Features { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         [BsonRequired]
 
-        //AllSeats
+        /// <summary>
+        /// AllSeats
+        /// </summary>
         public int AllSeats { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         [BsonRequired]
 
-        //SubMap
+        /// <summary>
+        /// SubMap
+        /// Un valued properties are simply ignored
+        /// </summary>
         public string SubMap { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)] 
 
@@ -45,12 +57,15 @@ namespace RoomService.Models
         public string Building { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)] 
 
-        //Point2d
-        //Pivot
+        /// <summary>
+        /// Pivot of Point2d
+        /// </summary>
         public Point2d Pivot { get; set; }
         [BsonIgnore][JsonIgnore] 
         
-        //Owner
+        /// <summary>
+        /// Owner
+        /// </summary>
         public string Owner { get => Building; }
     }
 }

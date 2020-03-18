@@ -15,22 +15,32 @@ namespace RoomService.Models
     public class Building : IModel
     {
 
-        //Id
+        /// <summary>
+        /// Id
+        /// Un valued properties are simply ignored
+        /// </summary>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)] 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
-        //Name
+        /// <summary>
+        /// Name
+        /// Un valued properties are simply ignored
+        /// </summary>
         public string Name { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
-        //Map
+        /// <summary>
+        /// Map
+        /// Un valued properties are simply ignored
+        /// </summary>
         public string Map { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
-        //ICollection
-        //Rooms
+        /// <summary>
+        /// Rooms
+        /// </summary>
         public ICollection<string> Rooms { get; set; }
     }
 }

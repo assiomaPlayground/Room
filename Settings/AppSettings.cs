@@ -15,22 +15,27 @@ namespace RoomService.Settings
         /// Used secret for Token Generation
         /// </summary>
         public string Secret { get; set; }
+
         /// <summary>
-        /// Token expire time
+        /// Token expire time duration
         /// </summary>
         public double TokenDuration { get; set; }
+
         /// <summary>
-        /// Password Hash string
+        /// Password Hash string (PasswordHash)
         /// </summary>
         public string PasswordHash { get; set; }
+
         /// <summary>
         /// Password Hash Salt Key
         /// </summary>
         public string SaltKey { get; set; }
+
         /// <summary>
         /// Password Hash VI Key
         /// </summary>
         public string VIKey { get; set; }
+
         /// <summary>
         /// Clock based Server Tasks Array
         /// </summary>

@@ -12,15 +12,21 @@ namespace RoomService.DTO
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
-        //Room
+        /// <summary>
+        /// Room
+        /// </summary>
         public WorkSpace Room { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
-        //Times
+        /// <summary>
+        /// Times of DeltaTime
+        /// </summary>
         public DeltaTime Times { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
-        //Users
+        /// <summary>
+        /// Users
+        /// </summary>
         public int Users { get; set; }
     }
 }

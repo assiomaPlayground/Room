@@ -10,7 +10,9 @@ namespace RoomService.Models
     /// </summary>
     public interface IModel
     {
-        //Id
+        /// <summary>
+        /// Id
+        /// </summary>
         public string Id { get; set; }
     }
 }

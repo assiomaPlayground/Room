@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 namespace RoomService.Settings
 {
     /// <summary>
-    /// Interface for mongo database connection
+    /// Interface for Mongo database connection
     /// <see cref="RoomServiceMongoSettings"/>
     /// </summary>
     public interface IMongoSettings
     {
+        /// <summary>
+        /// Connection
+        /// </summary>
         string ConnectionString { get; set; }
+
+        /// <summary>
+        /// Name of Database
+        /// </summary>
         string DatabaseName     { get; set; }
     }
 }

@@ -9,32 +9,42 @@ using System.Threading.Tasks;
 namespace RoomService.Models
 {
     /// <summary>
-    /// Model for favourites data
+    /// Model for Favourites data
     /// </summary>
     public class Favourites : IModel, IOwnable
     {
 
-        //Id
+        /// <summary>
+        /// Id
+        /// </summary>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
-        //Target
+        /// <summary>
+        /// Target
+        /// </summary>
         public string Target { get; set; }
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
-        //Owner
+        /// <summary>
+        /// Owner
+        /// </summary>
         public string Owner { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)] 
 
-        //Last
+        /// <summary>
+        /// Last
+        /// </summary>
         public bool Last { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
-        //UsageTimes
+        /// <summary>
+        /// <param name = "UsageTimes"></param>
+        /// </summary>
         public int UsageTimes { get; set; }
     }
 }

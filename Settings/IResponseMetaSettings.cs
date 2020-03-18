@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace RoomService.Settings
 {
+    /// <summary>
+    /// Interface for ResponseMetaSettings
+    /// <see cref="ResponseMetaSettings"/>
+    /// </summary>
     interface IResponseMetaSettings
     {
     }

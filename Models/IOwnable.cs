@@ -5,10 +5,17 @@ using System.Threading.Tasks;
 
 namespace RoomService.Models
 {
+
+    /// <summary>
+    /// Interface for Ownable
+    /// <see cref="Ownable"/>
+    /// </summary>
     public interface IOwnable
     {
 
-        //Owner
+        /// <summary>
+        /// Owner
+        /// </summary>
         public string Owner { get; }
     }
 }

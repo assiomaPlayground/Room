@@ -12,11 +12,15 @@ namespace RoomService.DTO
     public class AuthDTO
     {
 
-        //Username
+        /// <summary>
+        /// Username
+        /// </summary>
         [Required]
         public string Username { get; set; }
         
-        //Password
+        /// <summary>
+        /// Password
+        /// </summary>
         [Required]
         public string Password { get; set; }
     }

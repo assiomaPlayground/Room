@@ -5,19 +5,35 @@ using System.Threading.Tasks;
 
 namespace RoomService.Models.Types
 {
+
+    /// <summary>
+    /// booking times for buildings and rooms
+    /// </summary>
     public class DeltaTime
     {
-        //StarTime
+        /// <summary>
+        /// StartTime 
+        /// </summary>
         public string StartTime { get; set; }
 
-        //EndTime
+        /// <summary>
+        /// EndTime
+        /// </summary>
         public string EndTime { get; set; }
 
-        //Equals
+        /// <summary>
+        /// Equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns>the result is a new DeltaTime</returns>
         public override bool Equals(object obj)
             => ((obj as DeltaTime).StartTime == this.StartTime && (obj as DeltaTime).EndTime == this.EndTime);
 
-        //GetHashCode
+        /// <summary>
+        /// GetHashCode
+        /// </summary>
+        /// <returns>HashCode
+        /// </returns>
         public override int GetHashCode()
             => base.GetHashCode();
     }

@@ -13,41 +13,70 @@ namespace RoomService.Models
     /// </summary>
     public class UserModel : IModel, IOwnable
     {
+
+        /// <summary>
+        /// UserTypes
+        /// </summary>
         public enum UserTypes
         {
+
+            /// <summary>
+            /// User who is given the opportunity to reserve a seat in the rooms to which access is provided
+            /// Admin which configures, manages and maintains the reservation of jobs and meeting rooms
+            /// </summary>
             USER,
             ADMIN
         }
+
+        
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
 
-        //Id
+        /// <summary>
+        /// Id
+        /// </summary>
         public string Id { get; set; }
         [BsonRequired]
 
-        //Username
+        /// <summary>
+        /// Username
+        /// Un valued properties are simply ignored
+        /// </summary>
         public string Username { get; set; }
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
-        //Password
+        /// <summary>
+        /// Password
+        /// Un valued properties are simply ignored
+        /// </summary>
         public string Password { get; set; }
         [BsonIgnore]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
-        //Token
+        /// <summary>
+        /// Token
+        /// Un valued properties are simply ignored
+        /// </summary>
         public string Token { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
-        //Photo
+
+        /// <summary>
+        /// Photo
+        /// </summary>
         public string Photo { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
-        //UserType
+        /// <summary>
+        /// UserType
+        /// </summary>
         public UserTypes UserType { get; set; }
         [BsonIgnore][JsonIgnore]
 
-        //Owner
+        /// <summary>
+        /// Owner
+        /// </summary>
         public string Owner {get => Id; }
     }
 }

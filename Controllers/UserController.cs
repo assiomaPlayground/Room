@@ -17,14 +17,33 @@ namespace RoomService.Controllers
     /// </summary>
     public class UserController : AbstractMongoCrudController<UserModel, UserService>
     {
+
+        /// <summary>
+        /// acs AccessControlService
+        /// </summary>
         private readonly AccessControlService _acs;
+
+        /// <summary>
+        /// UserController
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="acs"></param>
         public UserController(UserService service, AccessControlService acs) : base(service) 
         {
             this._acs = acs;
         }
+
+        /// <summary>
+        /// InRoom
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>if null result not Found</returns>
         [HttpGet("InRoom/{id:length(24)}")]
+
+        
         public ActionResult<IEnumerable<UserModel>> GetUsersInRoom([FromRoute] string id)
         {
+            
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanRead(rid, id))
                 return Forbid();
@@ -50,6 +69,11 @@ namespace RoomService.Controllers
                 return NotFound();
             return item;
         }
+
+        /// <summary>
+        /// Secure user data get
+        /// </summary>
+        /// <returns>if null Bad Request</returns>
         public override ActionResult<IEnumerable<UserModel>> GetAll() 
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
@@ -60,6 +84,8 @@ namespace RoomService.Controllers
                 return BadRequest();
             return new OkObjectResult(res);
         }
+
+        
         [AllowAnonymous]
         [HttpPost("Token")]
         public UserModel GenerateToken([FromBody] AuthDTO model)

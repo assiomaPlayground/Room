@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace RoomService.Controllers
 {
     /// <summary>
-    /// Abstract Crud controller crud ops are virtual
+    /// Abstract Crud Controller crud ops are virtual
     /// </summary>
-    /// <typeparam name="TModel">A target class model type</typeparam>
+    /// <typeparam name="TModel">A Target class model type</typeparam>
     /// <typeparam name="TService">Service type that carries out the Crud ops</typeparam>
     [Authorize] 
     [ApiController]
@@ -26,12 +26,14 @@ namespace RoomService.Controllers
         /// Service ref
         /// </summary>
         protected TService Service { get; private set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="service">Injected service</param>
         public AbstractMongoCrudController(TService service)
             => this.Service = service;
+
         /// <summary>
         /// Create op
         /// </summary>
@@ -49,7 +51,7 @@ namespace RoomService.Controllers
         /// Delete op
         /// </summary>
         /// <param name="id">The id : 24 string to delete</param>
-        /// <returns>True : success, false : else</returns>
+        /// <returns>True : success,  false : else</returns>
         [HttpDelete("{id:length(24)}")]
         public virtual IActionResult Delete(string id)
         {

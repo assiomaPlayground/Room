@@ -7,10 +7,14 @@ namespace RoomService.DTO
 {
     public class WorkSpaceDateDTO
     {
-        //WorkspaceId
+        /// <summary>
+        /// Id of WorkSpace
+        /// </summary>
         public string WorkSpaceId { get; set; }
 
-        //Date
+        /// <summary>
+        /// Date
+        /// </summary>
         public string Date { get; set; }
     }
 }
