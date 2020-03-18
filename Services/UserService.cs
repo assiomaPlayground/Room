@@ -59,30 +59,52 @@ namespace RoomService.Services
             this._favouriteRepo   = Database.GetCollection<Favourites> (settings.FavouritesCollection);
             this._workSpaceRepo   = Database.GetCollection<WorkSpace>  (settings.WorkSpaceCollection);
         }
-
+        /// <summary>
+        /// Execute an user creation
+        /// </summary>
+        /// <param name="model">The user data to insert</param>
+        /// <returns>The created user in database and his token</returns>
         public UserModel Register(UserModel model)
         {
             this.Create(model);
             return this.Login(new AuthDTO { Password = _cryptProvider.Decrypt(model.Password), Username = model.Username });
         }
+        /// <summary>
+        /// Create an user
+        /// </summary>
+        /// <param name="model">The user data to insert</param>
+        /// <returns>The created user without token and password</returns>
         public override UserModel Create(UserModel model)
         {
             model.Password = _cryptProvider.Encrypt(model.Password);
             return base.Create(model);
         }
+        /// <summary>
+        /// Update an user
+        /// </summary>
+        /// <param name="id">Target User id</param>
+        /// <param name="newModel">Ner User data</param>
+        /// <returns>Replace result class by mongo driver</returns>
         public override ReplaceOneResult Update(string id, UserModel newModel)
         {
             newModel.Password = _cryptProvider.Encrypt(newModel.Password);
             return base.Update(id, newModel);
         }
+        /// <summary>
+        /// Execute the login Method
+        /// </summary>
+        /// <param name="authData">The simplified user model AuthData has only username and password</param>
+        /// <returns>The created user with token</returns>
         public UserModel Login(AuthDTO authData)
         {
-            
+            //Search for user in db username is a key in db could be indexed
             var user = Collection.Find<UserModel>
                 (user =>
                      user.Username == authData.Username 
                 ).FirstOrDefault<UserModel>();
+            //Fail
             if (user == null) return new UserModel();
+            //If user is found check for password
             if (_cryptProvider.Decrypt(user.Password) != authData.Password)
                 return new UserModel();
             //@TODO: use a token helper service?
@@ -93,31 +115,43 @@ namespace RoomService.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("userId", user.Id.ToString())
+                    new Claim("userId", user.Id.ToString()) //Save in identity claims the userId
                 }),
                 Expires = DateTime.UtcNow.AddDays(_TokenLifetime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-
+            //Write the generated token
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
-            
+            //return the user
             return user;
         }
         /// <summary>
-        /// 
+        /// Delete an user
+        /// Could chain a reservation delete and a favourites delete
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">the user to delete</param>
+        /// <returns>The delete result mongo driver class</returns>
         public override DeleteResult Delete(string id)
         {
+            //@TODO: delete from here
             //_reservationRepo.DeleteByUserId(id); //Delete user reservation //Cascade delete
             //_favouriteRepo.DeleteByUserId(id); //Delete user favourites //Cascade delete
             return base.Delete(id);
         }
+        /// <summary>
+        /// Find an user by his username
+        /// </summary>
+        /// <remarks>Username is a key in the database</remarks>
+        /// <param name="username">The string of the user to find</param>
+        /// <returns>The found User Model</returns>
         public UserModel FindByUserName(string username)
             => Collection.Find(user => user.Username == username).FirstOrDefault();
-
+        /// <summary>
+        /// Gets the favourite rooms (WorkSpace) of a target user
+        /// </summary>
+        /// <param name="id">The target user id</param>
+        /// <returns>And user and a collection of his favourites rooms</returns>
         public UserFavouriteRoomsDTO GetUserFavouritesRooms(string id)
         {
             var favs = _favouriteRepo.Find(fav => fav.Owner == id).ToEnumerable();
@@ -132,6 +166,11 @@ namespace RoomService.Services
                        };
             return new UserFavouriteRoomsDTO { Owner = user, Rooms = qres.ToArray() };
         }
+        /// <summary>
+        /// Look for all users inside a WorkSpace using their checkin status
+        /// </summary>
+        /// <param name="id">The WorkSpace id</param>
+        /// <returns>IEnumerable of found users</returns>
         public IEnumerable<UserModel> GetUsersInRoom(string id)
         {
             return from res in _reservationRepo.AsQueryable()
