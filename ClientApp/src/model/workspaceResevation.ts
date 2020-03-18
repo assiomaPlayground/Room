@@ -1,6 +1,6 @@
 import { Data } from "@angular/router";
 
 export class WorkspaceReservation {
-    Owner: String;
+    Owner: string;
     DeltaTime:Date;
 }

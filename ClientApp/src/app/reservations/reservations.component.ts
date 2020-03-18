@@ -4,6 +4,7 @@ import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 import { User } from 'src/model/user';
 import { Reservation } from 'src/model/reservation';
 import { WorkspaceReservation } from 'src/model/workspaceResevation';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-reservations',
@@ -11,32 +12,44 @@ import { WorkspaceReservation } from 'src/model/workspaceResevation';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
-reservations: Reservation[];
-wreservations: WorkspaceReservation[];
+reservations: any[];
+wreservations: any[];
 
   constructor(private service: ReservationsService) { }
 
   ngOnInit() {
     this.list();
-    this.wreservation();
   }
   list(){
     const res= JSON.parse(localStorage.getItem('currentUser')) ;
-      
-    this.service.reseravtion(res.Id).subscribe(reservations=>this.reservations=reservations );
-  }
-  wreservation(){
-    for(var reservation of this.reservations){
-      this.service.wReservation(
-        reservation.Target,
-        reservation.StartTime.toISOString(),
-        reservation.EndTime.toISOString()
-      )
-      
-      .subscribe(wreservation=>this.wreservations=wreservation)
-    }
+   
+    this.service.reservation(res.Id).subscribe(reservations=>{
+      this.reservations=reservations; 
+      this.reservations.forEach(reservation => {
+       
+       
+        this.service.wReservation(
+          reservation.Target,
+          reservation.Interval.StartTime,
+          reservation.Interval.EndTime,
+          
+        )
+        
+        
+        .subscribe(wreservation=>{
+          this.wreservations=wreservation;
+          this.wreservations.forEach(w=>{
+            localStorage.setItem('prova',JSON.stringify(w))
+          })
+        });
+      });  
+    });
+ 
+   
   }
 }
+
+
 
 
 
