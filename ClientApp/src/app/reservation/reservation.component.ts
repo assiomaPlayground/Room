@@ -83,8 +83,8 @@ export class ReservationComponent implements OnInit {
      }
     this.service.availableRooms( this.selectedBuilding.Id , startDate, endDate).subscribe(result => this.rooms=result);
   }
-  getBuildingList(){
-    this.buildingService.List().subscribe(building=> this.buildingList=building);
+  getBuildingList(id : String){
+    this.service.getAllBuildings(id).subscribe(building=> this.buildingList=building);
 }
 
   }
