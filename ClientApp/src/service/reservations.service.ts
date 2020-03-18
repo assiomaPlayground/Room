@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/model/user';
 import { Data } from '@angular/router';
 import { BuildingService } from './building.service';
+import { datepickerAnimation } from 'ngx-bootstrap/datepicker/datepicker-animations';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ReservationsService extends Abstractservice<Reservation>{
     
   }
   
-  reseravtion(id: String): Observable<any>{
+  reservation(id: String): Observable<any>{
 
     return this.http.get<Reservation>(this.baseUrl +'api/'+this.type + '/user/'+ id);
   }
@@ -32,5 +33,11 @@ export class ReservationsService extends Abstractservice<Reservation>{
     return this.http.post<any>(this.baseUrl + 'api/'+this.type + "checkIn",{ "WorkSpaceId" : roomId,"Date" : date });
 
   }
+  availableRooms(buildingId: String, startDate : Date, endDate: Date): Observable<any>{
+
+    return this.http.get<any>(this.baseUrl +'api/'+ "Building/" + "CheckAvailability/" + buildingId, {
+       params:{ "start" : startDate.toISOString(),"end" : endDate.toISOString()}});
+
   
   }
+} 

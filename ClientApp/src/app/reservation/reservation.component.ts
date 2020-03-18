@@ -11,6 +11,8 @@ import { Building } from 'src/model/building';
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
+  startDate : Date = new Date();
+  durata : Number = 0;
   reservation: Reservation[];
   buildingList: Building[];
   selectedBuilding : Building;
@@ -32,7 +34,53 @@ export class ReservationComponent implements OnInit {
     this.service.delete(reservation.Id).subscribe(()=> this.list());
   }
   verifica(){
-   // this.service.wReservation()
+    let endDate : Date;
+    let startDate : Date; 
+    switch (this.durata) {
+      case 0: {
+        startDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),9);
+        endDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),13);
+        break;
+      }
+      case 1: {
+        startDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),14);
+        endDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),18);
+        break;
+
+      }
+      case 2: {
+        startDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),9);
+        endDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),18);
+        break;
+      }
+        case 3: {
+          startDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),9);
+          endDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),18);
+          endDate.setDate(this.startDate.getDate()+ 1);
+          break;
+        }
+        case 4: {
+          startDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),9);
+          endDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),18);
+          endDate.setDate(this.startDate.getDate()+ 2);
+          break;
+        }
+        case 5: {
+          startDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),9);
+          endDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),18);
+          endDate.setDate(this.startDate.getDate()+ 3);
+          break;
+        }
+        case 6: {
+          startDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),9);
+          endDate = new Date(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate(),18);
+          endDate.setDate(this.startDate.getDate()+ 4);
+          break;   
+        }
+    
+      default: return;
+     }
+    
   }
   getBuildingList(){
     this.buildingService.List().subscribe(building=> this.buildingList=building);
@@ -40,4 +88,5 @@ export class ReservationComponent implements OnInit {
   setBuilding(building : Building){
     this.selectedBuilding = building;
   }
+  
 }
