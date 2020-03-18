@@ -8,7 +8,7 @@
           </button>
           <ul id="dbb1" *dropdownMenu class="dropdown-menu"
               role="menu" aria-labelledby="db1">
-            <li role="menuitem" *ngFor="let building of buildings"><a class="dropdown-item"
+            <li role="menuitem" *ngFor="let building of buildingList"><a class="dropdown-item"
             (click)="setBuilding(building)">{{building?.Name}}</a></li>
           </ul>
         </div>
