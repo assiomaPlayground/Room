@@ -35,8 +35,7 @@ export class ReservationsService extends Abstractservice<Reservation>{
   }
   availableRooms(buildingId: String, startDate : Date, endDate: Date): Observable<any>{
 
-    return this.http.get<any>(this.baseUrl +'api/'+ "Building/" + "CheckAvailability/" + buildingId, {
-       params:{ "start" : startDate.toISOString(),"end" : endDate.toISOString()}});
+    return this.http.post<any>(this.baseUrl +'api/'+ "Building/" + "CheckAvailability/" + buildingId,{ "StartTime" : startDate.toISOString(),"EndTime" : endDate.toISOString()});
 
   
   }
