@@ -47,12 +47,23 @@ namespace RoomService.Services
             var qres =
                 from space in workSpaceService.Collection.AsQueryable()
                 where building.Rooms.Contains(space.Id)
-                join res in _workSpaceReservationsRepo.AsQueryable() on space.Id equals res.Owner
-                into WorkSpaces from ews in WorkSpaces.DefaultIfEmpty()
-                where ews.Reservations.Count() < space.AllSeats
+                join res in _workSpaceReservationsRepo.AsQueryable() on space.Id equals res.Owner into WorkSpacesRes 
+                from ews in WorkSpacesRes
+                .DefaultIfEmpty(new WorkSpaceReservations 
+                { 
+                    Owner = space.Id,
+                    Times = new Models.Types.DeltaTime { StartTime = start, EndTime = end },
+                    Reservations = new List<string>(0)
+                })
+                where 
+                (
+                    ews.Reservations.Count() < space.AllSeats       && 
+                    string.Compare(start, ews.Times.StartTime) == 0 && 
+                    string.Compare(end, ews.Times.EndTime)     == 0
+                )
                 select new WorkSpaceAvailabilityDTO{ 
                     TargetWorkSpace = space,
-                    Availability = ews == null ? space.AllSeats : space.AllSeats - ews.Reservations.Count()
+                    Availability = ews.Reservations.Count() == 0 ? space.AllSeats : space.AllSeats - ews.Reservations.Count()
                 };
             return new BuildingAvailabilityDTO
             {
