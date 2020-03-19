@@ -91,6 +91,7 @@ namespace RoomService.Services
             model.Interval = model.Interval.Clamp();
             if (!model.Interval.IsValid())
                 return new BoolAndBuffer { Result = false };
+            var endtime = DateTime.Parse(model.Interval.EndTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
             var Buffer = new List<Reservation>();
             var Iterator = model.Clone();
             Iterator.Interval = Iterator.Interval.First();
@@ -98,17 +99,13 @@ namespace RoomService.Services
                 Buffer.Add(Iterator.Clone());
             else
                 return new BoolAndBuffer { Result = false };
-            
-            Iterator.Interval.EndTime = model.Interval.EndTime;
 
-            while ((Iterator.Interval = Iterator.Interval.Next()) != null)
+            while ((Iterator.Interval = Iterator.Interval.Next(endtime)) != null)
             {
                 if (this.CanCreateReservation(Iterator))
                     Buffer.Add(Iterator.Clone());
                 else
                     return new BoolAndBuffer { Result = false };
-
-                Iterator.Interval.EndTime = model.Interval.EndTime;
             }
             return new BoolAndBuffer { Result = true, Buffer = Buffer };
         }

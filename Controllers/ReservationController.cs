@@ -65,12 +65,12 @@ namespace RoomService.Controllers
             return BadRequest();
         }
         [HttpPost("WorkSpace/{id:length(24)}")]
-        public ActionResult<WorkSpaceReservationDTO> GetReservationMeta([FromRoute] string id, [FromBody] DeltaTime date)
+        public ActionResult<WorkSpaceReservationDTO> GetReservationMeta([FromRoute] string id)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!_acs.IsAuth(rid))
                 Forbid();
-            return new OkObjectResult(Service.GetReservationByDeltaTimeAdWorkSpaceId(id, date));
+            return new OkObjectResult(Service.GetReservationMeta(id));
         }
         [HttpGet("WorkSpace/User/{id:length(24)}")]
         public ActionResult<IEnumerable<WorkSpaceAvailabilityDTO>> GetUserReservationsAndWorkSpaces(string id)

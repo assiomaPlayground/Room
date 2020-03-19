@@ -78,14 +78,12 @@ namespace RoomService.Utils
         /// </summary>
         /// <param name="delta">The DeltaTime to iterate</param>
         /// <returns>The next DeltaTime day interval</returns>
-        public static DeltaTime Next(this DeltaTime delta) 
+        public static DeltaTime Next(this DeltaTime delta, DateTime last) 
         {
             //Parse the interval to date for manage
             DateTime start = DateTime.Parse(delta.StartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
             //Same for end NOTE: Could be optimized using a clone of start
             DateTime end   = DateTime.Parse(delta.StartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-            //Get the last item of sequence
-            DateTime last = DateTime.Parse(delta.EndTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
             //Sets the start and the end to next unit interval
             if (start.Hour == _morningStartHour)
             {
