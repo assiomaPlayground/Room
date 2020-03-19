@@ -49,5 +49,7 @@ export class ReservationsService extends Abstractservice<Reservation>{
 
   getAllBuildings(): Observable<Building[]> {
     return this.http.get<Building[]>(this.baseUrl +'api/'+ "Building/");
+  }
+ 
   } 
-}
+

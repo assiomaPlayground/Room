@@ -4,6 +4,8 @@ import { ReservationsService } from 'src/service/reservations.service';
 import { Reservation } from 'src/model/reservation';
 import { BuildingService } from 'src/service/building.service';
 import { Building } from 'src/model/building';
+import { RoomService } from 'src/service/room.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservation',
@@ -16,8 +18,8 @@ export class ReservationComponent implements OnInit {
   reservation: Reservation[];
   buildingList: Building[];
   selectedBuilding : Building;
-  rooms : any;
-  constructor(private service: ReservationsService,private buildingService: BuildingService) { }
+  
+  constructor(private service: ReservationsService,private roomService: RoomService, private router: Router) { }
 
   ngOnInit() {
     this.list();
@@ -82,7 +84,10 @@ export class ReservationComponent implements OnInit {
     
       default: return;
      }
-    this.service.availableRooms( this.selectedBuilding.Id , startDate, endDate).subscribe(result => this.rooms=result);
+    this.service.availableRooms( this.selectedBuilding.Id, startDate, endDate).subscribe(result => {
+      this.roomService.verifiedRooms = result;
+      this.router.navigate(['room']);
+    });
   }
   getBuildingList(){
     this.service.getAllBuildings().subscribe(building=> this.buildingList=building);

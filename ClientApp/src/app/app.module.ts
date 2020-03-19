@@ -11,12 +11,10 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UserComponent } from './user/user.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { BuildingComponent } from './building/building.component';
-import { RoomComponent } from './room/room.component';
 import { QrmapComponent } from './qrmap/qrmap.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { getBaseUrl } from 'src/main';
 import { UserModule } from './user/user.module';
-import { RoomModule } from './room/room.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from './alert/alert.component';
@@ -49,7 +47,6 @@ import 'moment/locale/it';
     UserComponent,
     ReservationComponent,
     BuildingComponent,
-    RoomComponent,
     QrmapComponent,
     FavouritesComponent,
     LoginComponent,
@@ -67,7 +64,6 @@ import 'moment/locale/it';
     ReactiveFormsModule,
     UserModule,
     HomeModule,
-    RoomModule,
     AppRoutingModule,
     NgxQRCodeModule,
     ZXingScannerModule,

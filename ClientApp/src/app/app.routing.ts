@@ -15,11 +15,13 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
+    { path: 'room', loadChildren: () => import('./room/room.module').then(m => m.RoomModule)},
     { path: 'qrmap', component: QrmapComponent},
     { path: 'reservation', component: ReservationComponent},
     { path: 'reservations', component: ReservationsComponent},
     {path:'reservationDetails', component: ReservationDetailsComponent},
     { path: '', redirectTo: '/login', pathMatch:'full' },
+    
     //{ path: '**', redirectTo: '/login', pathMatch:'full' },
 ]   
 

@@ -1,3 +1,18 @@
 <div class="container-fluid">
   <div class="row mt-5">
     <div class="col-md-12">
+        <div class="btn-group btn-block m-2" dropdown>
+          <button id="db1" dropdownToggle type="button" class="btn btn-light btn-block dropdown-toggle"
+              aria-controls="dbb1">
+            {{selectedRoom == null ? "Stanza" : selectedRoom?.TargetWorkSpace?.Name}} <span class="caret"></span>
+          </button>
+          <ul id="dbb1" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="db1">
+            <li role="menuitem" *ngFor="let room of rooms?.Available"><a class="dropdown-item"
+            (click)="setRoom(room)">{{room?.TargetWorkSpace?.Name}} Disponibilità: {{room?.Availability}}</a></li>
+          </ul>
+        </div>
+        <button class="btn btn-block btn-warning m-2" (click)= "conferma()">Conferma Prenotazione</button>
+      </div>
+  </div>
+ 
