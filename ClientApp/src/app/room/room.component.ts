@@ -8,12 +8,13 @@ import { Room } from 'src/model/room';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
-  rooms: any[];
+  rooms: any;
+  selectedRoom: any;
   
   constructor(private service: RoomService) { }
 
   ngOnInit() {
-    this.rooms = this.service.verifiedRooms;
+    this.rooms = this.service.verifiedRooms;console.log(this.rooms);
 
   }
   

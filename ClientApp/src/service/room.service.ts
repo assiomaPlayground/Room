@@ -9,7 +9,7 @@ import { User } from 'src/model/user';
   providedIn: 'root'
 })
 export class RoomService extends Abstractservice<Room>{
-  verifiedRooms : any[];
+  verifiedRooms : any;
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl : String) { 
     super(http, baseUrl)
     this.type='workspace';
