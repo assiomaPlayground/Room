@@ -1,0 +1,1271 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RoomService</name>
+    </assembly>
+    <members>
+        <member name="T:RoomService.Controllers.AbstractMongoCrudController`2">
+            <summary>
+            Abstract Crud Controller crud ops are virtual
+            </summary>
+            <typeparam name="TModel">A Target class model type</typeparam>
+            <typeparam name="TService">Service type that carries out the Crud ops</typeparam>
+        </member>
+        <member name="P:RoomService.Controllers.AbstractMongoCrudController`2.Service">
+            <summary>
+            Service ref
+            </summary>
+        </member>
+        <member name="M:RoomService.Controllers.AbstractMongoCrudController`2.#ctor(`1)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="service">Injected service</param>
+        </member>
+        <member name="M:RoomService.Controllers.AbstractMongoCrudController`2.Create(`0)">
+            <summary>
+            Create op
+            </summary>
+            <param name="model">Json serialized TModel type in Body</param>
+        </member>
+        <member name="M:RoomService.Controllers.AbstractMongoCrudController`2.Delete(System.String)">
+            <summary>
+            Delete op
+            </summary>
+            <param name="id">The id : 24 string to delete</param>
+            <returns>True : success,  false : else</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RoomService.Controllers.AbstractMongoCrudController`2.GetAll" -->
+        <member name="M:RoomService.Controllers.AbstractMongoCrudController`2.Read(System.String)">
+            <summary>
+            get op
+            </summary>
+            <param name="id">The id : 24 string to Read</param>
+            <returns>The json serialized object eventually default</returns>
+        </member>
+        <member name="M:RoomService.Controllers.AbstractMongoCrudController`2.Update(System.String,`0)">
+            <summary>
+            update op
+            </summary>
+            <param name="id">Target resource id</param>
+            <param name="model">the new Json serialized TModel type in Body</param>
+            <returns>True : success, false : else</returns>
+        </member>
+        <member name="T:RoomService.Controllers.BuildingController">
+            <summary>
+            Controller for building collection base Crud in abstract class
+            </summary>
+        </member>
+        <member name="T:RoomService.Controllers.FavouritesController">
+            <summary>
+            Controller for favourites collection base Crud in abstract class
+            </summary>
+        </member>
+        <member name="F:RoomService.Controllers.FavouritesController._acs">
+            <summary>
+            acs as AccessControlService
+            </summary>
+        </member>
+        <member name="M:RoomService.Controllers.FavouritesController.#ctor(RoomService.Services.FavouritesService,RoomService.Services.AccessControlService)">
+            <summary>
+            Controller for favourites collection
+            </summary>
+            <param name="service"></param>
+            <param name="acs"></param>
+        </member>
+        <member name="M:RoomService.Controllers.FavouritesController.CanCreate(System.String,RoomService.Models.Favourites)">
+            <summary>
+            Create
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.FavouritesController.CanDelete(System.String,System.String)">
+            <summary>
+            Delete
+            </summary>
+            <param name="id"></param>
+            <param name="tid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.FavouritesController.CanRead(System.String,System.String)">
+            <summary>
+            Read
+            </summary>
+            <param name="id"></param>
+            <param name="tid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.FavouritesController.CanReadAll(System.String)">
+            <summary>
+            Read All
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.FavouritesController.CanUpdate(System.String,RoomService.Models.Favourites)">
+            <summary>
+            Update
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RoomService.Controllers.IMongoCrudController`1">
+            <summary>
+            Interface for generic CRUD ops controller
+            </summary>
+            <typeparam name="TModel">A target class model type</typeparam>
+        </member>
+        <member name="M:RoomService.Controllers.IMongoCrudController`1.GetAll">
+            <summary>
+            Result Action Get All
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.IMongoCrudController`1.Create(`0)">
+            <summary>
+            Result Action Create
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.IMongoCrudController`1.Read(System.String)">
+            <summary>
+            Result Action Read
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.IMongoCrudController`1.Update(System.String,`0)">
+            <summary>
+            Result ActionUpdate
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.IMongoCrudController`1.Delete(System.String)">
+            <summary>
+            Result Action Delete
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RoomService.Controllers.ReservationController">
+            <summary>
+            Controller for Reservation collection base Crud in abstract class
+            </summary>
+        </member>
+        <member name="T:RoomService.Controllers.UserController">
+            <summary>
+            Controller for User collection base Crud in abstract class
+            </summary>
+        </member>
+        <member name="F:RoomService.Controllers.UserController._acs">
+            <summary>
+            acs AccessControlService
+            </summary>
+        </member>
+        <member name="M:RoomService.Controllers.UserController.#ctor(RoomService.Services.UserService,RoomService.Services.AccessControlService)">
+            <summary>
+            UserController
+            </summary>
+            <param name="service"></param>
+            <param name="acs"></param>
+        </member>
+        <member name="M:RoomService.Controllers.UserController.GetUsersInRoom(System.String)">
+            <summary>
+            InRoom
+            </summary>
+            <param name="id"></param>
+            <returns>if null result not Found</returns>
+        </member>
+        <member name="M:RoomService.Controllers.UserController.Read(System.String)">
+            <summary>
+            Secure user data get
+            </summary>
+            <param name="id">The user id</param>
+            <returns>the user hiding password</returns>
+        </member>
+        <member name="M:RoomService.Controllers.UserController.GetAll">
+            <summary>
+            Secure user data get
+            </summary>
+            <returns>if null Bad Request</returns>
+        </member>
+        <member name="M:RoomService.Controllers.UserController.GetUserFavouritesRooms(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id">The id of the user</param>
+            <returns>The user favorurite rooms</returns>
+        </member>
+        <member name="T:RoomService.Controllers.WorkSpaceController">
+            <summary>
+            Controller for workspace collection base Crud in abstract class
+            </summary>
+        </member>
+        <member name="F:RoomService.Controllers.WorkSpaceController._acs">
+            <summary>
+            acs as Access
+            </summary>
+        </member>
+        <member name="M:RoomService.Controllers.WorkSpaceController.CanCreate(System.String,RoomService.Models.WorkSpace)">
+            <summary>
+            Create
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.WorkSpaceController.CanDelete(System.String,System.String)">
+            <summary>
+            Delete
+            </summary>
+            <param name="id"></param>
+            <param name="tid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.WorkSpaceController.CanRead(System.String,System.String)">
+            <summary>
+            Read
+            </summary>
+            <param name="id"></param>
+            <param name="tid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.WorkSpaceController.CanReadAll(System.String)">
+            <summary>
+            Read All
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RoomService.Controllers.WorkSpaceController.CanUpdate(System.String,RoomService.Models.WorkSpace)">
+            <summary>
+            Update
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RoomService.Models.Building">
+            <summary>
+            Model for building data
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Building.Id">
+            <summary>
+            Id
+            Un valued properties are simply ignored
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.Favourites">
+            <summary>
+            Model for Favourites data
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Favourites.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.IModel">
+            <summary>
+            Model for compaibility interface in generic use
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.IModel.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.IOwnable">
+            <summary>
+            Interface for Ownable
+            <see cref="!:Ownable"/>
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.IOwnable.Owner">
+            <summary>
+            Owner
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.Reservation">
+            <summary>
+            Model for reservation data
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.Reservation.Statuses">
+            <summary>
+            Reservation status of users
+            <para>
+                Attiva  when the start time is before the current time and whose end time is after the current time
+                Incorso where the reservation is in force
+                Conclusa ended when checkout is done
+                Checkin when the user uses the booked service 
+                Cancellata when the user cancels his reservation
+            </para>
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Reservation.Id">
+            <summary>
+            Id <see cref="T:RoomService.Models.IModel"/>
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Reservation.Status">
+            <summary>
+            Status
+            Required reservation status prop
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Reservation.CheckIn">
+            <summary>
+            Checkin
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Reservation.CheckOut">
+            <summary>
+            Checkout
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Reservation.Owner">
+            <summary>
+            Owner in this case the user of the reservation
+            Refers the UserId
+            <see cref="T:RoomService.Models.IOwnable"/>
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Reservation.Target">
+            <summary>
+            Target refers the WorkSpace Id
+            Un valued properties are simply ignored
+            @TODO: ITargetable?
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Reservation.Interval">
+            <summary>
+            Interval of DeltaTime describes the reservation start and end day/hour
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Reservation.ReservationSocket">
+            <summary>
+            Refers WorkSpaceReservations Id
+            the reservation instance in workspace and deltatime context
+            <see cref="T:RoomService.Models.WorkSpaceReservations"/>
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.Types.DeltaTime">
+            <summary>
+            booking times for buildings and rooms
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Types.DeltaTime.StartTime">
+            <summary>
+            StartTime 
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Types.DeltaTime.EndTime">
+            <summary>
+            EndTime
+            </summary>
+        </member>
+        <member name="M:RoomService.Models.Types.DeltaTime.Equals(System.Object)">
+            <summary>
+            Equals
+            </summary>
+            <param name="obj"></param>
+            <returns>the result is a new DeltaTime</returns>
+        </member>
+        <member name="M:RoomService.Models.Types.DeltaTime.GetHashCode">
+            <summary>
+            GetHashCode
+            </summary>
+            <returns>HashCode
+            </returns>
+        </member>
+        <member name="T:RoomService.Models.Types.Point2d">
+            <summary>
+            Point2d
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Types.Point2d.X">
+            <summary>
+            int X
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.Types.Point2d.Y">
+            <summary>
+            int Y
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.UserModel">
+            <summary>
+            Model for user data
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.UserModel.UserTypes">
+            <summary>
+            UserTypes
+            </summary>
+        </member>
+        <member name="F:RoomService.Models.UserModel.UserTypes.USER">
+            <summary>
+            User who is given the opportunity to reserve a seat in the rooms to which access is provided
+            Admin which configures, manages and maintains the reservation of jobs and meeting rooms
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.WorkSpace">
+            <summary>
+            Model for workspace data
+            </summary>
+        </member>
+        <member name="T:RoomService.Models.WorkSpaceReservations">
+            <summary>
+            Service for WorSpace
+            </summary>
+        </member>
+        <member name="P:RoomService.Models.WorkSpaceReservations.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="T:RoomService.DTO.AuthDTO">
+            <summary>
+            Login data
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.AuthDTO.Username">
+            <summary>
+            Username
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.AuthDTO.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="T:RoomService.DTO.BuildingAvailabilityDTO">
+            <summary>
+            Availability of Building
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.BuildingAvailabilityDTO.TargetBuilding">
+            <summary>
+            Target of Building
+            </summary>
+        </member>
+        <member name="T:RoomService.DTO.BuildingSpacesDTO">
+            <summary>
+            Possibility to choose between various spaces and buildings
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.BuildingSpacesDTO.Id">
+            <summary>
+            Id
+            Un valued properties are simply ignored
+            </summary>
+        </member>
+        <member name="T:RoomService.DTO.UserFavouriteRoomsDTO">
+            <summary>
+            possibility of users to reserve a place in the environments to which access has been provided
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.WorkSpaceDateDTO.WorkSpaceId">
+            <summary>
+            Id of WorkSpace
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.WorkSpaceDateDTO.Date">
+            <summary>
+            Date
+            </summary>
+        </member>
+        <member name="T:RoomService.Services.AbstractMongoCrudService`1">
+            <summary>
+            Abstract crud service use driver for ops in mongo repo
+            </summary>
+            <typeparam name="TModel">The context model type</typeparam>
+        </member>
+        <member name="P:RoomService.Services.AbstractMongoCrudService`1.Database">
+            <summary>
+            Database Connection
+            </summary>
+        </member>
+        <member name="P:RoomService.Services.AbstractMongoCrudService`1.Collection">
+            <summary>
+            The mongo repository
+            </summary>
+        </member>
+        <member name="M:RoomService.Services.AbstractMongoCrudService`1.Init(RoomService.Settings.IMongoSettings,System.String)">
+            <summary>
+            Init the mongo client and database
+            @TODO: build specific settings class instead of passing everything
+            </summary>
+            <param name="settings">The mongo settings file</param>
+            <param name="baseCollection">The service collection context</param>
+        </member>
+        <member name="M:RoomService.Services.AbstractMongoCrudService`1.Create(`0)">
+            <summary>
+            Create op
+            </summary>
+            <param name="model">TModel type class</param>
+        </member>
+        <member name="M:RoomService.Services.AbstractMongoCrudService`1.Delete(System.String)">
+            <summary>
+            Delete op
+            </summary>
+            <param name="id">The id : 24 string to delete</param>
+            <returns>True : success, false : else</returns>
+        </member>
+        <member name="M:RoomService.Services.AbstractMongoCrudService`1.Read(System.String)">
+            <summary>
+            get op
+            </summary>
+            <param name="id">The id : 24 string to Read</param>
+            <returns>the object maching the id, eventually default</returns>
+        </member>
+        <member name="M:RoomService.Services.AbstractMongoCrudService`1.Update(System.String,`0)">
+            <summary>
+            update op
+            </summary>
+            <param name="id">Target resource id</param>
+            <param name="model">TModel type object</param>
+            <returns>True : success, false : else</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RoomService.Services.AbstractMongoCrudService`1.GetAll" -->
+        <member name="T:RoomService.Services.AccessControlService">
+            <summary>
+            Implementa la logica di sicurezza per le crud
+            @TODO alcune query tipo IsAdmin donvebbero essere salvate come cache nei Claim per ottimizzare le performance
+            @TODO fare access control service divisi per responsabilitá
+            </summary>
+        </member>
+        <member name="T:RoomService.Services.BuildingService">
+            <summary>
+            Service for Building collection crud ops in abstract
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.BuildingService.workSpaceService">
+            <summary>
+            Join repository
+            </summary>
+        </member>
+        <member name="M:RoomService.Services.BuildingService.GetBuildingSpaces(System.String)">
+            <summary>
+            Join Building RoomsId with workspace data
+            </summary>
+            <param name="id">The building id</param>
+            <returns>BuildingSpacesDTO the building and his spaces data</returns>
+        </member>
+        <member name="T:RoomService.Services.FavouritesService">
+            <summary>
+            Service for Building collection crud ops in abstract
+            </summary>
+        </member>
+        <member name="T:RoomService.Services.IMongoCrudService`1">
+            <summary>
+            Interface for Crud service
+            </summary>
+            <typeparam name="TModel">The target model type</typeparam>
+        </member>
+        <member name="T:RoomService.Services.ReservationService">
+            <summary>
+            Service for Reservation collection crud ops in abstract
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.ReservationService._workSpaceRepo">
+            <summary>
+            Required external aggregation repository _workSpaceRepo is the WorkSpace collection repo
+            Main used in <see cref="T:RoomService.Services.WorkSpaceService"/>
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.ReservationService._workSpaceReservations">
+            <summary>
+            Required external aggregation repository _workSpaceReservations is the WorkSpaceReservations collection repo
+            In this repo are stored the Workspace by date reservations collected is also a main repo of this service.
+            </summary>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.#ctor(RoomService.Settings.IRoomServiceMongoSettings)">
+            <summary>
+            Constructor gets the mongo settings from DI
+            </summary>
+            <param name="settings">The mongo database settings</param>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.DeleteByUserId(System.String)">
+            <summary>
+            Do not use for now Cascade delete need to be implemented
+            </summary>
+            <param name="id">The user id ref</param>
+            <returns>Mongo delete result instance</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.DeleteByRoomId(System.String)">
+            <summary>
+            Do not use for now Cascade delete need to be implemented
+            </summary>
+            <param name="id">The room id ref</param>
+            <returns>Mongo delete result instance</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.GetUserReservations(System.String)">
+            <summary>
+            Return all reservations of chosen user
+            </summary>
+            <param name="id">Ref user id</param>
+            <returns>IEnumerable of reservations of selected user</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RoomService.Services.ReservationService.GetUserReservationsAndWorkSpaces(System.String)" -->
+        <member name="M:RoomService.Services.ReservationService.FindOnGoindReservationIdByWorkSpaceAndUserIds(System.String,System.String)">
+            <summary>
+            Find Reservation with ongoing status for an user
+            </summary>
+            <param name="WorkSpaceId">The id of the workspace</param>
+            <param name="UserId">The user to check</param>
+            <returns>nullable string of eventually found reservation</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.Create(RoomService.Models.Reservation)">
+            <summary>
+            Create a reservation
+            Could chain a reservation time split
+            </summary>
+            <param name="model">The reservation model to add</param>
+            <returns>Last created reservation or empty if fails</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.CreationHelper(RoomService.Models.Reservation)">
+            <summary>
+            Helper class for reservation creation
+            </summary>
+            <param name="model">The new reservation Template</param>
+            <returns>The created Reservation</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.Delete(System.String)">
+            <summary>
+            Base delete override for ref cascade deletion
+            </summary>
+            <param name="id">The target reservation id to delete</param>
+            <returns>Mongo delete result instance</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.CheckIn(System.String,RoomService.DTO.WorkSpaceDateDTO)">
+            <summary>
+            Execute a check-in add
+            </summary>
+            <param name="id">The reservation id</param>
+            <param name="data">The timestamp of check-in</param>
+            <returns>Bool : true successful checked-in false : else</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.CheckOut(System.String,RoomService.DTO.WorkSpaceDateDTO)">
+            <summary>
+            Execute a check-out add
+            </summary>
+            <param name="id">The reservation id</param>
+            <param name="data">The timestamp of checkout</param>
+            <returns>Bool : true successful checked-out false : else</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.GetReservationMeta(System.String)">
+            <summary>
+            Get aggregated reservation target WorkSpace and WorkSpaceReservations in the same time Interval
+            </summary>
+            <param name="id">The reservation Id</param>
+            <returns>Reservation Joined WorkSpace and UserCounts inside</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.CanCreateReservation(RoomService.Models.Reservation)">
+            <summary>
+            Performs controls for Reservation insert availability
+            @TODO: move into utility class
+            @TODO: return specific error description
+            @TODO: add null handling and safe code controls
+            </summary>
+            <param name="model">The model Reservation to check creation availability</param>
+            <returns>Bool : true can create : false can't</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationService.DataInsersects(System.String,System.String,System.String,System.String)">
+            <summary>
+            Determinate if two datetime intervals in isostring overlaps
+            @TODO move into an utility class
+            </summary>
+            <param name="start">First datetime interval start</param>
+            <param name="end">First datetime interval end</param>
+            <param name="secStart">Second datetime interval start</param>
+            <param name="secEnd">Second datetime interval end</param>
+            <returns>True : data intersects false : else</returns>
+        </member>
+        <member name="T:RoomService.Services.ReservationUpdaterService">
+            <summary>
+            Update reservation statuses based on calendar/timer
+            The tasks runs foreach time hook of type RESSTATUSUPDATE in settings
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.ReservationUpdaterService._reservationRepo">
+            <summary>
+            Required collection _reservationRepo is where reservations to update are stored
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.ReservationUpdaterService._serverTasks">
+            <summary>
+            The server task array got from settings
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.ReservationUpdaterService._serverTaskUtils">
+            <summary>
+            Utility service for timer based task creation got from DI
+            </summary>
+        </member>
+        <member name="M:RoomService.Services.ReservationUpdaterService.#ctor(RoomService.Settings.IRoomServiceMongoSettings,RoomService.Settings.IAppSettings,RoomService.Utils.ServerTaskUtils)">
+            <summary>
+            Constructor use DI for required resources
+            </summary>
+            <param name="mongoSettings">The database settings data</param>
+            <param name="appSettings">The app settings data</param>
+            <param name="serverTaskService"></param>
+        </member>
+        <member name="M:RoomService.Services.ReservationUpdaterService.InitTasks(System.DateTime)">
+            <summary>
+            Init tasks from array
+            </summary>
+            <param name="time">The ref start time</param>
+            <returns>Bool : true success status</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationUpdaterService.LastJob">
+            <summary>
+            This delegate is used for restart tasks for next day
+            </summary>
+            <returns>New task init result</returns>
+        </member>
+        <member name="M:RoomService.Services.ReservationUpdaterService.UpdateReservation">
+            <summary>
+            This delegate is used for update Reservation statuses on database
+            </summary>
+            <returns>Bool : true success/complete</returns>
+        </member>
+        <member name="T:RoomService.Services.UserService">
+            <summary>
+            Service for User collection crud ops in abstract
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.UserService._sectet">
+            <summary>
+            The token secret got by settings
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.UserService._TokenLifetime">
+            <summary>
+            The token lifetime got by settings
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.UserService._cryptProvider">
+            <summary>
+            The required crypt provider helper service for password decryption/encryption got by DI
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.UserService._reservationRepo">
+            <summary>
+            Needed repository for aggregation operations with Reservations
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.UserService._favouriteRepo">
+            <summary>
+            Needed repository for aggregation operations with Favourites
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.UserService._workSpaceRepo">
+            <summary>
+            Needed repository for aggregation operations with WorkSpace
+            </summary>
+        </member>
+        <member name="M:RoomService.Services.UserService.#ctor(RoomService.Settings.IRoomServiceMongoSettings,RoomService.Settings.IAppSettings,RoomService.Utils.CrypProvider)">
+            <summary>
+            Constructor sets the DI
+            </summary>
+            <param name="settings">The required settings</param>
+        </member>
+        <member name="M:RoomService.Services.UserService.Register(RoomService.Models.UserModel)">
+            <summary>
+            Execute an user creation
+            </summary>
+            <param name="model">The user data to insert</param>
+            <returns>The created user in database and his token</returns>
+        </member>
+        <member name="M:RoomService.Services.UserService.Create(RoomService.Models.UserModel)">
+            <summary>
+            Create an user
+            </summary>
+            <param name="model">The user data to insert</param>
+            <returns>The created user without token and password</returns>
+        </member>
+        <member name="M:RoomService.Services.UserService.Update(System.String,RoomService.Models.UserModel)">
+            <summary>
+            Update an user
+            </summary>
+            <param name="id">Target User id</param>
+            <param name="newModel">Ner User data</param>
+            <returns>Replace result class by mongo driver</returns>
+        </member>
+        <member name="M:RoomService.Services.UserService.Login(RoomService.DTO.AuthDTO)">
+            <summary>
+            Execute the login Method
+            </summary>
+            <param name="authData">The simplified user model AuthData has only username and password</param>
+            <returns>The created user with token</returns>
+        </member>
+        <member name="M:RoomService.Services.UserService.Delete(System.String)">
+            <summary>
+            Delete an user
+            Could chain a reservation delete and a favourites delete
+            </summary>
+            <param name="id">the user to delete</param>
+            <returns>The delete result mongo driver class</returns>
+        </member>
+        <member name="M:RoomService.Services.UserService.FindByUserName(System.String)">
+            <summary>
+            Find an user by his username
+            </summary>
+            <remarks>Username is a key in the database</remarks>
+            <param name="username">The string of the user to find</param>
+            <returns>The found User Model</returns>
+        </member>
+        <member name="M:RoomService.Services.UserService.GetUserFavouritesRooms(System.String)">
+            <summary>
+            Gets the favourite rooms (WorkSpace) of a target user
+            </summary>
+            <param name="id">The target user id</param>
+            <returns>And user and a collection of his favourites rooms</returns>
+        </member>
+        <member name="M:RoomService.Services.UserService.GetUsersInRoom(System.String)">
+            <summary>
+            Look for all users inside a WorkSpace using their checkin status
+            </summary>
+            <param name="id">The WorkSpace id</param>
+            <returns>IEnumerable of found users</returns>
+        </member>
+        <member name="T:RoomService.Services.WorkSpaceService">
+            <summary>
+            Service for WorSpace collection crud ops in abstract
+            </summary>
+        </member>
+        <member name="F:RoomService.Services.WorkSpaceService._reservationRepository">
+            <summary>
+            Needed repository for aggregation operations with Reservation
+            </summary>
+        </member>
+        <member name="M:RoomService.Services.WorkSpaceService.#ctor(RoomService.Settings.IRoomServiceMongoSettings)">
+            <summary>
+            Constructor sets the DI
+            </summary>
+            <param name="settings">The required settings</param>
+        </member>
+        <member name="M:RoomService.Services.WorkSpaceService.DeleteByBuildingId(System.String)">
+            <summary>
+            Get deleted by building ID
+            </summary>
+            <param name="id">the building Id</param>
+            <returns>Delete result instance in mongo driver</returns>
+        </member>
+        <member name="M:RoomService.Services.WorkSpaceService.Delete(System.String)">
+            <summary>
+            Delete a workspace
+            </summary>
+            <param name="id">The target Id</param>
+            <returns>Delete result instance in mongo driver</returns>
+        </member>
+        <member name="M:RoomService.Services.WorkSpaceService.DeleteReservationsByRoomId(System.String)">
+            <summary>
+            Delete reservations of targeted room
+            </summary>
+            <param name="id">The target room Id</param>
+            <returns>Delete result instance in mongo driver</returns>
+        </member>
+        <member name="T:RoomService.Settings.AppSettings">
+            <summary>
+            Global App Settings class wrapper for config json data
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.AppSettings.Secret">
+            <summary>
+            Used secret for Token Generation
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.AppSettings.TokenDuration">
+            <summary>
+            Token expire time duration
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.AppSettings.PasswordHash">
+            <summary>
+            Password Hash string (PasswordHash)
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.AppSettings.SaltKey">
+            <summary>
+            Password Hash Salt Key
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.AppSettings.VIKey">
+            <summary>
+            Password Hash VI Key
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.AppSettings.ServerTasks">
+            <summary>
+            Clock based Server Tasks Array
+            </summary>
+        </member>
+        <member name="T:RoomService.Settings.IAppSettings">
+            <summary>
+            Compatibility Interface for App Settings
+            <see cref="T:RoomService.Settings.AppSettings"/>
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IAppSettings.Secret">
+            <summary>
+            Secret
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IAppSettings.PasswordHash">
+            <summary>
+            Password Hash String (PasswordHash)
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IAppSettings.SaltKey">
+            <summary>
+            Password Hash Salt Key
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IAppSettings.VIKey">
+            <summary>
+            Password Hash VI Key
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IAppSettings.TokenDuration">
+            <summary>
+            Password Hash VI Key
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IAppSettings.ServerTasks">
+            <summary>
+            Clock based Server Tasks Array
+            </summary>
+        </member>
+        <member name="T:RoomService.Settings.IMongoSettings">
+            <summary>
+            Interface for Mongo database connection
+            <see cref="T:RoomService.Settings.RoomServiceMongoSettings"/>
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IMongoSettings.ConnectionString">
+            <summary>
+            Connection
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IMongoSettings.DatabaseName">
+            <summary>
+            Name of Database
+            </summary>
+        </member>
+        <member name="T:RoomService.Settings.IResponseMetaSettings">
+            <summary>
+            Interface for ResponseMetaSettings
+            <see cref="!:ResponseMetaSettings"/>
+            </summary>
+        </member>
+        <member name="T:RoomService.Settings.IRoomServiceMongoSettings">
+            <summary>
+            Interface for specific mongo database RoomService avable collections
+            <see cref="T:RoomService.Settings.RoomServiceMongoSettings"/>
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IRoomServiceMongoSettings.UserCollection">
+            <summary>
+            Collection of User
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IRoomServiceMongoSettings.BuildingCollection">
+            <summary>
+            Collection of Building
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IRoomServiceMongoSettings.ReservationCollection">
+            <summary>
+            Collection of Reservation
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IRoomServiceMongoSettings.WorkSpaceCollection">
+            <summary>
+            Collection of WorkSpace
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IRoomServiceMongoSettings.QRMapCollection">
+            <summary>
+            Collection of QRMap
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.IRoomServiceMongoSettings.FavouritesCollection">
+            <summary>
+            Collection of Favourites
+            </summary>
+        </member>
+        <member name="T:RoomService.Settings.RoomServiceMongoSettings">
+            <summary>
+            Settings for RoomService mongo connection app
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.RoomServiceMongoSettings.UserCollection">
+            <summary>
+            Connection string for UserCollection
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.RoomServiceMongoSettings.ConnectionString">
+            <summary>
+            Connection string for mongoclient
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.RoomServiceMongoSettings.DatabaseName">
+            <summary>
+            Connection string for database
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.RoomServiceMongoSettings.BuildingCollection">
+            <summary>
+            Connection string for BuildingCollection
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.RoomServiceMongoSettings.ReservationCollection">
+            <summary>
+            Connection string for ReservationCollection
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.RoomServiceMongoSettings.WorkSpaceCollection">
+            <summary>
+            Connection string for WorkSpaceCollection
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:RoomService.Settings.RoomServiceMongoSettings.QRMapCollection" -->
+        <member name="P:RoomService.Settings.RoomServiceMongoSettings.FavouritesCollection">
+            <summary>
+            Connection string for FavouritesCollection
+            </summary>
+        </member>
+        <member name="P:RoomService.Settings.RoomServiceMongoSettings.WorkSpaceReservationCollection">
+            <summary>
+            Connection string for WorkSpaceReservationCollection
+            </summary>
+        </member>
+        <member name="T:RoomService.Utils.ConfigUtils">
+            <summary>
+            Utility class for lighten Starup.cs and group app configs
+            </summary>
+        </member>
+        <member name="P:RoomService.Utils.ConfigUtils.ServiceCollection">
+            <summary>
+            App services collection
+            </summary>
+        </member>
+        <member name="P:RoomService.Utils.ConfigUtils.Configuration">
+            <summary>
+            App Configuration files
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.ConfigUtils.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="services">The app service collection container</param>
+            <param name="configuration">The app configuration files</param>
+        </member>
+        <member name="M:RoomService.Utils.ConfigUtils.ConfigureApp">
+            <summary>
+            Whole app config
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.ConfigUtils.ConfigureSettings">
+            <summary>
+            Settings file config
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.ConfigUtils.ConfigureJwt(System.String)">
+            <summary>
+            Jwt configuration
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.ConfigUtils.GenerateSingletons">
+            <summary>
+            Services adder as singletons
+            </summary>
+        </member>
+        <member name="T:RoomService.Utils.CrypProvider">
+            <summary>
+            Utility service for string encryption
+            </summary>
+        </member>
+        <member name="F:RoomService.Utils.CrypProvider.PasswordHash">
+            <summary>
+            Password Hash
+            </summary>
+        </member>
+        <member name="F:RoomService.Utils.CrypProvider.SaltKey">
+            <summary>
+            Salt key
+            </summary>
+        </member>
+        <member name="F:RoomService.Utils.CrypProvider.VIKey">
+            <summary>
+            VI Key
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.CrypProvider.#ctor(RoomService.Settings.IAppSettings)">
+            <summary>
+            Constructor
+            Should use RSA for encrypt keys like SSL?
+            </summary>
+            <param name="settings">The settings where keys are stored</param>
+        </member>
+        <member name="M:RoomService.Utils.CrypProvider.Encrypt(System.String)">
+            <summary>
+            Encrypt a text
+            </summary>
+            <param name="plainText">The text in UTF8 Encoding to encrypt</param>
+            <returns>The encryped text result in ASCII base64 Encoding</returns>
+        </member>
+        <member name="M:RoomService.Utils.CrypProvider.Decrypt(System.String)">
+            <summary>
+            Decrypt a text
+            </summary>
+            <param name="encryptedText">Text to decrypt in ASCII base64 string encoding</param>
+            <returns>The UTF8 encoding decryped string</returns>
+        </member>
+        <member name="T:RoomService.Utils.DeltaTimeExtensions">
+            <summary>
+            Exstensin methods for manage DeltaTime Class
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.DeltaTimeExtensions.IsValid(RoomService.Models.Types.DeltaTime)">
+            <summary>
+            Validator for DeltaTime class
+            <para>
+                Delta time valid definition is a delta time that has EndTime attribute 
+                Bigger than StartTime attribute, the two values should be string "o" (ISO 8601) formatted DateTime classes
+            </para>
+            </summary>
+            <param name="deltaTime">Target to validate</param>
+            <returns>The bool that indicates the valid status</returns>
+        </member>
+        <member name="M:RoomService.Utils.DeltaTimeExtensions.Clamp(RoomService.Models.Types.DeltaTime)">
+            <summary>
+            Clamp DeltaTime attributes inside nearests hours of the day to hook
+            </summary>
+            <param name="delta">The target deltatime</param>
+            <returns>A new DeltaTime with clamped attributes</returns>
+        </member>
+        <member name="M:RoomService.Utils.DeltaTimeExtensions.First(RoomService.Models.Types.DeltaTime)">
+            <summary>
+            Get the first DeltaTime Interval inside a DeltaTime to split into defined units
+            </summary>
+            <param name="delta">The DeltaTime to iterate</param>
+            <returns>The first DeltaTime day interval</returns>
+        </member>
+        <member name="M:RoomService.Utils.DeltaTimeExtensions.Next(RoomService.Models.Types.DeltaTime,System.DateTime)">
+            <summary>
+            Get the next DeltaTime Interval inside a Deltatime to split into defined units
+            </summary>
+            <param name="delta">The DeltaTime to iterate</param>
+            <returns>The next DeltaTime day interval</returns>
+        </member>
+        <member name="M:RoomService.Utils.DeltaTimeExtensions.HourDistance(System.DateTime,System.DateTime)">
+            <summary>
+            Return the linear distance between two Dates expressed in hours
+            </summary>
+            <param name="a">First date</param>
+            <param name="b">Second date</param>
+            <returns></returns>
+        </member>
+        <member name="T:RoomService.Utils.ReservationExtensions">
+            <summary>
+            Extension for Reservation class
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.ReservationExtensions.Clone(RoomService.Models.Reservation)">
+            <summary>
+            Make a full clone of the target class
+            </summary>
+            <param name="target">The target to copy</param>
+            <returns>A new copy of Reservation targhet</returns>
+        </member>
+        <member name="T:RoomService.Utils.UserExtensions">
+            <summary>
+            User class Exstensions
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.UserExtensions.WithoutPasswords(System.Collections.Generic.IEnumerable{RoomService.Models.UserModel})">
+            <summary>
+            A pipe that removes the password from an users IEnumerable
+            </summary>
+            <param name="users">The user IEnumerable</param>
+            <returns>The modified users IEnumerable</returns>
+        </member>
+        <member name="M:RoomService.Utils.UserExtensions.WithoutTokens(System.Collections.Generic.IEnumerable{RoomService.Models.UserModel})">
+            <summary>
+            A pipe that removes the tokens from an users IEnumerable
+            @TODO: Delete -- token are now ignored by BSON and NewSoftJson
+            </summary>
+            <param name="users">The user IEnumerable</param>
+            <returns>The modified users IEnumerable</returns>
+        </member>
+        <member name="M:RoomService.Utils.UserExtensions.WithoutPassword(RoomService.Models.UserModel)">
+            <summary>
+            A pipe that removes the password from an user
+            </summary>
+            <param name="user">The user</param>
+            <returns>The modified user</returns>
+        </member>
+        <member name="M:RoomService.Utils.UserExtensions.WithoutToken(RoomService.Models.UserModel)">
+            <summary>
+            A pipe that removes the token from an user
+            @TODO: Delete -- token are now ignored by BSON and NewSoftJson 
+            </summary>
+            <param name="user">The user</param>
+            <returns>The modified user</returns>
+        </member>
+        <member name="M:RoomService.Utils.UserExtensions.IsValid(RoomService.Models.UserModel)">
+            <summary>
+            Validator for UserModel class
+            <para>
+                UserModel valid definition is a user that has username and password matching the respective regular expressions
+            </para>
+            </summary>
+            <param name="user">Target to validate</param>
+            <returns>The bool that indicates the valid status</returns>
+        </member>
+        <member name="T:RoomService.Utils.ServerTaskUtils">
+            <summary>
+            Utility Service for server Timer Based Tasks 
+            </summary>
+        </member>
+        <member name="M:RoomService.Utils.ServerTaskUtils.CreateTimeBasedServerTask(System.DateTime,System.Func{System.Boolean})">
+            <summary>
+            Create a task that runs at time param 
+            </summary>
+            <param name="time">When should execute the operation</param>
+            <param name="op">The delegate operation to run</param>
+        </member>
+        <member name="M:RoomService.Utils.ServerTaskUtils.RaiseEvent(System.Object,System.Timers.ElapsedEventArgs,System.Func{System.Boolean})">
+            <summary>
+            Event raiser wrapper
+            </summary>
+            <param name="o">Timer object</param>
+            <param name="e">Timer args</param>
+            <param name="op">The operation to run</param>
+        </member>
+        <member name="T:RoomService.Utils.TaskTypes">
+            <summary>
+            Task types enum definition
+            @TODO: Should be moved in a new file
+            </summary>
+        </member>
+        <member name="T:RoomService.Utils.ServerTimeTaskData">
+            <summary>
+            Server Time Task Data for settings propose
+            @TODO: Should be moved in a new file
+            </summary>
+        </member>
+    </members>
+</doc>

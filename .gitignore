@@ -232,3 +232,6 @@ _Pvt_Extensions
 
 #Sensitive data
 appsettings.json
+docfx_project/Docs
+docfx_project/articles
+docfx_project/api

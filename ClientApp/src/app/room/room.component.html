@@ -8,8 +8,9 @@
           </button>
           <ul id="dbb1" *dropdownMenu class="dropdown-menu"
               role="menu" aria-labelledby="db1">
-            <li role="menuitem" *ngFor="let room of rooms"><a class="dropdown-item"
-            (click)="setRoom(room)">{{room?.TargetWorkSpace?.Name}} Disponibilità: {{room?.Availability}}</a></li>
+            <li role="menuitem" *ngFor="let room of roomList"><a class="dropdown-item"
+              (click)="setRoom(room)">{{room?.TargetWorkSpace?.Name}} Disponibilità: {{room?.Availability}}</a>
+            </li>
           </ul>
         </div>
         <button class="btn btn-block btn-warning m-2" (click)= "conferma()">Conferma Prenotazione</button>
