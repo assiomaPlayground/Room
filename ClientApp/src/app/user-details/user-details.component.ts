@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-details',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit {
-
-  constructor() { }
+user = JSON.parse(localStorage.getItem('user'));
+  constructor(private service:UserService) { }
 
   ngOnInit() {
+    
   }
 
 }
+
+

@@ -27,7 +27,8 @@ export class ReservationsComponent implements OnInit {
     })
   }
   delete(reservation: any){
-    this.service.delete(reservation.Id).subscribe(()=> this.list)
+   
+    this.service.delete( reservation.ReservationId).subscribe(()=> this.list)
   }
 }
 

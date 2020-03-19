@@ -1,1 +1,30 @@
-<p>user-details works!</p>
+<head><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"></head>
+    <div class="col-md-4 offset-md-4 ">
+      <div class="card">
+        
+        <div class="card-header">
+             <img class="card-img-top" src="../../assets/Intesa_Sanpaolo.svg.png" alt="Card image cap">
+          </div>
+            <div class="card-body">  
+              <h4 class="card-title">{{user.Username}}</h4>
+              <p class="card-text">in questo momento si trova a:</p>
+                    
+        
+                <button type="button" class="btn btn-secondary btn-lg btn-block">Altre 16 persone sono qui </button>
+                <button type="button" class="btn btn-secondary btn-lg btn-block"routerLink="/reservation">Prenota un posto </button>
+             
+              
+      </div>
+       <div class="card-footer">
+        <i class="fa fa-home fa-2x" aria-hidden="true" routerLink="/home" ></i>
+        
+        <i class="fa fa-calendar fa-2x col-md-4 offset-md-4" aria-hidden="true" routerLink="/reservations"></i>
+
+        <i class="fa fa-user-o  fa-2x col-md-1 offset-md-1  " aria-hidden="true" ></i>
+        
+      
+  </div>
+
+</div>
+      </div>
+      

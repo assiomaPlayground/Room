@@ -15,7 +15,7 @@
             <div *ngFor="let user of users | filterBy: userFilter">
            
               <ul class="list-group">
-                <li class="list-group-item">{{user.Username}} </li>
+                <li class="list-group-item"(click)="click(user)">{{user.Username}} </li>
                
               </ul>
             </div>    
