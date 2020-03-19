@@ -26,6 +26,9 @@ export class ReservationsComponent implements OnInit {
       this.wreservations = res;
     })
   }
+  delete(reservation: any){
+    this.service.delete(reservation.Id).subscribe(()=> this.list)
+  }
 }
 
 

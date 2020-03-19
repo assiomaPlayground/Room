@@ -1,4 +1,4 @@
-<head><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"></head>
+<head> <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"></head>
     <div class="col-md-4 offset-md-4 ">
       <div class="card">
         
@@ -10,7 +10,9 @@
          
             <div *ngFor="let reservation of wreservations | orderBy: 'reservation.Interval.StartTime'">
               <ul class="list-group m-2">
-                <li class="list-group-item">Stanza: {{reservation.TargetWorkSpace.Name}}</li>
+                <li class="list-group-item" (click)="read(read)">Stanza: {{reservation.TargetWorkSpace.Name}}
+                  <i class="fa fa-check  fa-2x col-md-1 offset-md-1"style="color:green"routerLink="/qrmap"></i>
+                  <i class="fa fa-times fa-2x col-md-2 offset-md-2"style="color:red" ></i></li>
                 <li class="list-group-item">Disponibilitá: {{reservation.Availability}} su {{reservation.TargetWorkSpace.AllSeats}}</li>
                 <li class="list-group-item">Inizio: {{reservation.Interval.StartTime | amLocale:'it' | amTimeAgo}} </li>
                 <li class="list-group-item">Fino: {{reservation.Interval.EndTime | amLocale:'it' | amCalendar}}</li>
@@ -22,7 +24,7 @@
         
         <i class="fa fa-calendar fa-2x col-md-4 offset-md-4" aria-hidden="true" routerLink="/prenotazioni"></i>
 
-        <i class="fa fa-user-o  fa-2x col-md-1 offset-md-1  " aria-hidden="true" ></i>
+        <i class="fa fa-user-o  fa-2x col-md-1 offset-md-1  " aria-hidden="true" routerLink="/user"></i>
         
       
   </div>

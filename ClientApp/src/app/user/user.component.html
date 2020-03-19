@@ -12,13 +12,13 @@
           <input class="form-control py-2" type="search" [(ngModel)]="userFilter.Username" placeholder="Cerca collega" >
  
           
-            <span *ngFor="let user of users | filterBy: userFilter">
+            <div *ngFor="let user of users | filterBy: userFilter">
            
               <ul class="list-group">
                 <li class="list-group-item">{{user.Username}} </li>
                
               </ul>
-            </span>    
+            </div>    
       </div>
        <div class="card-footer">
         <i class="fa fa-home fa-2x" aria-hidden="true" routerLink="/home" ></i>
