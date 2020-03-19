@@ -24,8 +24,8 @@ namespace RoomService.Controllers
         /// <summary>
         /// Controller for favourites collection
         /// </summary>
-        /// <param name="service"></param>
-        /// <param name="acs"></param>
+        /// <param name="service">Favourite service</param>
+        /// <param name="acs">Access Control Service</param>
         public FavouritesController(FavouritesService service, AccessControlService acs) : base(service) 
         {
             this._acs = acs;
@@ -50,7 +50,7 @@ namespace RoomService.Controllers
             => _acs.IsOwner<FavouritesService, Favourites>(id, tid, Service);
 
         /// <summary>
-        /// Read
+        /// Can Read
         /// </summary>
         /// <param name="id"></param>
         /// <param name="tid"></param>
@@ -62,7 +62,7 @@ namespace RoomService.Controllers
         /// Read All
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>id Admin</returns>
         protected override bool CanReadAll(string id)
             => _acs.IsAdmin(id);
 

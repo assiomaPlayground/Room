@@ -13,10 +13,12 @@ using System.Threading.Tasks;
 namespace RoomService.Controllers
 {
     /// <summary>
-    /// Controller for building collection base Crud in abstract class
+    /// Controller for building collection base Crud in Abstract Class
     /// </summary>
     public class BuildingController : AbstractMongoCrudController<Building, BuildingService>
     {
+
+
         private readonly AccessControlService _acs;
         public BuildingController(BuildingService service, AccessControlService acs) : base(service) 
         {
@@ -46,14 +48,48 @@ namespace RoomService.Controllers
                 return NotFound();
             return item;
         }
+
+        /// <summary>
+        /// Can Create
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         protected override bool CanCreate(string id, Building model)
             => _acs.IsAdmin(id);
+
+        /// <summary>
+        /// Can Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tid"></param>
+        /// <returns></returns>
         protected override bool CanDelete(string id, string tid)
             => _acs.IsAdmin(id);
+
+        /// <summary>
+        /// Can Read
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tid"></param>
+        /// <returns></returns>
         protected override bool CanRead(string id, string tid)
             => _acs.IsAuth(id);
+
+        /// <summary>
+        /// Can Real All
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         protected override bool CanReadAll(string id)
             => _acs.IsAuth(id);
+        
+        /// <summary>
+        /// Can Update
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         protected override bool CanUpdate(string id, Building model)
             => _acs.IsAdmin(id);
     }

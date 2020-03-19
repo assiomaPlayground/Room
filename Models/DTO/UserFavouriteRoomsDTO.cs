@@ -45,7 +45,7 @@ namespace RoomService.DTO
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 
         /// <summary>
-        /// Rooms
+        /// Favourite Rooms
         /// </summary>
         public IEnumerable<FavouriteRoom> Rooms { get; set; }
     }

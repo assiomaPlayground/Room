@@ -16,55 +16,61 @@ namespace RoomService.Controllers
     {
 
         /// <summary>
-        /// acs as Access
+        /// acs as AccessControlService
         /// </summary>
         private readonly AccessControlService _acs;
+
+        /// <summary>
+        /// WorkSpaceController
+        /// </summary>
+        /// <param name="service">WorkSpaceService</param>
+        /// <param name="acs">AccessControlService</param>
         public WorkSpaceController(WorkSpaceService service, AccessControlService acs) : base(service)
         {
            
             this._acs = acs;
         }
         /// <summary>
-        /// Create
+        /// Can Create
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="id">String id</param>
+        /// <param name="model">WorkSpace model</param>
+        /// <returns>acs is Auth(id)</returns>
         protected override bool CanCreate(string id, WorkSpace model)
             => _acs.IsAuth(id);
 
         /// <summary>
-        /// Delete
+        /// Can Delete
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="tid"></param>
-        /// <returns></returns>
+        /// <param name="id">String id</param>
+        /// <param name="tid">String tid</param>
+        /// <returns>acs Is Admin(id)</returns>
         protected override bool CanDelete(string id, string tid)
             => _acs.IsAdmin(id);
         
         /// <summary>
-        /// Read
+        /// Can Read
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="tid"></param>
-        /// <returns></returns>
+        /// <param name="id">String id</param>
+        /// <param name="tid">String tid</param>
+        /// <returns>acs Is Auth(id)</returns>
         protected override bool CanRead(string id, string tid)
             => _acs.IsAuth(id);
 
         /// <summary>
-        /// Read All
+        /// Can Read All
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">String id</param>
+        /// <returns>acs is Auth(id)</returns>
         protected override bool CanReadAll(string id)
             => _acs.IsAuth(id);
 
         /// <summary>
-        /// Update
+        /// Can Update
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="id">String id</param>
+        /// <param name="model">Workspace model</param>
+        /// <returns>acs Is Admin(id)</returns>
         protected override bool CanUpdate(string id, WorkSpace model)
             => _acs.IsAdmin(id);
     }

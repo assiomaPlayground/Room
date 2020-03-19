@@ -11,12 +11,13 @@ namespace RoomService.Models.Types
     public class Point2d
     {
         /// <summary>
-        /// int X
+        /// <param name = "X"></param>
+
         /// </summary>
         public int X { get; set; }
 
         /// <summary>
-        /// int Y
+        /// <param name = "Y"></param>
         /// </summary>
         public int Y { get; set; }
     }

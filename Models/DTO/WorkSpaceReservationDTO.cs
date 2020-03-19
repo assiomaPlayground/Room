@@ -13,7 +13,7 @@ namespace RoomService.DTO
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
         /// <summary>
-        /// Room
+        /// Room WorkSpace
         /// </summary>
         public WorkSpace Room { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
@@ -25,7 +25,7 @@ namespace RoomService.DTO
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
 
         /// <summary>
-        /// Users
+        /// <param name = "Users"></param>
         /// </summary>
         public int Users { get; set; }
     }

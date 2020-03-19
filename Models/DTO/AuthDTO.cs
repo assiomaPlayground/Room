@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace RoomService.DTO
 {
     /// <summary>
-    /// Login data
+    /// Login data with Username and Password
     /// </summary>
     public class AuthDTO
     {
 
         /// <summary>
-        /// Username
+        /// Username of type string
         /// </summary>
         [Required]
         public string Username { get; set; }
         
         /// <summary>
-        /// Password
+        /// Password of type string
         /// </summary>
         [Required]
         public string Password { get; set; }

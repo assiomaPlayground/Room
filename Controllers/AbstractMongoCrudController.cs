@@ -82,7 +82,7 @@ namespace RoomService.Controllers
         /// get op
         /// </summary>
         /// <param name="id">The id : 24 string to Read</param>
-        /// <returns>The json serialized object eventually default</returns>
+        /// <returns> The json serialized object eventually default</returns>
         [HttpGet("{id:length(24)}")]
         public virtual ActionResult<TModel> Read([FromRoute] string id)
         {
@@ -95,10 +95,10 @@ namespace RoomService.Controllers
             return item;
         }
         /// <summary>
-        /// update op
+        /// Update op
         /// </summary>
-        /// <param name="id">Target resource id</param>
-        /// <param name="model">the new Json serialized TModel type in Body</param>
+        /// <param name="id"> Target resource id</param>
+        /// <param name="model"> the new Json serialized TModel type in Body</param>
         /// <returns>True : success, false : else</returns>
         [HttpPut("{id:length(24)}")]
         public virtual IActionResult Update([FromRoute] string id, [FromBody] TModel model)
@@ -111,10 +111,44 @@ namespace RoomService.Controllers
             return BadRequest();
         }
         //Crud Access Controls
+
+            /// <summary>
+            /// Can Create
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="model"></param>
+            /// <returns></returns>
         protected abstract bool CanCreate(string id, TModel model);
+
+        /// <summary>
+        /// Can Read
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tid"></param>
+        /// <returns></returns>
         protected abstract bool CanRead(string id, string tid);
+
+        /// <summary>
+        /// Can Update
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         protected abstract bool CanUpdate(string id, TModel model);
+
+        /// <summary>
+        /// Can Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tid"></param>
+        /// <returns></returns>
         protected abstract bool CanDelete(string id, string tid);
+
+        /// <summary>
+        /// Can Read All
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         protected abstract bool CanReadAll(string id);
     }
 }

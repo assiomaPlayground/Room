@@ -26,8 +26,8 @@ namespace RoomService.Controllers
         /// <summary>
         /// UserController
         /// </summary>
-        /// <param name="service"></param>
-        /// <param name="acs"></param>
+        /// <param name="service">service UserService</param>
+        /// <param name="acs">acs AccessControlService</param>
         public UserController(UserService service, AccessControlService acs) : base(service) 
         {
             this._acs = acs;
@@ -36,8 +36,8 @@ namespace RoomService.Controllers
         /// <summary>
         /// InRoom
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>if null result not Found</returns>
+        /// <param name="id">The id : 24 string</param>
+        /// <returns>if null result not Found, new ok Object Result</returns>
         [HttpGet("InRoom/{id:length(24)}")]
 
         
@@ -73,7 +73,7 @@ namespace RoomService.Controllers
         /// <summary>
         /// Secure user data get
         /// </summary>
-        /// <returns>if null Bad Request</returns>
+        /// <returns>if null Bad Request, new Ok Object Result</returns>
         public override ActionResult<IEnumerable<UserModel>> GetAll() 
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
@@ -118,14 +118,49 @@ namespace RoomService.Controllers
             return new OkObjectResult(res);
         }
         //Access control base rules
+
+            /// <summary>
+            /// Can Create
+            /// </summary>
+            /// <param name="id">String id</param>
+            /// <param name="model">model UserModel</param>
+            /// <returns>acs Can Create User(id,model)</returns>
+
         protected override bool CanCreate(string id, UserModel model)
             => _acs.CanCreateUser(id, model);
+
+        /// <summary>
+        /// Can Read
+        /// </summary>
+        /// <param name="id">String id</param>
+        /// <param name="tid">String tid</param>
+        /// <returns>acs Is Auth(id)</returns>
         protected override bool CanRead(string id, string tid)
             => _acs.IsAuth(id);
+
+        /// <summary>
+        /// Can Update
+        /// </summary>
+        /// <param name="id">String id</param>
+        /// <param name="model">model UserModel</param>
+        /// <returns>acs Is Owner(id,model)</returns>
         protected override bool CanUpdate(string id, UserModel model)
             => _acs.IsOwner<UserModel>(id, model);
+
+        /// <summary>
+        /// Can Delete
+        /// </summary>
+        /// <param name="id">String id</param>
+        /// <param name="tid">String tid</param>
+        /// <returns>acs Is Owner(id,tid,Service)</returns>
         protected override bool CanDelete(string id, string tid)
             => _acs.IsOwner<UserService, UserModel>(id, tid, Service);
+
+        /// <summary>
+        /// Can Read ALl
+        /// </summary>
+        /// <param name="id">String id</param>
+        /// <returns>acs Is Auth(id)</returns>
         protected override bool CanReadAll(string id)
             => _acs.IsAuth(id);
     }

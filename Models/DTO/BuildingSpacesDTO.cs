@@ -15,7 +15,7 @@ namespace RoomService.DTO
     {
 
         /// <summary>
-        /// Id
+        /// Id of type string
         /// Un valued properties are simply ignored
         /// </summary>
         public string Id { get; set; }

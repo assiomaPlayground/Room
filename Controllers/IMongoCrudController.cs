@@ -10,7 +10,7 @@ namespace RoomService.Controllers
     /// <summary>
     /// Interface for generic CRUD ops controller
     /// </summary>
-    /// <typeparam name="TModel">A target class model type</typeparam>
+    /// <typeparam name="TModel">A Target class model type</typeparam>
     public interface IMongoCrudController<TModel> 
         where TModel : class, IModel
     {
