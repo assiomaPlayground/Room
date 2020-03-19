@@ -87,7 +87,10 @@ export class ReservationComponent implements OnInit {
   getBuildingList(){
     this.service.getAllBuildings().subscribe(building=> this.buildingList=building);
 }
-
+  setBuilding(building : Building){
+    this.selectedBuilding=building;
+     
+  }
   }
   
 
