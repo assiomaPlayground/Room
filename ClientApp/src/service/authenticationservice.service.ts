@@ -2,25 +2,25 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, config } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from 'src/model/user';
+import { UserModel } from 'src/model/UserModel';
 import { Abstractservice } from './abstractservice.service';
 
 
 
 @Injectable({ providedIn: 'root' })
-export class AuthenticationService extends Abstractservice<User> {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+export class AuthenticationService extends Abstractservice<UserModel> {
+    private currentUserSubject: BehaviorSubject<UserModel>;
+    public currentUser: Observable<UserModel>;
   
 
     constructor(protected http: HttpClient,@Inject('BASE_URL') baseUrl : String) {
       super(http, baseUrl);
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
        
       }
 
-    public get currentUserValue(): User {
+    public get currentUserValue(): UserModel {
         return this.currentUserSubject.value;
     }
 

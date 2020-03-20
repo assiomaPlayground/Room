@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Building } from 'src/model/building';
+import { Building } from 'src/model/Building';
 import { Builder } from 'protractor';
 import { BuildingService } from 'src/service/building.service';
 

@@ -1,14 +1,14 @@
 import { Injectable, Inject } from '@angular/core';
-import { Room } from 'src/model/room';
+import { WorkSpace } from 'src/model/WorkSpace';
 import { Abstractservice } from './abstractservice.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from 'src/model/user';
+import { UserModel } from 'src/model/UserModel';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoomService extends Abstractservice<Room>{
+export class RoomService extends Abstractservice<UserModel>{
   verifiedRooms : any;
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl : String) { 
     super(http, baseUrl)
@@ -16,8 +16,8 @@ export class RoomService extends Abstractservice<Room>{
     
     
   }
-  getInRoomUsers(roomId : string): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl + 'api/' + "User/" + "InRoom/" + roomId);
+  getInRoomUsers(roomId : string): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(this.baseUrl + 'api/' + "User/" + "InRoom/" + roomId);
 }
  
 

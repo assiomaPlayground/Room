@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { User } from 'src/model/user';
+import { UserModel } from 'src/model/UserModel';
 import { AuthenticationService } from 'src/service/authenticationservice.service';
 import { UserService } from 'src/service/user.service';
 
@@ -10,9 +10,9 @@ import { UserService } from 'src/service/user.service';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent implements OnInit, OnDestroy {
-    currentUser: User;
+    currentUser: UserModel;
     currentUserSubscription: Subscription;
-    users: User[] = [];
+    users: UserModel[] = [];
 
     constructor(
         private authenticationService: AuthenticationService,

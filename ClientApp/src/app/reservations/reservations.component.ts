@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationsService } from 'src/service/reservations.service';
 import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
-import { User } from 'src/model/user';
-import { Reservation } from 'src/model/reservation';
-import { WorkspaceReservation } from 'src/model/workspaceResevation';
+import { UserModel } from 'src/model/UserModel';
+import { Reservation } from 'src/model/Reservation';
+import { WorkspaceReservation } from 'src/model/WorkspaceReservation';
 import { JsonPipe } from '@angular/common';
 
 @Component({

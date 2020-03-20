@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ReservationsService } from 'src/service/reservations.service';
-import { Reservation } from 'src/model/reservation';
+import { Reservation } from 'src/model/Reservation';
 import { BuildingService } from 'src/service/building.service';
-import { Building } from 'src/model/building';
+import { Building } from 'src/model/Building';
 import { RoomService } from 'src/service/room.service';
 import { Router } from '@angular/router';
 

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { QrMap } from 'src/model/qrmap';
-import { QrmapService } from 'src/service/qrmap.service';
 import { ReservationsService } from 'src/service/reservations.service';
 
 @Component({

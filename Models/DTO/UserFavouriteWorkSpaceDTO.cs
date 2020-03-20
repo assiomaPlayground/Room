@@ -10,7 +10,7 @@ namespace RoomService.DTO
     /// <summary>
     /// User Favourite workSpace aggregation
     /// <see cref="UserModel"/>
-    /// <see cref="Favourites"/>
+    /// <see cref="FavouriteWorkSpaceDTO"/>
     /// <seealso cref="WorkSpace"/>
     /// </summary>
     public class UserFavouriteWorkSpaceDTO

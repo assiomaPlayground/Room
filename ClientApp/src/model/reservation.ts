@@ -2,18 +2,17 @@
 import { Timestamp } from "rxjs";
 import { Data } from "@angular/router";
 import { Time } from "@angular/common";
-import { Status } from "./status";
+import { Statuses } from "./Statuses";
+import { DeltaTime } from "./Types/DeltaTime";
 
 export class Reservation{
-    Id: String;
-    Status: Status;
-    In: Data;
-    Out: Data;
-    OutDef: Data;
-    StartTime: Data;
+    Id: string;
+    Status: Statuses;
+    CheckIn: string[];
+    CheckOut: string[];
+    Owner: string;
+    Target: string;
     EndTime: Date;
-    Owner : String ;
-    Target: String;
-    
-
+    Interval : DeltaTime ;
+    ReservationSocket: string;
 }

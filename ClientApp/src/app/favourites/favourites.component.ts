@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Favourites } from 'src/model/favourites';
+import { Favourites } from 'src/model/Favourites';
 import { FavouritesService } from 'src/service/favourites.service';
 
 @Component({

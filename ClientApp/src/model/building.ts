@@ -1,6 +1,5 @@
 export class Building{
-    Id: String;
-    Name: String;
-    Map: String;
-    Rooms: String;
+    Id: string;
+    Name: string;
+    Map: string;
 }

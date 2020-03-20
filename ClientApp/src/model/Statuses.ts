@@ -1,8 +1,7 @@
-export enum Status{
+export enum Statuses{
     ATTIVA,
     INCORSO,
     CONCLUSA,
     CHECKIN,
-    CANCELLATA,
-
+    CANCELLATA
 }

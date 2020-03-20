@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Building } from 'src/model/building';
+import { Building } from 'src/model/Building';
 import { Abstractservice } from './abstractservice.service';
 import { HttpClient } from '@angular/common/http';
 

@@ -1,7 +1,7 @@
 export class Favourites{
-    Target: String;
-    Owner: String;
-    Last: Boolean;
-    UsageTimes: Number;
-
+    Id : string;
+    Target: string;
+    Owner: string;
+    Last: boolean;
+    UsageTimes: number;
 }

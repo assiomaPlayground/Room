@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/model/user';
+import { UserModel } from 'src/model/UserModel';
 import { UserService } from 'src/service/user.service';
 
 @Component({
@@ -8,8 +8,8 @@ import { UserService } from 'src/service/user.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  users: User[];
-  usersins: User= new User();
+  users: UserModel[];
+  usersins: UserModel= new UserModel();
   constructor(private service : UserService) { }
 
   ngOnInit() {
@@ -18,13 +18,13 @@ export class AdminComponent implements OnInit {
   List(){
       this.service.List().subscribe(users=> this.users=users);
   }
-  insert(user: User){
+  insert(user: UserModel){
       this.service.insert(user).subscribe(()=> this.List());
   }
-  update(user: User){
+  update(user: UserModel){
     this.service.update(user).subscribe(()=> this.List());
   }
-  delete(user: User){
+  delete(user: UserModel){
     this.service.delete(user.Id).subscribe(()=> this.List());
   }
   

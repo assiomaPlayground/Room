@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/model/user';
+import { UserModel } from 'src/model/UserModel';
 import { UserService } from 'src/service/user.service';
-import { Room } from 'src/model/room';
+import { WorkSpace } from 'src/model/WorkSpace';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  users: User[];
-  usersins: User= new User();
+  users: UserModel[];
+  usersins: UserModel= new UserModel();
   userFilter: any = { Username: '' };
   
   
@@ -23,13 +23,13 @@ export class UserComponent implements OnInit {
   List(){
       this.service.List().subscribe(users=> this.users=users);
   }
-  insert(user: User){
+  insert(user: UserModel){
       this.service.insert(user).subscribe(()=> this.List());
   }
-  update(user: User){
+  update(user: UserModel){
     this.service.update(user).subscribe(()=> this.List());
   }
-  delete(user: User){
+  delete(user: UserModel){
     this.service.delete(user.Id).subscribe(()=> this.List());
   }
   click(user:any){

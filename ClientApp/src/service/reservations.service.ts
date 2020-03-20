@@ -1,13 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
-import { Reservation } from 'src/model/reservation';
+import { Reservation } from 'src/model/Reservation';
 import { Abstractservice } from './abstractservice.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from 'src/model/user';
+import { UserModel } from 'src/model/UserModel';
 import { Data } from '@angular/router';
 import { BuildingService } from './building.service';
 import { datepickerAnimation } from 'ngx-bootstrap/datepicker/datepicker-animations';
-import { Building } from 'src/model/building';
+import { Building } from 'src/model/Building';
 
 @Injectable({
   providedIn: 'root'

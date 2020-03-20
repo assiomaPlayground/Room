@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Abstractservice } from './abstractservice.service';
-import { Favourites } from 'src/model/favourites';
+import { Favourites } from 'src/model/Favourites';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
