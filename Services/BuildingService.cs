@@ -136,6 +136,9 @@ namespace RoomService.Services
             //Invalid model
             if (!model.Interval.IsValid())
                 return false;
+            //Reservation could be only for the future
+            if (!model.Interval.IsFuture())
+                return false;
             //Query gets all valid statuses reservations of user owner of the reservation
             var qres = from res in _reservationRepo.AsQueryable()
                        where model.Owner == res.Owner && _goingStatuses.Contains(res.Status)

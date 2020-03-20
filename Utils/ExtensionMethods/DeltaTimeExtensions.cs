@@ -30,6 +30,16 @@ namespace RoomService.Utils
         public static bool IsValid(this DeltaTime deltaTime)
             => (string.Compare(deltaTime.StartTime, deltaTime.EndTime) < 0);
         /// <summary>
+        /// Determinate if a Deltatime start is in the future compared to current time
+        /// </summary>
+        /// <param name="deltaTime">This item to check</param>
+        /// <returns>Bool true : the start time is in the future</returns>
+        public static bool IsFuture(this DeltaTime deltaTime)
+        {
+            var now = DateTime.Now.ToString("o");
+            return (string.Compare(deltaTime.StartTime, now) < 0);
+        }
+        /// <summary>
         /// Clamp DeltaTime attributes inside nearests hours of the day to hook
         /// </summary>
         /// <param name="delta">The target deltatime</param>

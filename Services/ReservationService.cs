@@ -101,6 +101,9 @@ namespace RoomService.Services
             //Invalidated after clamp error
             if (!model.Interval.IsValid())
                 return new Reservation();
+            //Reservation could be only for the future
+            if (!model.Interval.IsFuture())
+                return new Reservation();
             //Get last reservation interval
             var EndTime = DateTime.Parse(model.Interval.EndTime, null, DateTimeStyles.RoundtripKind);
             //Create a candidate building
@@ -260,6 +263,9 @@ namespace RoomService.Services
         {
             //Invalid model
             if (!model.Interval.IsValid())
+                return false;
+            //Reservation could be only for the future
+            if (!model.Interval.IsFuture())
                 return false;
             //Query gets all valid statuses reservations of user owner of the reservation
             var qres = from res in Collection.AsQueryable()
