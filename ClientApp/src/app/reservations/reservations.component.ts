@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationsService } from 'src/service/reservations.service';
 import { WorkSpaceReservationDTO } from 'src/model/DTO/WorkSpaceReservationDTO';
+import { UserModel } from 'src/model/UserModel';
+import { AuthenticationService } from 'src/service/authenticationservice.service';
 
 @Component({
   selector: 'app-reservations',
@@ -10,15 +12,16 @@ import { WorkSpaceReservationDTO } from 'src/model/DTO/WorkSpaceReservationDTO';
 export class ReservationsComponent implements OnInit {
   
   public wreservations: Array<WorkSpaceReservationDTO> = new Array<WorkSpaceReservationDTO>();
-
-  constructor(private service: ReservationsService) { }
+  public user : UserModel;
+  
+  constructor(private service: ReservationsService, private authService : AuthenticationService) { }
 
   ngOnInit() {
+    this.user = this.authService.currentUserValue;
     this.list();
   }
   list(){
-    let user = JSON.parse(localStorage.getItem('currentUser'));
-    this.service.userReservationsWorkSpaceavailability(user.Id).subscribe(res => {
+    this.service.userReservationsWorkSpaceavailability(this.user.Id).subscribe(res => {
       this.wreservations = res;
     })
   }

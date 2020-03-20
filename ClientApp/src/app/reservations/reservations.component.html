@@ -11,10 +11,10 @@
             <div *ngFor="let reservation of wreservations | orderBy: 'reservation.Interval.StartTime'">
               <ul class="list-group m-2">
                 
-                <li class="list-group-item">Stanza: {{reservation.TargetWorkSpace.Name}}
-                  <i class="fa fa-check  fa-2x col-md-1 offset-md-1"style="color:green"routerLink="/qrmap"></i>
-                  <i class="fa fa-times fa-2x col-md-2 offset-md-2"style="color:red" (click)="delete(reservation)" ></i></li>
-                <li class="list-group-item">Disponibilitá: {{reservation.Availability}} su {{reservation.TargetWorkSpace.AllSeats}}</li>
+                <li class="list-group-item">Stanza: {{reservation.WorkSpace.Name}}
+                <i class="fa fa-check  fa-2x col-md-1 offset-md-1"style="color:green"routerLink="/qrmap"></i>
+                <i class="fa fa-times fa-2x col-md-2 offset-md-2"style="color:red" (click)="delete(reservation)" ></i></li>
+                <li class="list-group-item">Disponibilitá: {{reservation.WorkSpace.AllSeats - reservation.Users}} su {{reservation.WorkSpace.AllSeats}}</li>
                 <li class="list-group-item">Inizio: {{reservation.Interval.StartTime | amLocale:'it' | amTimeAgo}} </li>
                 <li class="list-group-item">Fino: {{reservation.Interval.EndTime | amLocale:'it' | amCalendar}}</li>
               </ul>
@@ -23,7 +23,7 @@
        <div class="card-footer">
         <i class="fa fa-home fa-2x" aria-hidden="true" routerLink="/home" ></i>
         
-        <i class="fa fa-calendar fa-2x col-md-4 offset-md-4" aria-hidden="true" routerLink="/prenotazioni"></i>
+        <i class="fa fa-calendar fa-2x col-md-4 offset-md-4" aria-hidden="true" routerLink="/reservations"></i>
 
         <i class="fa fa-user-o  fa-2x col-md-1 offset-md-1  " aria-hidden="true" routerLink="/user"></i>
         
