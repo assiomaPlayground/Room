@@ -14,12 +14,10 @@ namespace RoomService.Controllers
     /// </summary>
     public class WorkSpaceController : AbstractMongoCrudController<WorkSpace, WorkSpaceService>
     {
-
         /// <summary>
         /// acs as AccessControlService
         /// </summary>
         private readonly AccessControlService _acs;
-
         /// <summary>
         /// WorkSpaceController
         /// </summary>
@@ -38,7 +36,6 @@ namespace RoomService.Controllers
         /// <returns>acs is Auth(id)</returns>
         protected override bool CanCreate(string id, WorkSpace model)
             => _acs.IsAuth(id);
-
         /// <summary>
         /// Can Delete
         /// </summary>
@@ -47,7 +44,6 @@ namespace RoomService.Controllers
         /// <returns>acs Is Admin(id)</returns>
         protected override bool CanDelete(string id, string tid)
             => _acs.IsAdmin(id);
-        
         /// <summary>
         /// Can Read
         /// </summary>
@@ -56,7 +52,6 @@ namespace RoomService.Controllers
         /// <returns>acs Is Auth(id)</returns>
         protected override bool CanRead(string id, string tid)
             => _acs.IsAuth(id);
-
         /// <summary>
         /// Can Read All
         /// </summary>
@@ -64,7 +59,6 @@ namespace RoomService.Controllers
         /// <returns>acs is Auth(id)</returns>
         protected override bool CanReadAll(string id)
             => _acs.IsAuth(id);
-
         /// <summary>
         /// Can Update
         /// </summary>

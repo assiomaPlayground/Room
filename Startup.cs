@@ -21,16 +21,28 @@ using Newtonsoft.Json.Bson;
 
 namespace RoomService
 {
+    /// <summary>
+    /// Startup class
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Startup class constructor
+        /// </summary>
+        /// <param name="configuration">The app configuration</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
+        /// <summary>
+        /// Configuration data for utils
+        /// </summary>
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// ConfigUtils helper will contain Services for type
+        /// </summary>
+        /// <param name="services">The service collection</param>
         public void ConfigureServices(IServiceCollection services)
         {
             (new ConfigUtils(services, Configuration)).ConfigureApp();
@@ -42,7 +54,11 @@ namespace RoomService
                 configuration.RootPath = "ClientApp/dist";
             });
         }
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">Application builder</param>
+        /// <param name="env">Envinorment</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();

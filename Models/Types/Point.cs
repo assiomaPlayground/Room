@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 namespace RoomService.Models.Types
 {
     /// <summary>
-    /// Point2d
+    /// Point2d data container class
     /// </summary>
     public class Point2d
     {
         /// <summary>
-        /// <param name = "X"></param>
-
+        /// The X coord
         /// </summary>
         public int X { get; set; }
-
         /// <summary>
-        /// <param name = "Y"></param>
+        /// The Y coord
         /// </summary>
         public int Y { get; set; }
     }

@@ -10,19 +10,18 @@ using System.Threading.Tasks;
 namespace RoomService.Services
 {
     /// <summary>
-    /// Service for Building collection crud ops in abstract
+    /// Service for Favourite collection crud ops in abstract
     /// </summary>
     public class FavouritesService : AbstractMongoCrudService<Favourites>
     {
-        public FavouritesService(
-            IRoomServiceMongoSettings settings
-        )
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="settings">Mongo settings file wrapper</param>
+        public FavouritesService(IRoomServiceMongoSettings settings)
         {
             base.Init(settings, settings.FavouritesCollection);
         }
-
-        public DeleteResult DeleteByUserId(string id)
-            => Collection.DeleteMany(fav => fav.Owner == id);
     }
 }
 

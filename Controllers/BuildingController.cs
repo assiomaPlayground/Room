@@ -25,25 +25,25 @@ namespace RoomService.Controllers
             this._acs = acs;
         }
         [HttpGet("{id:length(24)}/rooms")]
-        public ActionResult<BuildingSpacesDTO> GetBuildingSpaces([FromRoute] string id)
+        public ActionResult<BuildingWorkSpaceDTO> GetBuildingSpaces([FromRoute] string id)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanRead(rid, id))
                 return Forbid();
 
-            var item = Service.GetBuildingSpaces(id);
+            var item = Service.GetBuildingWorkSpace(id);
 
             if (item == null)
                 return NotFound();
             return item;
         }
         [HttpPost("CheckAvailability/{id:length(24)}")]
-        public ActionResult<BuildingAvailabilityDTO> CheckAvailability([FromRoute] string id, [FromBody] DeltaTime Interval)
+        public ActionResult<BuildingWorkSpaceDTO> CheckAvailability([FromRoute] string id, [FromBody] DeltaTime Interval)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanRead(rid, id))
                 return Forbid();
-            var item = Service.GetAvailableBuildingSpaces(rid, id, Interval);
+            var item = Service.GetAvailableBuildingWorkSpace(rid, id, Interval);
             if (item == null)
                 return NotFound();
             return item;

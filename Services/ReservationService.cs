@@ -26,7 +26,7 @@ namespace RoomService.Services
         /// Required external aggregation repository _workSpaceReservations is the WorkSpaceReservations collection repo
         /// In this repo are stored the Workspace by date reservations collected is also a main repo of this service.
         /// </summary>
-        private readonly IMongoCollection<WorkSpaceReservations> _workSpaceReservations;
+        private readonly IMongoCollection<WorkSpaceReservation> _workSpaceReservationRepo;
         //@TODO use settings or database
         private readonly HashSet<Reservation.Statuses> _goingStatuses = new HashSet<Reservation.Statuses>
         { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
@@ -42,22 +42,8 @@ namespace RoomService.Services
             base.Init(settings, settings.ReservationCollection);
             //Connect to required extra collections
             _workSpaceRepo = Database.GetCollection<WorkSpace>(settings.WorkSpaceCollection);
-            _workSpaceReservations = Database.GetCollection<WorkSpaceReservations>(settings.WorkSpaceReservationCollection);
+            _workSpaceReservationRepo = Database.GetCollection<WorkSpaceReservation>(settings.WorkSpaceReservationCollection);
         }
-        /// <summary>
-        /// Do not use for now Cascade delete need to be implemented
-        /// </summary>
-        /// <param name="id">The user id ref</param>
-        /// <returns>Mongo delete result instance</returns>
-        public DeleteResult DeleteByUserId(string id)
-            => Collection.DeleteMany(res => res.Owner == id);
-        /// <summary>
-        /// Do not use for now Cascade delete need to be implemented
-        /// </summary>
-        /// <param name="id">The room id ref</param>
-        /// <returns>Mongo delete result instance</returns>
-        public DeleteResult DeleteByRoomId(string id)
-            => Collection.DeleteMany(res => res.Target == id);
         /// <summary>
         /// Return all reservations of chosen user
         /// </summary>
@@ -70,21 +56,20 @@ namespace RoomService.Services
         /// Uses the reservation as "middleman" for join workspace and availability in reservation interval
         /// </summary>
         /// <param name="id">The user Id</param>
-        /// <returns>IEnumerable<WorkSpaceAvailabilityDTO>Joined reservation workspace and availability in the interval DeltaTine of the requested user reservations</returns>
-        public IEnumerable<WorkSpaceAvailabilityDTO> GetUserReservationsAndWorkSpaces(string id)
+        /// <returns>Joined reservation workspace and availability in the interval DeltaTine of the requested user reservations</returns>
+        public IEnumerable<WorkSpaceReservationDTO> GetUserReservationsAndWorkSpaces(string id)
         {
             //Get user reservation Note: in mongo query from could be called in only one mongo collection
             var reservations = Collection.Find(res => res.Owner == id).ToEnumerable();
             //Start the query
             var qres = from res in reservations.AsQueryable() //From reservation
                        join workspace in _workSpaceRepo.AsQueryable() on res.Target equals workspace.Id //Join workspace using id
-                       join workres in _workSpaceReservations.AsQueryable() on res.ReservationSocket equals workres.Id //join workspaceReservations using id
-                       select new WorkSpaceAvailabilityDTO //Aggregate result class
+                       join workres in _workSpaceReservationRepo.AsQueryable() on res.ReservationSocket equals workres.Id //join workspaceReservations using id
+                       select new WorkSpaceReservationDTO //Aggregate result class
                        {
-                           ReservationId = res.Id,
-                           Availability = workspace.AllSeats - workres.Reservations.Count(),
+                           Users = workspace.AllSeats - workres.Reservations,
                            Interval = res.Interval,
-                           TargetWorkSpace = workspace
+                           WorkSpace = workspace
                        };
             //Return enumerable result
             return qres.AsEnumerable();
@@ -159,28 +144,25 @@ namespace RoomService.Services
             //Insert the validated model
             Collection.InsertOne(model);
             //Get target workspace reservations in time interval
-            WorkSpaceReservations target;
+            WorkSpaceReservation target;
             //Query
-            var qres = from wsr in _workSpaceReservations.AsQueryable()
-                       where wsr.Owner == model.Target && wsr.Times.Equals(model.Interval)
+            var qres = from wsr in _workSpaceReservationRepo.AsQueryable()
+                       where wsr.Owner == model.Target && wsr.Interval.Equals(model.Interval)
                        select wsr;
             //Create new workspace reservations in time interval if not found
             if ((target = qres.FirstOrDefault()) == null)
-                target = new WorkSpaceReservations
+                target = new WorkSpaceReservation
                 {
                     Owner = model.Target,
-                    Times = model.Interval,
-                    Reservations = new List<string>()
+                    Interval = model.Interval,
+                    Reservations = 0
                 };
-            //Error? somehow reservation already exists?
-            //Append new reservation to target workspace reservations in time interval
-            if (!target.Reservations.Contains(model.Id)) //No duplicates
-                target.Reservations = target.Reservations.Append(model.Id);
-            else return new Reservation(); //Failed to add (Already exists)
+            //Add reservation counter
+            target.Reservations++;
             //No target in the database -> add else update
             if (target.Id != null)
-                _workSpaceReservations.ReplaceOne<WorkSpaceReservations>(_wsr => _wsr.Id == target.Id, target);
-            else _workSpaceReservations.InsertOne(target);
+                _workSpaceReservationRepo.ReplaceOne<WorkSpaceReservation>(_wsr => _wsr.Id == target.Id, target);
+            else _workSpaceReservationRepo.InsertOne(target);
             //Update model refs
             model.ReservationSocket = target.Id;
             Update(model.Id, model);
@@ -197,17 +179,14 @@ namespace RoomService.Services
             //Get the item to delete
             var item = Read(id);
             //Get reservation targeted workspace seat
-            var target = _workSpaceReservations.Find<WorkSpaceReservations>(tar => tar.Id == item.ReservationSocket).FirstOrDefault();
+            var target = _workSpaceReservationRepo.Find<WorkSpaceReservation>(tar => tar.Id == item.ReservationSocket).FirstOrDefault();
             //Target error
             if (target == null)
                 return base.Delete(id);
             //Remove reservation seat
-            var edit = target.Reservations.ToHashSet();
-            edit.Remove(id);
-            //Reset to enumerable
-            target.Reservations = edit.AsEnumerable();
+            target.Reservations--;
             //Update on database
-            _workSpaceReservations.ReplaceOne<WorkSpaceReservations>(_wsr => _wsr.Id == target.Id, target);
+            _workSpaceReservationRepo.ReplaceOne<WorkSpaceReservation>(_wsr => _wsr.Id == target.Id, target);
             //Delete
             return base.Delete(id);
         }
@@ -265,9 +244,9 @@ namespace RoomService.Services
             if (res == null) return null;
             var workSpc = _workSpaceRepo.Find(workSpace => workSpace.Id == res.Target).FirstOrDefault();
             if (workSpc == null) return null;
-            var workRes = _workSpaceReservations.Find(workRes => workRes.Id == res.ReservationSocket).FirstOrDefault();
+            var workRes = _workSpaceReservationRepo.Find(workRes => workRes.Id == res.ReservationSocket).FirstOrDefault();
             if (workRes == null) return null;
-            return new WorkSpaceReservationDTO { Room = workSpc, Times = res.Interval, Users = workRes.Reservations.Count() };
+            return new WorkSpaceReservationDTO { WorkSpace = workSpc, Interval = res.Interval, Users = workRes.Reservations };
         }
         /// <summary>
         /// Performs controls for Reservation insert availability
@@ -288,10 +267,13 @@ namespace RoomService.Services
                        select res;
             //Get target Workspace seat availability
             var wrk = _workSpaceRepo.Find<WorkSpace>(sp => sp.Id == model.Target).FirstOrDefault();
-            var wsr = _workSpaceReservations.Find<WorkSpaceReservations>(tar => tar.Id == model.ReservationSocket).FirstOrDefault();
+            var wsr = _workSpaceReservationRepo.Find<WorkSpaceReservation>(tar => tar.Id == model.ReservationSocket).FirstOrDefault();
+            //No Workspace
+            if(wrk == null)
+                return false;
             //Valid data
-            if (wsr != null && wrk != null)
-                if (wrk.AllSeats <= wsr.Reservations.Count())
+            if (wsr != null)
+                if (wrk.AllSeats <= wsr.Reservations)
                     return false;
             //New reservation should not intersect others
             foreach (var userRes in qres)

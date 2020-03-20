@@ -13,38 +13,37 @@ namespace RoomService.Models
     /// </summary>
     public class Favourites : IModel, IOwnable
     {
-
         /// <summary>
-        /// Id
+        /// Id <see cref="IModel.Id"/>
         /// </summary>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+        /// <summary>
+        /// Target resource favourited in this case refers WorkSpace
+        /// <see cref="WorkSpace"/>
+        /// </summary>
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
-        /// <summary>
-        /// Target
-        /// </summary>
         public string Target { get; set; }
+        /// <summary>
+        /// Owner of the Favourite in this case the User
+        /// <see cref="UserModel"/>
+        /// <seealso cref="IOwnable"/>
+        /// </summary>
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
-        /// <summary>
-        /// Owner
-        /// </summary>
         public string Owner { get; set; }
+        /// <summary>
+        /// Bool indicating if this liked was last reserved WorkSpace by owner
+        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Include)] 
-
-        /// <summary>
-        /// Last
-        /// </summary>
         public bool Last { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
         /// <summary>
-        /// <param name = "UsageTimes"></param>
+        /// Times the Favourite were used 
+        /// Prop for favoutirs sorting
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public int UsageTimes { get; set; }
     }
 }

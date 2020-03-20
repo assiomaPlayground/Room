@@ -15,10 +15,9 @@ namespace RoomService.Settings
         /// Connection
         /// </summary>
         string ConnectionString { get; set; }
-
         /// <summary>
-        /// Name of Database
+        /// Name of the Database where to connect
         /// </summary>
-        string DatabaseName     { get; set; }
+        string DatabaseName { get; set; }
     }
 }

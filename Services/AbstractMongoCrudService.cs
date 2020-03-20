@@ -63,7 +63,7 @@ namespace RoomService.Services
         /// update op
         /// </summary>
         /// <param name="id">Target resource id</param>
-        /// <param name="model">TModel type object</param>
+        /// <param name="newModel">TModel type object</param>
         /// <returns>True : success, false : else</returns>
         public virtual ReplaceOneResult Update(string id, TModel newModel) 
             => Collection.ReplaceOne<TModel>(model => id == model.Id, newModel);
@@ -71,7 +71,7 @@ namespace RoomService.Services
         /// get all op
         /// @TODO pagination or result limit
         /// </summary>
-        /// <returns>ICollection<TModel> (List) eventually 0 sized</returns>
+        /// <returns>ICollection (List) eventually 0 sized</returns>
         public virtual IEnumerable<TModel> GetAll() 
             => Collection.Find<TModel>(model => true).ToEnumerable<TModel>();
     }

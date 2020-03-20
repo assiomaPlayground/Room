@@ -11,7 +11,7 @@ namespace RoomService.Models
     public interface IModel
     {
         /// <summary>
-        /// Id
+        /// Id all models on mongo db must have an Id
         /// </summary>
         public string Id { get; set; }
     }

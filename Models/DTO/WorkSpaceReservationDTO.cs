@@ -8,25 +8,26 @@ using System.Threading.Tasks;
 
 namespace RoomService.DTO
 {
+    /// <summary>
+    /// WorkSpace Reservation DTO has id instead of string and less metadata
+    /// <see cref="WorkSpaceReservation"/>
+    /// </summary>
     public class WorkSpaceReservationDTO
     {
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
         /// <summary>
-        /// Room WorkSpace
+        /// The workspace of the reservation
         /// </summary>
-        public WorkSpace Room { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
+        public WorkSpace WorkSpace { get; set; }
         /// <summary>
-        /// Times of DeltaTime
+        /// WorkSpace Reservation Interval time
         /// </summary>
-        public DeltaTime Times { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
+        public DeltaTime Interval { get; set; }
         /// <summary>
-        /// <param name = "Users"></param>
+        /// Number of users with a reservation in the Workspace during Interval time
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public int Users { get; set; }
     }
 }

@@ -73,7 +73,7 @@ namespace RoomService.Controllers
             return new OkObjectResult(Service.GetReservationMeta(id));
         }
         [HttpGet("WorkSpace/User/{id:length(24)}")]
-        public ActionResult<IEnumerable<WorkSpaceAvailabilityDTO>> GetUserReservationsAndWorkSpaces(string id)
+        public ActionResult<IEnumerable<WorkSpaceReservationDTO>> GetUserReservationsAndWorkSpaces(string id)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!this._acs.IsAuth(rid))
@@ -95,7 +95,7 @@ namespace RoomService.Controllers
         protected override bool CanDelete(string id, string tid)
             => _acs.IsOwner<ReservationService, Reservation>(id, tid, Service);
         protected override bool CanRead(string id, string tid)
-            => _acs.OwnOrOnGoing(id, tid);
+            => _acs.IsAuth(id);
         protected override bool CanReadAll(string id)
             => _acs.IsAdmin(id);
         protected override bool CanUpdate(string id, Reservation model)

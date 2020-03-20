@@ -39,7 +39,9 @@ namespace RoomService.Utils
         /// <param name="o">Timer object</param>
         /// <param name="e">Timer args</param>
         /// <param name="op">The operation to run</param>
+        #pragma warning disable IDE0060 // Remove unused param it's needed by timer callback even if not used
         private void RaiseEvent(object o, ElapsedEventArgs e, Func<bool> op)
+        #pragma warning restore IDE0060
         {
             op.Invoke();
         }
@@ -50,7 +52,13 @@ namespace RoomService.Utils
     /// </summary>
     public enum TaskTypes
     {
+        /// <summary>
+        /// Status for update task selection
+        /// </summary>
         RESSTATUSUPDATE,
+        /// <summary>
+        /// Status for Notification tasks selection
+        /// </summary>
         RESNOTIFIER
     }
     /// <summary>
@@ -59,9 +67,21 @@ namespace RoomService.Utils
     /// </summary>
     public struct ServerTimeTaskData
     {
+        /// <summary>
+        /// Task name
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Task description
+        /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// Task type
+        /// </summary>
         public TaskTypes TaskType { get; set; }
+        /// <summary>
+        /// Hour of the day when task will run
+        /// </summary>
         public int Hour { get; set; }
     };
 }

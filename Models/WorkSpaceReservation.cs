@@ -8,39 +8,36 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace RoomService.Models
-
-    
 {
     /// <summary>
     /// Service for WorSpace
     /// </summary>
-    public class WorkSpaceReservations : IModel, IOwnable
+    public class WorkSpaceReservation : IModel, IOwnable
     {
         /// <summary>
-        /// Id
+        /// Id <see cref="IModel.Id"/>
         /// </summary>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        [BsonRequired]
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
         /// <summary>
-        /// Times of DeltaTime
+        /// The ref interval of time the resource refers
         /// </summary>
-        public DeltaTime Times { get; set; }
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
+        public DeltaTime Interval { get; set; }
         ///<summary>
-        ///Owner
+        ///Owner of the resource in this case the WorkSpace
+        ///<see cref="IOwnable"/>
+        ///<seealso cref="WorkSpace"/>
         /// </summary>
-        public string Owner { get; set; }
+        [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-
+        public string Owner { get; set; }
         /// <summary>
-        /// Reservation of IEnumerable
+        /// Counter of current reservations
         /// </summary>
-        public IEnumerable<string> Reservations { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public int Reservations { get; set; }
     }
 }

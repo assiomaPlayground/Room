@@ -77,6 +77,7 @@ namespace RoomService.Utils
         /// Get the next DeltaTime Interval inside a Deltatime to split into defined units
         /// </summary>
         /// <param name="delta">The DeltaTime to iterate</param>
+        /// <param name="last">DateTime placeholder for end iteration</param>
         /// <returns>The next DeltaTime day interval</returns>
         public static DeltaTime Next(this DeltaTime delta, DateTime last) 
         {

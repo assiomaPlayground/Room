@@ -9,13 +9,24 @@ using Microsoft.Extensions.Logging;
 
 namespace RoomService
 {
+    /// <summary>
+    /// Program class
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="args">Run args</param>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
-
+        /// <summary>
+        /// Create Host builder
+        /// </summary>
+        /// <param name="args">program args</param>
+        /// <returns>Host builder</returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration( (hostingContext, config) => 

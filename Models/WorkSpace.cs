@@ -15,57 +15,53 @@ namespace RoomService.Models
     /// </summary>
     public class WorkSpace : IModel, IOwnable
     {
+        /// <summary>
+        /// Id <see cref="IModel.Id"/>
+        /// </summary>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-
-        /// <summary>
-        /// Id
-        /// Un valued properties are simply ignored
-        /// </summary>
         public string Id { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-
         /// <summary>
-        /// Name
+        /// Name of the workspace
         /// Un valued properties are simply ignored
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
+        /// <summary>
+        /// WorkSpace feature enumerable
+        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-
+        public IEnumerable<string> Features { get; set; }
         /// <summary>
-        /// Features of ICollection
+        /// Maximum WorkSpace available seats
         /// </summary>
-        public ICollection<string> Features { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         [BsonRequired]
-
-        /// <summary>
-        /// AllSeats
-        /// </summary>
         public int AllSeats { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-        [BsonRequired]
-
         /// <summary>
-        /// SubMap
+        /// SubMap url to svg used for map the area
         /// Un valued properties are simply ignored
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [BsonRequired]
         public string SubMap { get; set; }
+        /// <summary>
+        /// Ref Building used for aggregate with building 
+        /// <see cref="Building.Building"/>
+        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)] 
-
-        //Building
         public string Building { get; set; }
+        /// <summary>
+        /// Pivot of Point2d where to stick the svg in map
+        /// <see cref="Point2d"/>
+        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)] 
-
-        /// <summary>
-        /// Pivot of Point2d
-        /// </summary>
         public Point2d Pivot { get; set; }
-        [BsonIgnore][JsonIgnore] 
-        
         /// <summary>
-        /// Owner
+        /// Owner of the resource in this case the building where the workspace is
+        /// <see cref="IOwnable"/>
         /// </summary>
-        public string Owner { get => Building; }
+        [BsonIgnore][JsonIgnore]
+        public string Owner { get => Building; set => Building = value; }
     }
 }

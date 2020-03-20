@@ -36,6 +36,10 @@ namespace RoomService.Services
         /// </summary>
         private readonly IMongoCollection<Reservation> _reservationRepo;
         /// <summary>
+        /// Needed repository for aggregation operations with WorkSpace reservation
+        /// </summary>
+        private readonly IMongoCollection<WorkSpaceReservation> _workSpaceReservationRepo;
+        /// <summary>
         /// Needed repository for aggregation operations with Favourites
         /// </summary>
         private readonly IMongoCollection<Favourites>  _favouriteRepo;
@@ -47,14 +51,17 @@ namespace RoomService.Services
         /// Constructor sets the DI
         /// </summary>
         /// <param name="settings">The required settings</param>
+        /// <param name="appSettings">The whole app settings wrapper</param>
+        /// <param name="cryptProvider">The utility service for password encrypt</param>
         public UserService(IRoomServiceMongoSettings settings, IAppSettings appSettings, CrypProvider cryptProvider)        
         {
+            //Init base
             base.Init(settings, settings.UserCollection);
-
+            //Set Encryption Data
             this._sectet = appSettings.Secret;
             this._cryptProvider = cryptProvider;
             this._TokenLifetime = appSettings.TokenDuration;
-
+            //Gets extra collections
             this._reservationRepo = Database.GetCollection<Reservation>(settings.ReservationCollection);
             this._favouriteRepo   = Database.GetCollection<Favourites> (settings.FavouritesCollection);
             this._workSpaceRepo   = Database.GetCollection<WorkSpace>  (settings.WorkSpaceCollection);
@@ -110,7 +117,7 @@ namespace RoomService.Services
             //@TODO: use a token helper service?
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this._sectet);
-
+            //Store data in token
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -134,10 +141,32 @@ namespace RoomService.Services
         /// <returns>The delete result mongo driver class</returns>
         public override DeleteResult Delete(string id)
         {
-            //@TODO: delete from here
-            //_reservationRepo.DeleteByUserId(id); //Delete user reservation //Cascade delete
-            //_favouriteRepo.DeleteByUserId(id); //Delete user favourites //Cascade delete
+            DeleteAllUserReservationById(id);
+            _favouriteRepo.DeleteMany(fav => fav.Owner == id);
             return base.Delete(id);
+        }
+        /// <summary>
+        /// Delete user Reservation
+        /// Chains a seat free in ref WorkSpaceReservation
+        /// </summary>
+        /// <param name="id">The user Id</param>
+        /// <returns>The delete result mongo driver instance</returns>
+        public DeleteResult DeleteAllUserReservationById(string id)
+        {
+            //Get candidates
+            var allRes = _reservationRepo.Find(anyRes => anyRes.Owner == id).ToList();
+            foreach (var res in allRes)
+            {
+                //Free user seats
+                var seats = _workSpaceReservationRepo.Find(wrkRes => wrkRes.Id == res.ReservationSocket).ToList(); //Should be 1
+                foreach (var seat in seats)
+                {
+                    seat.Reservations--;
+                    _workSpaceReservationRepo.ReplaceOne(wrkRes => wrkRes.Id == seat.Id, seat);
+                }
+            }
+            //Return resuls
+            return _reservationRepo.DeleteMany(anyRes => anyRes.Owner == id);
         }
         /// <summary>
         /// Find an user by his username
@@ -148,30 +177,29 @@ namespace RoomService.Services
         public UserModel FindByUserName(string username)
             => Collection.Find(user => user.Username == username).FirstOrDefault();
         /// <summary>
-        /// Gets the favourite rooms (WorkSpace) of a target user
+        /// Gets the favourite WorkSpace of a target user
         /// </summary>
         /// <param name="id">The target user id</param>
-        /// <returns>And user and a collection of his favourites rooms</returns>
-        public UserFavouriteRoomsDTO GetUserFavouritesRooms(string id)
+        /// <returns>And user and a collection of his favourites WorkSpace</returns>
+        public UserFavouriteWorkSpaceDTO GetUserFavouriteWorkSpace(string id)
         {
             var favs = _favouriteRepo.Find(fav => fav.Owner == id).ToEnumerable();
             var user = Read(id).WithoutPassword();
             var qres = from fav in favs.AsQueryable()
-                       join room in _workSpaceRepo.AsQueryable() on fav.Target equals room.Id
-                       select new UserFavouriteRoomsDTO.FavouriteRoom
+                       join workspc in _workSpaceRepo.AsQueryable() on fav.Target equals workspc.Id
+                       select new UserFavouriteWorkSpaceDTO.FavouriteWorkSpaceDTO
                        {
-                           Workspace = room,
-                           Last = fav.Last,
-                           UsageTimes = fav.UsageTimes
+                           Favourite = fav,
+                           WorkSpace = workspc
                        };
-            return new UserFavouriteRoomsDTO { Owner = user, Rooms = qres.ToArray() };
+            return new UserFavouriteWorkSpaceDTO { User = user, Favourites = qres.ToArray() };
         }
         /// <summary>
         /// Look for all users inside a WorkSpace using their checkin status
         /// </summary>
         /// <param name="id">The WorkSpace id</param>
         /// <returns>IEnumerable of found users</returns>
-        public IEnumerable<UserModel> GetUsersInRoom(string id)
+        public IEnumerable<UserModel> GetUserInWorkSpace(string id)
         {
             return from res in _reservationRepo.AsQueryable()
                    where res.Target == id && res.Status == Reservation.Statuses.CHECKIN

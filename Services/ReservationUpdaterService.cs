@@ -28,12 +28,12 @@ namespace RoomService.Services
         /// Utility service for timer based task creation got from DI
         /// </summary>
         private readonly ServerTaskUtils _serverTaskUtils;
-        //@TODO use settings or database
+        /// <summary>
+        /// _goingStatuses hashset helper 
+        /// @TODO use settings or database
+        /// </summary>
         private readonly HashSet<Reservation.Statuses> _goingStatuses = new HashSet<Reservation.Statuses>
         { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
-
-        private readonly HashSet<Reservation.Statuses> _storedStatuses = new HashSet<Reservation.Statuses>
-        { Reservation.Statuses.CANCELLATA, Reservation.Statuses.CONCLUSA };
         /// <summary>
         /// Constructor use DI for required resources
         /// </summary>

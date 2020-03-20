@@ -27,10 +27,25 @@ namespace RoomService.Models
         /// </summary>
         public enum Statuses
         {
+            /// <summary>
+            /// Active reservation status
+            /// </summary>
             ATTIVA,
+            /// <summary>
+            /// Running reservation status but not checked in
+            /// </summary>
             INCORSO,
+            /// <summary>
+            /// Completed reservation status
+            /// </summary>
             CONCLUSA,
+            /// <summary>
+            /// Checked in reservation
+            /// </summary>
             CHECKIN,
+            /// <summary>
+            /// Deleted reservation
+            /// </summary>
             CANCELLATA
         }
         /// <summary>
@@ -39,7 +54,6 @@ namespace RoomService.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } 
-
         /// <summary>
         /// Status
         /// Required reservation status prop
@@ -47,48 +61,43 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public Statuses Status { get; set; }
-
         /// <summary>
-        /// Checkin
+        /// Performed Checkin
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> CheckIn   { get; set; }
-
         /// <summary>
-        /// Checkout
+        /// Performed Checkout
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> CheckOut  { get; set; }
-
         /// <summary>
         /// Owner in this case the user of the reservation
         /// Refers the UserId
         /// <see cref="IOwnable"/>
+        /// <seealso cref="UserModel"/>
         /// </summary>
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string Owner  { get; set; }
-
         /// <summary>
         /// Target refers the WorkSpace Id
-        /// Un valued properties are simply ignored
+        /// <see cref="WorkSpace"/>
         /// @TODO: ITargetable?
         /// </summary>
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string Target { get; set; }
-
         /// <summary>
         /// Interval of DeltaTime describes the reservation start and end day/hour
         /// </summary>
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public DeltaTime Interval { get; set; }
-
         /// <summary>
         /// Refers WorkSpaceReservations Id
         /// the reservation instance in workspace and deltatime context
-        /// <see cref="WorkSpaceReservations"/>
+        /// <see cref="WorkSpaceReservation"/>
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string ReservationSocket { get; set; }
