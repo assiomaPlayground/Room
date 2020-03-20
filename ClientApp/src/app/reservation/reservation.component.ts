@@ -15,7 +15,7 @@ import { DeltaTime } from 'src/model/Types/DeltaTime';
 })
 export class ReservationComponent implements OnInit {
   startDate : Date = new Date();
-  durata : Number = 0;
+  durata : any;
   reservation: Reservation[];
   buildingList: Building[];
   selectedBuilding : Building;
@@ -39,6 +39,7 @@ export class ReservationComponent implements OnInit {
     this.service.delete(reservation.Id).subscribe(()=> this.list());
   }
   verifica(){
+    this.durata = parseInt(this.durata);
     let endDate : Date;
     let startDate : Date; 
     switch (this.durata) {
@@ -83,14 +84,16 @@ export class ReservationComponent implements OnInit {
           break;   
         }
     
-      default: return;
+      default:return;
      }
+     
     this.service.availableRooms( this.selectedBuilding.Id, startDate, endDate).subscribe(result => {
       this.roomService.verifiedRooms = result;
       let interval = new DeltaTime();
       interval.StartTime = startDate.toISOString();
       interval.EndTime = endDate.toISOString();
       this.roomService.interval= interval;
+      console.log(result);
       this.router.navigate(['room']);
     });
   }
