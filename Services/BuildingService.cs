@@ -79,7 +79,7 @@ namespace RoomService.Services
             //Get all WorkSpaces in the building
             var qres =
                from workSpace in _workSpaceRepo.AsQueryable()
-               where workSpace.Owner == id
+               where workSpace.Building == id
                select workSpace;
             //Found workspaces buffer
             var Buffer = new List<WorkSpace>();
