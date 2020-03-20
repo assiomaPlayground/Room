@@ -253,6 +253,13 @@
             <param name="service">service UserService</param>
             <param name="acs">acs AccessControlService</param>
         </member>
+        <member name="M:RoomService.Controllers.UserController.FindUserLocation(System.String)">
+            <summary>
+            Find an user
+            </summary>
+            <param name="id">The user id : 24 string</param>
+            <returns>if null result not Found, new ok Object Result</returns>
+        </member>
         <member name="M:RoomService.Controllers.UserController.GetUserInWorkSpace(System.String)">
             <summary>
             In Work Space
@@ -779,7 +786,7 @@
             <summary>
             User Favourite workSpace aggregation
             <see cref="T:RoomService.Models.UserModel"/>
-            <see cref="P:RoomService.DTO.UserFavouriteWorkSpaceDTO.Favourites"/>
+            <see cref="T:RoomService.DTO.UserFavouriteWorkSpaceDTO.FavouriteWorkSpaceDTO"/>
             <seealso cref="T:RoomService.Models.WorkSpace"/>
             </summary>
         </member>
@@ -1441,6 +1448,13 @@
             <param name="id">The WorkSpace id</param>
             <returns>IEnumerable of found users</returns>
         </member>
+        <member name="M:RoomService.Services.UserService.FindUserLocationById(System.String)">
+            <summary>
+            Uses the reservation as "middleman" for join workspace and availability in reservation interval
+            </summary>
+            <param name="id">The user Id</param>
+            <returns>Joined reservation workspace and availability in the interval DeltaTime of the requested user reservations</returns>
+        </member>
         <member name="T:RoomService.Services.WorkSpaceService">
             <summary>
             Service for WorSpace collection crud ops in abstract
@@ -1804,6 +1818,13 @@
             </summary>
             <param name="deltaTime">Target to validate</param>
             <returns>The bool that indicates the valid status</returns>
+        </member>
+        <member name="M:RoomService.Utils.DeltaTimeExtensions.IsFuture(RoomService.Models.Types.DeltaTime)">
+            <summary>
+            Determinate if a Deltatime start is in the future compared to current time
+            </summary>
+            <param name="deltaTime">This item to check</param>
+            <returns>Bool true : the start time is in the future</returns>
         </member>
         <member name="M:RoomService.Utils.DeltaTimeExtensions.Clamp(RoomService.Models.Types.DeltaTime)">
             <summary>

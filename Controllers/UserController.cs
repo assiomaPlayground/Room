@@ -31,6 +31,22 @@ namespace RoomService.Controllers
             this._acs = acs;
         }
         /// <summary>
+        /// Find an user
+        /// </summary>
+        /// <param name="id">The user id : 24 string</param>
+        /// <returns>if null result not Found, new ok Object Result</returns>
+        [HttpGet("Find/{id:length(24)}")]
+        public ActionResult<FoundUserWorkSpaceDTO> FindUserLocation([FromRoute] string id)
+        {
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            if (!CanRead(rid, id))
+                return Forbid();
+            var res = Service.FindUserLocationById(id);
+            if (res == null)
+                return NotFound();
+            return new OkObjectResult(res);
+        }
+        /// <summary>
         /// In Work Space
         /// </summary>
         /// <param name="id">The id : 24 string</param>

@@ -65,6 +65,7 @@ namespace RoomService.Services
             this._reservationRepo = Database.GetCollection<Reservation>(settings.ReservationCollection);
             this._favouriteRepo   = Database.GetCollection<Favourites> (settings.FavouritesCollection);
             this._workSpaceRepo   = Database.GetCollection<WorkSpace>  (settings.WorkSpaceCollection);
+            this._workSpaceReservationRepo = Database.GetCollection<WorkSpaceReservation>(settings.WorkSpaceReservationCollection);
         }
         /// <summary>
         /// Execute an user creation
@@ -204,6 +205,36 @@ namespace RoomService.Services
             return from res in _reservationRepo.AsQueryable()
                    where res.Target == id && res.Status == Reservation.Statuses.CHECKIN
                    select Read(res.Owner);
+        }
+        /// <summary>
+        /// Uses the reservation as "middleman" for join workspace and availability in reservation interval
+        /// </summary>
+        /// <param name="id">The user Id</param>
+        /// <returns>Joined reservation workspace and availability in the interval DeltaTime of the requested user reservations</returns>
+        public FoundUserWorkSpaceDTO FindUserLocationById(string id)
+        {
+            //Get the user
+            var user = Read(id);
+            if (user == null)
+                return null;
+            //Get user reservation checked in //Should be only 1 at time
+            var res = _reservationRepo.Find(res => res.Owner == id && res.Status == Reservation.Statuses.CHECKIN).FirstOrDefault();
+            //Not found
+            if (res == null)
+                return null;
+            //Get WorkSpace
+            var wrkSp = _workSpaceRepo.Find(wrk => wrk.Id == res.Target).FirstOrDefault();
+            if (wrkSp == null)
+                return null;
+            //Get WorkSpaceReservation
+            var wrkRes = _workSpaceReservationRepo.Find(wrkres => wrkres.Id == res.ReservationSocket).FirstOrDefault();
+            if (wrkRes == null)
+                return null;
+            //Return result
+            return new FoundUserWorkSpaceDTO { User = user.WithoutPassword(), 
+                WorkSpaceReservation = new WorkSpaceReservationDTO 
+                { Users = wrkRes.Reservations, Interval = res.Interval, WorkSpace = wrkSp } 
+            };
         }
     }
 }
