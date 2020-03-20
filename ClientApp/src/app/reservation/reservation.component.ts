@@ -6,6 +6,7 @@ import { BuildingService } from 'src/service/building.service';
 import { Building } from 'src/model/Building';
 import { RoomService } from 'src/service/room.service';
 import { Router } from '@angular/router';
+import { DeltaTime } from 'src/model/Types/DeltaTime';
 
 @Component({
   selector: 'app-reservation',
@@ -86,6 +87,10 @@ export class ReservationComponent implements OnInit {
      }
     this.service.availableRooms( this.selectedBuilding.Id, startDate, endDate).subscribe(result => {
       this.roomService.verifiedRooms = result;
+      let interval = new DeltaTime();
+      interval.StartTime = startDate.toISOString();
+      interval.EndTime = endDate.toISOString();
+      this.roomService.interval= interval;
       this.router.navigate(['room']);
     });
   }

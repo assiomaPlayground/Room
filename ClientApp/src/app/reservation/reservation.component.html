@@ -1,35 +1,30 @@
 <div class="container-fluid">
   <div class="row mt-5">
     <div class="col-md-12">
-        <div class="btn-group btn-block m-2" dropdown>
-          <button id="db1" dropdownToggle type="button" class="btn btn-light btn-block dropdown-toggle"
-              aria-controls="dbb1">
-            {{selectedBuilding == null ? "Edificio" : selectedBuilding?.Name}} <span class="caret"></span>
-          </button>
-          <ul id="dbb1" *dropdownMenu class="dropdown-menu"
-              role="menu" aria-labelledby="db1">
-            <li role="menuitem" *ngFor="let building of buildingList"><a class="dropdown-item"
-            (click)="setBuilding(building)">{{building?.Name}}</a></li>
-          </ul>
-        </div>
-        <div class="btn-group btn-block m-2" dropdown>
-          <input type="text"
-                 placeholder="Seleziona data"
-                 class="form-control m-2"
-                 bsDatepicker [(ngModel)] = "startDate">
-            </div>
-            <div>
-              <select class="btn-group btn-block m-2" placeholder="Durata" [(ngModel)]="Durata">
-                <option value=0>Mattina</option>
-                <option value=1>Pomeriggio</option>
-                <option value=2>Un Giorno</option>
-                <option value=3>Due Giorni</option>
-                <option value=4>Tre Giorni</option>
-                <option value=5>Quattro Giorni</option>
-                <option value=6>Cinque Giorni</option>
-              </select>
-                </div>
-        <button  class="btn btn-block btn-warning m-2" (click)= "verifica()">Verifica disponibilitá</button>
+      <div class="btn-group btn-block m-2" dropdown>
+        <button id="db1" dropdownToggle type="button" class="btn btn-light btn-block dropdown-toggle"
+          aria-controls="dbb1">
+          {{selectedBuilding == null ? "Edificio" : selectedBuilding?.Name}} <span class="caret"></span>
+        </button>
+        <ul id="dbb1" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="db1">
+          <li role="menuitem" *ngFor="let building of buildingList"><a class="dropdown-item"
+              (click)="setBuilding(building)">{{building?.Name}}</a></li>
+        </ul>
       </div>
+      <div class="btn-group btn-block m-2" dropdown>
+        <input type="text" placeholder="Seleziona data" class="form-control m-2" bsDatepicker [(ngModel)]="startDate">
+      </div>
+      <div>
+        <select class="btn-group btn-block m-2" placeholder="Durata" [(ngModel)]="Durata">
+          <option value=0>Mattina</option>
+          <option value=1>Pomeriggio</option>
+          <option value=2>Un Giorno</option>
+          <option value=3>Due Giorni</option>
+          <option value=4>Tre Giorni</option>
+          <option value=5>Quattro Giorni</option>
+          <option value=6>Cinque Giorni</option>
+        </select>
+      </div>
+      <button class="btn btn-block btn-warning m-2" (click)="verifica()">Verifica disponibilitá</button>
     </div>
- 
+  </div>
