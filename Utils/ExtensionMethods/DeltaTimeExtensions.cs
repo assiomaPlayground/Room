@@ -37,7 +37,7 @@ namespace RoomService.Utils
         public static bool IsFuture(this DeltaTime deltaTime)
         {
             var now = DateTime.Now.ToString("o");
-            return (string.Compare(deltaTime.StartTime, now) < 0);
+            return (string.Compare(deltaTime.StartTime, now) > 0);
         }
         /// <summary>
         /// Clamp DeltaTime attributes inside nearests hours of the day to hook
