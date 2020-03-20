@@ -19,10 +19,12 @@ namespace RoomService.Services
         /// Database Connection
         /// </summary>
         protected IMongoDatabase Database { get; private set; }
+
         /// <summary>
         /// The mongo repository
         /// </summary>
         public IMongoCollection<TModel> Collection { get; private set; }
+
         /// <summary>
         /// Init the mongo client and database
         /// @TODO: build specific settings class instead of passing everything
@@ -59,6 +61,7 @@ namespace RoomService.Services
         /// <returns>the object maching the id, eventually default</returns>
         public virtual TModel Read(string id) 
             =>  Collection.Find<TModel>(model => model.Id == id).FirstOrDefault<TModel>();
+
         /// <summary>
         /// update op
         /// </summary>
@@ -67,6 +70,7 @@ namespace RoomService.Services
         /// <returns>True : success, false : else</returns>
         public virtual ReplaceOneResult Update(string id, TModel newModel) 
             => Collection.ReplaceOne<TModel>(model => id == model.Id, newModel);
+
         /// <summary>
         /// get all op
         /// @TODO pagination or result limit

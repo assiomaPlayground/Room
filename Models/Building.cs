@@ -20,11 +20,13 @@ namespace RoomService.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
         /// <summary>
         /// The Building name
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
+
         /// <summary>
         /// The building Map
         /// </summary>

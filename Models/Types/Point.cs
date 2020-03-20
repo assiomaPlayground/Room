@@ -14,6 +14,7 @@ namespace RoomService.Models.Types
         /// The X coord
         /// </summary>
         public int X { get; set; }
+
         /// <summary>
         /// The Y coord
         /// </summary>

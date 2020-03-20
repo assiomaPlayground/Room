@@ -14,10 +14,12 @@ namespace RoomService.Models.Types
         /// StartTime Date in ISO 8601 format
         /// </summary>
         public string StartTime { get; set; }
+
         /// <summary>
         /// EndTime Date in ISO 8601 format
         /// </summary>
         public string EndTime { get; set; }
+
         /// <summary>
         /// Equals override
         /// </summary>
@@ -25,6 +27,7 @@ namespace RoomService.Models.Types
         /// <returns>Cast the object to self type and return true if all fields matchs</returns>
         public override bool Equals(object obj)
             => ((obj as DeltaTime).StartTime == this.StartTime && (obj as DeltaTime).EndTime == this.EndTime);
+
         /// <summary>
         /// Get HashCode needed override
         /// </summary>

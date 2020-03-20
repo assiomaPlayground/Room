@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RoomService.DTO;
 using RoomService.Models;
 using RoomService.Models.Types;
 using RoomService.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace RoomService.Controllers
 {
@@ -18,12 +13,28 @@ namespace RoomService.Controllers
     public class BuildingController : AbstractMongoCrudController<Building, BuildingService>
     {
 
+        
+        
 
         private readonly AccessControlService _acs;
-        public BuildingController(BuildingService service, AccessControlService acs) : base(service) 
+
+        /// <summary>
+        /// Building of Controller
+        /// </summary>
+        /// <param name="service">Building Service</param>
+        /// <param name="acs">Access Control Service</param>
+        public BuildingController(BuildingService service, AccessControlService acs) : base(service)
         {
             this._acs = acs;
         }
+
+        /// <summary>
+        /// Spaces of Buildinn
+        /// </summary>
+        /// <param name="id">lenght 24</param>
+        /// <returns>Forbid, not Found</returns>
+
+
         [HttpGet("{id:length(24)}/rooms")]
         public ActionResult<BuildingWorkSpaceDTO> GetBuildingSpaces([FromRoute] string id)
         {
@@ -37,6 +48,13 @@ namespace RoomService.Controllers
                 return NotFound();
             return item;
         }
+
+        /// <summary>
+        /// Availability of Check
+        /// </summary>
+        /// <param name="id">string id</param>
+        /// <param name="Interval">Delta Time Interval</param>
+        /// <returns>Forbid, not Found</returns>
         [HttpPost("CheckAvailability/{id:length(24)}")]
         public ActionResult<BuildingWorkSpaceDTO> CheckAvailability([FromRoute] string id, [FromBody] DeltaTime Interval)
         {
@@ -83,7 +101,7 @@ namespace RoomService.Controllers
         /// <returns></returns>
         protected override bool CanReadAll(string id)
             => _acs.IsAuth(id);
-        
+
         /// <summary>
         /// Can Update
         /// </summary>

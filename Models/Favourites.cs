@@ -19,6 +19,7 @@ namespace RoomService.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
         /// <summary>
         /// Target resource favourited in this case refers WorkSpace
         /// <see cref="WorkSpace"/>
@@ -26,6 +27,7 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string Target { get; set; }
+
         /// <summary>
         /// Owner of the Favourite in this case the User
         /// <see cref="UserModel"/>
@@ -34,11 +36,13 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string Owner { get; set; }
+
         /// <summary>
         /// Bool indicating if this liked was last reserved WorkSpace by owner
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Include)] 
         public bool Last { get; set; }
+
         /// <summary>
         /// Times the Favourite were used 
         /// Prop for favoutirs sorting

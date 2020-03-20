@@ -38,12 +38,15 @@ namespace RoomService.Models
         /// </summary>
         [BsonRequired]
         public string Username { get; set; }
+
         /// <summary>
         /// Password this field is stored encrypted in db and removed in responses
+        /// Un valued properties are simply ignored
         /// </summary>
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Password { get; set; }
+
         /// <summary>
         /// Token this field is excluded in database is used for user identification on API calls
         /// Un valued properties are simply ignored
@@ -51,16 +54,20 @@ namespace RoomService.Models
         [BsonIgnore]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Token { get; set; }
+
         /// <summary>
         /// Photo url to user picture/avatar
+        /// Un valued properties are simply ignored
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Photo { get; set; }
+
         /// <summary>
         /// User identification type
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public UserTypes UserType { get; set; }
+
         /// <summary>
         /// Owner of the resource user are self owned // own their profile
         /// <see cref="IOwnable"/>

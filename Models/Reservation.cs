@@ -18,8 +18,8 @@ namespace RoomService.Models
         /// <summary>
         /// Reservation status of users
         /// <para>
-        ///     Attiva  when the start time is before the current time and whose end time is after the current time
-        ///     Incorso when the reservation is in force
+        ///     Attiva  when the start-time is before the current time and whose end-time is after the current time
+        ///     In-Corso when the reservation is in force
         ///     Conclusa ended when checkout is done
         ///     Checkin when the user uses the booked service 
         ///     Cancellata when the user cancels his reservation

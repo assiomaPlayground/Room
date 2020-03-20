@@ -11,7 +11,7 @@ namespace RoomService.Models
     public interface IOwnable
     {
         /// <summary>
-        /// Owner
+        /// String Owner
         /// </summary>
         public string Owner { get; }
     }

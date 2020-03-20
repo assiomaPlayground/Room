@@ -62,11 +62,11 @@ namespace RoomService.Controllers
                 return Ok();
             return BadRequest();
         }
+        
         /// <summary>
-        /// get all op
-        /// @TODO pagination or result limit
+        /// Result of Action
         /// </summary>
-        /// <returns>ICollection<TModel> (List) eventually 0 sized</returns>
+        /// <returns>Forbid,Not Found,new Object Result</returns>
         [HttpGet]
         public virtual ActionResult<IEnumerable<TModel>> GetAll()
         {
