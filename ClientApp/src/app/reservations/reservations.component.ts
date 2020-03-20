@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationsService } from 'src/service/reservations.service';
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
-import { UserModel } from 'src/model/UserModel';
-import { Reservation } from 'src/model/Reservation';
-import { WorkspaceReservation } from 'src/model/WorkspaceReservation';
-import { JsonPipe } from '@angular/common';
+import { WorkSpaceReservationDTO } from 'src/model/DTO/WorkSpaceReservationDTO';
 
 @Component({
   selector: 'app-reservations',
@@ -13,7 +9,7 @@ import { JsonPipe } from '@angular/common';
 })
 export class ReservationsComponent implements OnInit {
   
-  public wreservations: Array<any> = new Array<any>();
+  public wreservations: Array<WorkSpaceReservationDTO> = new Array<WorkSpaceReservationDTO>();
 
   constructor(private service: ReservationsService) { }
 
@@ -27,7 +23,6 @@ export class ReservationsComponent implements OnInit {
     })
   }
   delete(reservation: any){
-   
     this.service.delete( reservation.ReservationId).subscribe(()=> this.list)
   }
 }

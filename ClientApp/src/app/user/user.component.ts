@@ -32,10 +32,5 @@ export class UserComponent implements OnInit {
   delete(user: UserModel){
     this.service.delete(user.Id).subscribe(()=> this.List());
   }
-  click(user:any){
-    
-   localStorage.setItem('user',JSON.stringify(user));
-   this.router.navigate(['/userDetails'])
-  }
   
 }

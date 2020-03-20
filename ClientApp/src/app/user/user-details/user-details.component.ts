@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/service/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserModel } from 'src/model/UserModel';
 
 @Component({
   selector: 'app-user-details',
@@ -8,13 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit {
-user = JSON.parse(localStorage.getItem('user'));
-  constructor(private service:UserService) { }
+user: UserModel
+  constructor(private service:UserService,private router:ActivatedRoute) { }
 
   ngOnInit() {
+    this.router.paramMap.subscribe(params=>{
+      this.service.read(params.get('id')).subscribe(user=>this.user=user)})
     
   }
-
+  
+  
 }
 
 
