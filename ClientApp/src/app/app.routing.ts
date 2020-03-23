@@ -17,7 +17,7 @@ const appRoutes: Routes = [
     { path: 'admin', canActivate: [AdminAuthGuard], loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)},
     { path: 'room', canActivate: [AuthGuard], loadChildren: () => import('./modules/room/room.module').then(m => m.RoomModule)},
     { path: 'reservation', canActivate: [AuthGuard], loadChildren: () => import('./modules/reservation/reservation.module').then(m => m.ReservationModule) },
-    { path: 'user', canActivate: [AdminAuthGuard], loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule) },
+    { path: 'user', canActivate: [AuthGuard], loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule) },
     { path: 'qrmap', component: QrmapComponent},
     { path: '', redirectTo:   '/login', pathMatch:'full' },
     { path: '**', redirectTo: '/login', pathMatch:'full' }
