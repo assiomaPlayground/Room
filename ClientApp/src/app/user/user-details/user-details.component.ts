@@ -11,23 +11,17 @@ import { FoundUserWorkSpaceDTO } from 'src/model/DTO/FoundUserWorkSpaceDTO';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit {
-user: UserModel
-workSpace: FoundUserWorkSpaceDTO
+
+  foundUserWorkSpace: FoundUserWorkSpaceDTO
+
   constructor(private service:UserService,private router:ActivatedRoute) { }
 
-  ngOnInit() {
-    
+  ngOnInit() {  
     this.router.paramMap.subscribe(params=>{
       this.service.read(params.get('id')).subscribe(user=>{
-        this.user=user;
-        this.service.wUser(user.Id).subscribe(workspace=>{
-          this.workSpace=workspace
-        console.log(this.workSpace)})
-      })})
-    
-  }
-
-  
+        this.service.wUser(user.Id).subscribe(result=>{
+          this.foundUserWorkSpace=result;
+      })
+    })
+  })}
 }
-
-
