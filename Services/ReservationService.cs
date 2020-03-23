@@ -182,6 +182,8 @@ namespace RoomService.Services
         {
             //Get the item to delete
             var item = Read(id);
+            if (item == null)
+                return null;
             //Get reservation targeted workspace seat
             var target = _workSpaceReservationRepo.Find<WorkSpaceReservation>(tar => tar.Id == item.ReservationSocket).FirstOrDefault();
             //Target error

@@ -114,7 +114,7 @@
             <param name="id">lenght 24</param>
             <returns>Forbid, not Found</returns>
         </member>
-        <member name="M:RoomService.Controllers.BuildingController.CheckAvailability(System.String,System.Int32,System.Int32)">
+        <member name="M:RoomService.Controllers.BuildingController.CheckAvailability(System.String,System.Int64,System.Int64)">
             <summary>
             Availability of Check
             </summary>

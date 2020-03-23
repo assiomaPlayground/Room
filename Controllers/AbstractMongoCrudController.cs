@@ -58,7 +58,10 @@ namespace RoomService.Controllers
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanDelete(rid, id))
                 return Forbid();
-            if (Service.Delete(id).IsAcknowledged)
+            var res = Service.Delete(id);
+            if (res == null)
+                return NotFound();
+            if (res.IsAcknowledged)
                 return Ok();
             return BadRequest();
         }
