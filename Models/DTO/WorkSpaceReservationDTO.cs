@@ -18,7 +18,7 @@ namespace RoomService.DTO
         /// ReservationId of the asker
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string ReservatonId { get; set; }
+        public string ReservationId { get; set; }
         /// <summary>
         /// The workspace of the reservation
         /// </summary>

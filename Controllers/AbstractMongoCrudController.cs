@@ -53,7 +53,7 @@ namespace RoomService.Controllers
         /// <param name="id">The id : 24 string to delete</param>
         /// <returns>True : success,  false : else</returns>
         [HttpDelete("{id:length(24)}")]
-        public virtual IActionResult Delete(string id)
+        public virtual IActionResult Delete([FromRoute] string id)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             if (!CanDelete(rid, id))

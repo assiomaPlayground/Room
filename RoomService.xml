@@ -114,12 +114,13 @@
             <param name="id">lenght 24</param>
             <returns>Forbid, not Found</returns>
         </member>
-        <member name="M:RoomService.Controllers.BuildingController.CheckAvailability(System.String,RoomService.Models.Types.DeltaTime)">
+        <member name="M:RoomService.Controllers.BuildingController.CheckAvailability(System.String,System.Int32,System.Int32)">
             <summary>
             Availability of Check
             </summary>
             <param name="id">string id</param>
-            <param name="Interval">Delta Time Interval</param>
+            <param name="ms1"></param>
+            <param name="ms2"></param>
             <returns>Forbid, not Found</returns>
         </member>
         <member name="M:RoomService.Controllers.BuildingController.CanCreate(System.String,RoomService.Models.Building)">
@@ -969,6 +970,11 @@
             <summary>
             WorkSpace Reservation DTO has id instead of string and less metadata
             <see cref="T:RoomService.Models.WorkSpaceReservation"/>
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.WorkSpaceReservationDTO.ReservationId">
+            <summary>
+            ReservationId of the asker
             </summary>
         </member>
         <member name="P:RoomService.DTO.WorkSpaceReservationDTO.WorkSpace">
