@@ -1,0 +1,6 @@
+<ng-container *ngIf="userType == 1; else elseTemplate">
+    <app-admin-layout></app-admin-layout>
+</ng-container>
+<ng-template #elseTemplate>
+    <app-main-layout></app-main-layout>
+</ng-template>
