@@ -54,6 +54,7 @@ namespace RoomService.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } 
+
         /// <summary>
         /// Status
         /// Required reservation status prop
@@ -61,16 +62,19 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public Statuses Status { get; set; }
+
         /// <summary>
         /// Performed Checkin
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> CheckIn   { get; set; }
+
         /// <summary>
         /// Performed Checkout
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> CheckOut  { get; set; }
+
         /// <summary>
         /// Owner in this case the user of the reservation
         /// Refers the UserId
@@ -80,6 +84,7 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string Owner  { get; set; }
+
         /// <summary>
         /// Target refers the WorkSpace Id
         /// <see cref="WorkSpace"/>
@@ -88,12 +93,14 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string Target { get; set; }
+
         /// <summary>
         /// Interval of DeltaTime describes the reservation start and end day/hour
         /// </summary>
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public DeltaTime Interval { get; set; }
+
         /// <summary>
         /// Refers WorkSpaceReservations Id
         /// the reservation instance in workspace and deltatime context

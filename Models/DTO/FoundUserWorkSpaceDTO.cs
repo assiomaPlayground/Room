@@ -16,6 +16,7 @@ namespace RoomService.DTO
         /// <summary>
         /// User 
         /// </summary>
+     
         public UserModel User { get; set; }
 
         /// <summary>

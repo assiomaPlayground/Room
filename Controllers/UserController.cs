@@ -21,6 +21,7 @@ namespace RoomService.Controllers
         /// acs AccessControlService
         /// </summary>
         private readonly AccessControlService _acs;
+
         /// <summary>
         /// UserController
         /// </summary>
@@ -121,7 +122,7 @@ namespace RoomService.Controllers
         /// <summary>
         /// Gets the user favourite workspaces
         /// </summary>
-        /// <param name="id">The id of the user</param>
+        /// <param name="id">The id of the user;The user id : 24 string</param>
         /// <returns>The user favorurite WorkSpaces</returns>
         [HttpGet("Favourites/{id:length(24)}")]
         public ActionResult<UserFavouriteWorkSpaceDTO> GetUserFavouritesRooms([FromRoute] string id)

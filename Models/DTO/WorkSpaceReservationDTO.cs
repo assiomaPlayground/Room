@@ -19,16 +19,19 @@ namespace RoomService.DTO
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string ReservationId { get; set; }
+
         /// <summary>
         /// The workspace of the reservation
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public WorkSpace WorkSpace { get; set; }
+
         /// <summary>
         /// WorkSpace Reservation Interval time
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public DeltaTime Interval { get; set; }
+
         /// <summary>
         /// Number of users with a reservation in the Workspace during Interval time
         /// </summary>

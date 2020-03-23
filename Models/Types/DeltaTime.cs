@@ -31,7 +31,7 @@ namespace RoomService.Models.Types
         /// <summary>
         /// Get HashCode needed override
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Get Hash Code</returns>
         public override int GetHashCode()
             => base.GetHashCode();
     }

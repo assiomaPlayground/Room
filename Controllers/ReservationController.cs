@@ -39,7 +39,7 @@ namespace RoomService.Controllers
         /// <summary>
         /// Reservation User
         /// </summary>
-        /// <param name="id">length 24</param>
+        /// <param name="id">The user id : 24 string</param>
         /// <returns>Bad Request, Forbid, new Object Result</returns>
 
         [HttpGet("User/{id:length(24)}")]

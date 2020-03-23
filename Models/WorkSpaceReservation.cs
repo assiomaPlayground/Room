@@ -26,6 +26,7 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public DeltaTime Interval { get; set; }
+
         ///<summary>
         ///Owner of the resource in this case the WorkSpace
         ///<see cref="IOwnable"/>
@@ -34,6 +35,7 @@ namespace RoomService.Models
         [BsonRequired]
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string Owner { get; set; }
+
         /// <summary>
         /// Counter of current reservations
         /// </summary>

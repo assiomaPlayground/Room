@@ -15,6 +15,7 @@ namespace RoomService.DTO
         /// Id of WorkSpace
         /// </summary>
         public string WorkSpaceId { get; set; }
+
         /// <summary>
         /// ISO 8601 formatted DateTime
         /// </summary>
