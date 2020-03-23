@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { UserComponent } from './user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { SharedModule } from 'src/app/shareds/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
       {path: '', component: UserComponent},
       {path: '/:id', component: UserDetailsComponent},
     ]),
+    SharedModule
   ]
 })
 export class UserModule { }
