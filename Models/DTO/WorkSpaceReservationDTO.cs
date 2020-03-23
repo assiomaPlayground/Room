@@ -15,6 +15,11 @@ namespace RoomService.DTO
     public class WorkSpaceReservationDTO
     {
         /// <summary>
+        /// ReservationId of the asker
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string ReservatonId { get; set; }
+        /// <summary>
         /// The workspace of the reservation
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]

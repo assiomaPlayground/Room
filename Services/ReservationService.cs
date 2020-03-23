@@ -67,6 +67,7 @@ namespace RoomService.Services
                        join workres in _workSpaceReservationRepo.AsQueryable() on res.ReservationSocket equals workres.Id //join workspaceReservations using id
                        select new WorkSpaceReservationDTO //Aggregate result class
                        {
+                           ReservatonId = res.Id,
                            Users = workres.Reservations,
                            Interval = res.Interval,
                            WorkSpace = workspace
