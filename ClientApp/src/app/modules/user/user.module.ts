@@ -14,7 +14,7 @@ import { SharedModule } from 'src/app/shareds/shared/shared.module';
     CommonModule,
     RouterModule.forChild([
       {path: '', component: UserComponent},
-      {path: '/:id', component: UserDetailsComponent},
+      {path: ':id', component: UserDetailsComponent},
     ]),
     SharedModule
   ]

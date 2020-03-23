@@ -15,7 +15,7 @@
             <div *ngFor="let user of users | filterBy: userFilter">
            
               <ul class="list-group">
-                <li class="list-group-item" routerLink='/user/{{user.Id}}'>{{user.Username}} </li>
+                <li class="list-group-item" routerLink='{{user.Id}}'>{{user.Username}} </li>
                
               </ul>
             </div>    
