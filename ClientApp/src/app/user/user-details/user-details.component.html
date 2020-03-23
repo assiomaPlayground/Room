@@ -6,11 +6,11 @@
              <img class="card-img-top" src="../../assets/Intesa_Sanpaolo.svg.png" alt="Card image cap">
           </div>
             <div class="card-body">  
-              <h4 class="card-title">{{user?.Username}}</h4>
-              <p class="card-text">in questo momento si trova a:{{workSpace.Name}}</p>
+              <h4 class="card-title">{{foundUserWorkSpace?.User?.Username}}</h4>
+              <p class="card-text">in questo momento si trova a: {{foundUserWorkSpace?.WorkSpaceReservation?.WorkSpace?.Name}}</p>
                     
         
-                <button type="button" class="btn btn-secondary btn-lg btn-block">Altre persone sono qui </button>
+                <button type="button" class="btn btn-secondary btn-lg btn-block">Altre persone: {{foundUserWorkSpace?.WorkSpaceReservation?.Users - 1}} </button>
                 <button type="button" class="btn btn-secondary btn-lg btn-block"routerLink="/reservation">Prenota un posto </button>
              
               
