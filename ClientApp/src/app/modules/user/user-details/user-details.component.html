@@ -7,9 +7,13 @@
           </div>
             <div class="card-body">  
               <h4 class="card-title">{{foundUserWorkSpace?.User?.Username}}</h4>
-              <p class="card-text">in questo momento si trova a: {{foundUserWorkSpace?.WorkSpaceReservation?.WorkSpace?.Name}}</p>
+              <ng-container *ngIf="foundUserWorkSpace==null else  elseTemplate">
+              <p class="card-text">non si trova</p>
                     
-        
+            </ng-container>
+            <ng-template #elseTemplate>
+              <p class="card-text">in questo momento si trova a: {{foundUserWorkSpace?.WorkSpaceReservation?.WorkSpace?.Name}}</p>
+          </ng-template>
                 <button type="button" class="btn btn-secondary btn-lg btn-block">Altre persone: {{foundUserWorkSpace?.WorkSpaceReservation?.Users - 1}} </button>
                 <button type="button" class="btn btn-secondary btn-lg btn-block"routerLink="/reservation/reservations">Prenota un posto </button>
              
