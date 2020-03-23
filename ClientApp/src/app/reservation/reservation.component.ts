@@ -86,12 +86,12 @@ export class ReservationComponent implements OnInit {
     
       default:return;
      }
-     
-    this.service.availableRooms( this.selectedBuilding.Id, startDate, endDate).subscribe(result => {
+    
+    let interval = new DeltaTime();
+    interval.StartTime = startDate.toISOString();
+    interval.EndTime = endDate.toISOString();
+    this.service.availableRooms( this.selectedBuilding.Id, interval.StartTime, interval.EndTime).subscribe(result => {
       this.roomService.verifiedRooms = result;
-      let interval = new DeltaTime();
-      interval.StartTime = startDate.toISOString();
-      interval.EndTime = endDate.toISOString();
       this.roomService.interval= interval;
       console.log(result);
       this.router.navigate(['room']);
