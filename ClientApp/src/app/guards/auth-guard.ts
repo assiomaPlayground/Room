@@ -32,7 +32,7 @@ export class AdminAuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const currentUser = this.authenticationService.currentUserValue;
         if (currentUser) {
-            if(currentUser.Usertype == 1)
+            if(currentUser.UserType == 1)
                 return true;
         }
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});

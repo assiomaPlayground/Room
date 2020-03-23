@@ -14,8 +14,9 @@ export class LayoutSelectorComponent implements OnInit {
 
   ngOnInit() {
     this.autService.currentUser.subscribe(user => {
-      if(user != null)
-        this.userType = this.autService.currentUserValue.Usertype;
+      if(user != null){
+        this.userType = this.autService.currentUserValue.UserType;
+      }
     })
   }
 }

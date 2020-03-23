@@ -11,15 +11,15 @@ import { BuildingComponent } from 'src/app/modules/admin/building/building.compo
 @NgModule({
   declarations: [
     AdminComponent,
-    QRCodeGenComponent
+    QRCodeGenComponent,
+    BuildingComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule,
     NgxQRCodeModule,
-    SharedModule,
-    BuildingComponent
+    SharedModule
   ]
 })
 export class AdminModule { }
