@@ -35,7 +35,12 @@
             <param name="id">The id : 24 string to delete</param>
             <returns>True : success,  false : else</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:RoomService.Controllers.AbstractMongoCrudController`2.GetAll" -->
+        <member name="M:RoomService.Controllers.AbstractMongoCrudController`2.GetAll">
+            <summary>
+            Result of Action
+            </summary>
+            <returns>Forbid,Not Found,new Object Result</returns>
+        </member>
         <member name="M:RoomService.Controllers.AbstractMongoCrudController`2.Read(System.String)">
             <summary>
             get op
@@ -94,6 +99,28 @@
             <summary>
             Controller for building collection base Crud in Abstract Class
             </summary>
+        </member>
+        <member name="M:RoomService.Controllers.BuildingController.#ctor(RoomService.Services.BuildingService,RoomService.Services.AccessControlService)">
+            <summary>
+            Building of Controller
+            </summary>
+            <param name="service">Building Service</param>
+            <param name="acs">Access Control Service</param>
+        </member>
+        <member name="M:RoomService.Controllers.BuildingController.GetBuildingSpaces(System.String)">
+            <summary>
+            Spaces of Buildinn
+            </summary>
+            <param name="id">lenght 24</param>
+            <returns>Forbid, not Found</returns>
+        </member>
+        <member name="M:RoomService.Controllers.BuildingController.CheckAvailability(System.String,RoomService.Models.Types.DeltaTime)">
+            <summary>
+            Availability of Check
+            </summary>
+            <param name="id">string id</param>
+            <param name="Interval">Delta Time Interval</param>
+            <returns>Forbid, not Found</returns>
         </member>
         <member name="M:RoomService.Controllers.BuildingController.CanCreate(System.String,RoomService.Models.Building)">
             <summary>
@@ -155,40 +182,40 @@
             <summary>
             Create
             </summary>
-            <param name="id"></param>
-            <param name="model"></param>
-            <returns></returns>
+            <param name="id">string id</param>
+            <param name="model">favourites model</param>
+            <returns>Owner(id,model)</returns>
         </member>
         <member name="M:RoomService.Controllers.FavouritesController.CanDelete(System.String,System.String)">
             <summary>
             Delete
             </summary>
-            <param name="id"></param>
-            <param name="tid"></param>
-            <returns></returns>
+            <param name="id">string id</param>
+            <param name="tid">string tid</param>
+            <returns>Owner(id,tid,Service)</returns>
         </member>
         <member name="M:RoomService.Controllers.FavouritesController.CanRead(System.String,System.String)">
             <summary>
             Can Read
             </summary>
-            <param name="id"></param>
-            <param name="tid"></param>
-            <returns></returns>
+            <param name="id">string id</param>
+            <param name="tid">string tid</param>
+            <returns>Owner(id,tid,Service)</returns>
         </member>
         <member name="M:RoomService.Controllers.FavouritesController.CanReadAll(System.String)">
             <summary>
             Read All
             </summary>
-            <param name="id"></param>
+            <param name="id">string id</param>
             <returns>id Admin</returns>
         </member>
         <member name="M:RoomService.Controllers.FavouritesController.CanUpdate(System.String,RoomService.Models.Favourites)">
             <summary>
             Update
             </summary>
-            <param name="id"></param>
-            <param name="model"></param>
-            <returns></returns>
+            <param name="id">String id</param>
+            <param name="model">Favourites model</param>
+            <returns>Is Owner</returns>
         </member>
         <member name="T:RoomService.Controllers.IMongoCrudController`1">
             <summary>
@@ -235,6 +262,96 @@
             <summary>
             Controller for Reservation collection base Crud in abstract class
             </summary>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.#ctor(RoomService.Services.ReservationService,RoomService.Services.AccessControlService,RoomService.Services.ReservationUpdaterService)">
+            <summary>
+            Controller of Reservation
+            </summary>
+            <param name="service">ReservationService</param>
+            <param name="acs">AccessControlService</param>
+            <param name="rus">ReservationUpdaterService</param>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.GetUserReservations(System.String)">
+            <summary>
+            Reservation User
+            </summary>
+            <param name="id">length 24</param>
+            <returns>Bad Request, Forbid, new Object Result</returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.CheckIn(RoomService.DTO.WorkSpaceDateDTO)">
+            <summary>
+            Checkin
+            </summary>
+            <param name="data">WorkspaceDateDTO</param>
+            <returns>Not Found,Forbid,Bad Request</returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.CheckOut(RoomService.DTO.WorkSpaceDateDTO)">
+            <summary>
+            Checkout
+            </summary>
+            <param name="data">WorkSpaceDate</param>
+            <returns> Not Found, Forbid, Bad Request</returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.GetReservationMeta(System.String)">
+            <summary>
+            ReservationMeta
+            </summary>
+            <param name="id">The user id : 24 string</param>
+            <returns>Forbid, new Object Result></returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.GetUserReservationsAndWorkSpaces(System.String)">
+            <summary>
+            Reservation and WorkSpaces User(String id)
+            </summary>
+            <param name="id">The user id : 24 string</param>
+            <returns>Forbid, new Object Result</returns>
+            
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.Create(RoomService.Models.Reservation)">
+            <summary>
+            Create
+            </summary>
+            <param name="model">Reservation model</param>
+            <returns>Forbid,Bad Request,new Object Result</returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.CanCreate(System.String,RoomService.Models.Reservation)">
+            <summary>
+            CanCreate
+            </summary>
+            <param name="id">string id</param>
+            <param name="model">Reservation model</param>
+            <returns>CreateReservation(id,model)</returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.CanDelete(System.String,System.String)">
+            <summary>
+            Can Delete
+            </summary>
+            <param name="id">string id</param>
+            <param name="tid">string tid</param>
+            <returns>Reservation Service(id,tid,Service)</returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.CanRead(System.String,System.String)">
+            <summary>
+            Can Read
+            </summary>
+            <param name="id">string id</param>
+            <param name="tid">string tid</param>
+            <returns>Id Auth</returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.CanReadAll(System.String)">
+            <summary>
+            Can Read All
+            </summary>
+            <param name="id">string id</param>
+            <returns>id Admin</returns>
+        </member>
+        <member name="M:RoomService.Controllers.ReservationController.CanUpdate(System.String,RoomService.Models.Reservation)">
+            <summary>
+            Can Update
+            </summary>
+            <param name="id">string id</param>
+            <param name="model">Reservation model</param>
+            <returns>Owner(id,model)</returns>
         </member>
         <member name="T:RoomService.Controllers.UserController">
             <summary>
@@ -467,7 +584,7 @@
         </member>
         <member name="P:RoomService.Models.IOwnable.Owner">
             <summary>
-            Owner
+            String Owner
             </summary>
         </member>
         <member name="T:RoomService.Models.Reservation">
@@ -479,8 +596,8 @@
             <summary>
             Reservation status of users
             <para>
-                Attiva  when the start time is before the current time and whose end time is after the current time
-                Incorso when the reservation is in force
+                Attiva  when the start-time is before the current time and whose end-time is after the current time
+                In-Corso when the reservation is in force
                 Conclusa ended when checkout is done
                 Checkin when the user uses the booked service 
                 Cancellata when the user cancels his reservation
@@ -636,6 +753,7 @@
         <member name="P:RoomService.Models.UserModel.Password">
             <summary>
             Password this field is stored encrypted in db and removed in responses
+            Un valued properties are simply ignored
             </summary>
         </member>
         <member name="P:RoomService.Models.UserModel.Token">
@@ -647,6 +765,7 @@
         <member name="P:RoomService.Models.UserModel.Photo">
             <summary>
             Photo url to user picture/avatar
+            Un valued properties are simply ignored
             </summary>
         </member>
         <member name="P:RoomService.Models.UserModel.UserType">
@@ -744,12 +863,12 @@
         </member>
         <member name="P:RoomService.DTO.AuthDTO.Username">
             <summary>
-            Username of type string
+            String Username
             </summary>
         </member>
         <member name="P:RoomService.DTO.AuthDTO.Password">
             <summary>
-            Password of type string
+            String Password
             </summary>
         </member>
         <member name="T:RoomService.DTO.BuildingAvailabilityDTO">
@@ -780,6 +899,21 @@
         <member name="P:RoomService.DTO.BuildingWorkSpaceDTO.WorkSpaces">
             <summary>
             The WorkSpaces in the building
+            </summary>
+        </member>
+        <member name="T:RoomService.DTO.FoundUserWorkSpaceDTO">
+            <summary>
+            Work Space User
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.FoundUserWorkSpaceDTO.User">
+            <summary>
+            User 
+            </summary>
+        </member>
+        <member name="P:RoomService.DTO.FoundUserWorkSpaceDTO.WorkSpaceReservation">
+            <summary>
+            Reservation of WorkSpace
             </summary>
         </member>
         <member name="T:RoomService.DTO.UserFavouriteWorkSpaceDTO">
