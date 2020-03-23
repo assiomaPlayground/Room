@@ -8,7 +8,10 @@ import { UserService } from 'src/service/user.service';
 
 
 
-@Component({ templateUrl: 'home.component.html' })
+@Component({ templateUrl: 'home.component.html',
+selector: 'app-home',
+styleUrls: ['./home.component.css']
+})
 export class HomeComponent implements OnInit, OnDestroy {
     currentUser: UserModel;
     currentUserSubscription: Subscription;
