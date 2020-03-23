@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RoomComponent } from './room.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { SharedModule } from 'src/app/shareds/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
       {path: '', component: RoomComponent},
       {path: '/:Id', component: RoomDetailsComponent}
     ]),
-    BsDropdownModule.forRoot()
+    SharedModule
   ]
 })
 export class RoomModule { }

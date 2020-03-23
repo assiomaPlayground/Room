@@ -1,79 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { UserComponent } from './user/user.component';
-import { ReservationComponent } from './reservation/reservation.component';
-import { BuildingComponent } from './building/building.component';
-import { QrmapComponent } from './qrmap/qrmap.component';
+import { NavMenuComponent } from './shareds/nav-menu/nav-menu.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { getBaseUrl } from 'src/main';
-import { UserModule } from './user/user.module';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { AlertComponent } from './alert/alert.component';
-import { HomeModule } from './home/home.module';
-import { AppRoutingModule } from './app.routing';
+import { AlertComponent } from './shareds/alert/alert.component';
+import { AppRoutingModule, ModudeLayouts, RouteComponents } from './app.routing';
 import { NgxQRCodeModule} from 'ngx-qrcode2';
 import { ZXingScannerModule } from './scanner/zxing-scanner.module';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { FilterPipeModule } from 'ngx-filter-pipe';
-import { ReservationsComponent } from './reservations/reservations.component';
-import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
-import { UserDetailsComponent } from './user/user-details/user-details.component';
-import { MomentModule } from 'ngx-moment';
-import { OrderModule } from 'ngx-order-pipe';
-import 'moment/locale/it';
+import { SharedModule } from './shareds/shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    UserComponent,
-    ReservationComponent,
-    BuildingComponent,
-    QrmapComponent,
     FavouritesComponent,
-    LoginComponent,
-    RegisterComponent,
     AlertComponent,
-    ReservationsComponent,
-    ReservationDetailsComponent,
-    UserDetailsComponent
+    RouteComponents,
+    ModudeLayouts
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserAnimationsModule,
     HttpClientModule,
-    FilterPipeModule,
-    FormsModule,
-    ReactiveFormsModule,
-    UserModule,
-    HomeModule,
+    SharedModule,
     AppRoutingModule,
     NgxQRCodeModule,
-    ZXingScannerModule,
-    BrowserAnimationsModule,
-    MomentModule,
-    OrderModule,
-    ButtonsModule.forRoot(),
-    TimepickerModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    BsDatepickerModule.forRoot(),
+    ZXingScannerModule
   ],
   
 providers: [
