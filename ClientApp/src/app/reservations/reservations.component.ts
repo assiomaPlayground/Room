@@ -3,6 +3,7 @@ import { ReservationsService } from 'src/service/reservations.service';
 import { WorkSpaceReservationDTO } from 'src/model/DTO/WorkSpaceReservationDTO';
 import { UserModel } from 'src/model/UserModel';
 import { AuthenticationService } from 'src/service/authenticationservice.service';
+import { Reservation } from 'src/model/Reservation';
 
 @Component({
   selector: 'app-reservations',
@@ -25,8 +26,9 @@ export class ReservationsComponent implements OnInit {
       this.wreservations = res;
     })
   }
-  delete(reservation: any){
-    this.service.delete( reservation.ReservationId).subscribe(()=> this.list)
+  delete(reservation: WorkSpaceReservationDTO){
+    console.log(reservation.ReservationId)
+    this.service.delete(reservation.ReservationId).subscribe(()=> this.list)
   }
 }
 
