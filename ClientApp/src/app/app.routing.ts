@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     { path: 'user', canActivate: [AuthGuard], loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule) },
     { path: 'qrmap', component: QrmapComponent},
     { path: '', redirectTo:   '/login', pathMatch:'full' },
-    //{ path: '**', redirectTo: '/login', pathMatch:'full' }
+    { path: '**', redirectTo: '/login', pathMatch:'full' }
 ]
 
 export const RouteComponents : any[] = [

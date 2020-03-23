@@ -7,11 +7,8 @@ import { ReservationsService } from 'src/service/reservations.service';
   styleUrls: ['./qrmap.component.css']
 })
 export class QrmapComponent  {
-  ;
   constructor(private rService : ReservationsService) { }
   scanSuccessHandler(event:any){
     this.rService.checkIn(event,new Date(Date.now()).toISOString());
-  
   }
- 
 }
