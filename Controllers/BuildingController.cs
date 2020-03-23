@@ -54,28 +54,21 @@ namespace RoomService.Controllers
         /// Availability of Check
         /// </summary>
         /// <param name="id">string id</param>
-        /// <param name="y1"></param>
-        /// <param name="m1"></param>
-        /// <param name="d1"></param>
-        /// <param name="h1"></param>
-        /// <param name="y2"></param>
-        /// <param name="m2"></param>
-        /// <param name="d2"></param>
-        /// <param name="h2"></param>
+        /// <param name="ms1"></param>
+        /// <param name="ms2"></param>
         /// <returns>Forbid, not Found</returns>
-        [HttpGet("CheckAvailability/{id:length(24)}")]
+        [HttpGet("CheckAvailability/{id:length(24)}/{ms1}/{ms2}")]
         public ActionResult<BuildingWorkSpaceDTO> CheckAvailability
         (
             [FromRoute] string id, 
-            [FromRoute] int y1, [FromRoute] int m1, [FromRoute] int d1, [FromRoute] int h1,
-            [FromRoute] int y2, [FromRoute] int m2, [FromRoute] int d2, [FromRoute] int h2
+            [FromRoute] int ms1, [FromRoute] int ms2
         )
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
             var interval = new DeltaTime
             {
-                StartTime = new DateTime(y1, m1, d1, h1, 0, 0).ToString("o"),
-                EndTime = new DateTime(y2, m2, d2, h2, 0, 0).ToString("o")
+                StartTime = new DateTime(ms1).ToString("o"),
+                EndTime = new DateTime(ms2).ToString("o")
             };
             if (!CanRead(rid, id))
                 return Forbid();
