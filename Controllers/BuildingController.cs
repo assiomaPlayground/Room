@@ -61,7 +61,7 @@ namespace RoomService.Controllers
         public ActionResult<BuildingWorkSpaceDTO> CheckAvailability
         (
             [FromRoute] string id, 
-            [FromRoute] int ms1, [FromRoute] int ms2
+            [FromRoute] long ms1, [FromRoute] long ms2
         )
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
