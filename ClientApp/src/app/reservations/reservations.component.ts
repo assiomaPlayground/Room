@@ -27,8 +27,7 @@ export class ReservationsComponent implements OnInit {
     })
   }
   delete(reservation: WorkSpaceReservationDTO){
-    console.log(reservation.ReservationId)
-    this.service.delete(reservation.ReservationId).subscribe(()=> this.list)
+    this.service.delete(reservation.ReservationId).subscribe(()=> this.list())
   }
 }
 
