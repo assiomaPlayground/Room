@@ -95,7 +95,7 @@ namespace RoomService.Controllers
         /// </summary>
         /// <param name="id">The user id : 24 string</param>
         /// <returns>Forbid, new Object Result></returns>
-        [HttpPost("WorkSpace/{id:length(24)}")]
+        [HttpGet("WorkSpace/{id:length(24)}")]
         public ActionResult<WorkSpaceReservationDTO> GetReservationMeta([FromRoute] string id)
         {
             var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
