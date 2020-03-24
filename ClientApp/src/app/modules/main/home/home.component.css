@@ -4,5 +4,11 @@
 }
 .btn-green {
 
-    color: #5cb85c;
+    background-color: #5cb85c;
+    color: ghostwhite;
 }
+.border-thick{
+
+    border-width: medium;
+    border-radius: 10px;
+    }
