@@ -4,12 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './shareds/nav-menu/nav-menu.component';
-import { FavouritesComponent } from './favourites/favourites.component';
 import { getBaseUrl } from 'src/main';
 import { AlertComponent } from './shareds/alert/alert.component';
 import { AppRoutingModule, ModudeLayouts, RouteComponents } from './app.routing';
 import { NgxQRCodeModule} from 'ngx-qrcode2';
-import { ZXingScannerModule } from './scanner/zxing-scanner.module';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { SharedModule } from './shareds/shared/shared.module';
@@ -18,7 +16,6 @@ import { SharedModule } from './shareds/shared/shared.module';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    FavouritesComponent,
     AlertComponent,
     RouteComponents,
     ModudeLayouts
@@ -30,7 +27,6 @@ import { SharedModule } from './shareds/shared/shared.module';
     SharedModule,
     AppRoutingModule,
     NgxQRCodeModule,
-    ZXingScannerModule
   ],
   
 providers: [
