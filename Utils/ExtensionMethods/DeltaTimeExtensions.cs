@@ -119,7 +119,7 @@ namespace RoomService.Utils
         /// </summary>
         /// <param name="a">First date</param>
         /// <param name="b">Second date</param>
-        /// <returns></returns>
+        /// <returns>Total Hours</returns>
         private static double HourDistance(DateTime a, DateTime b)
             => Math.Abs((a - b).TotalHours);      
     }

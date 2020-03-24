@@ -15,6 +15,7 @@ namespace RoomService.Utils
         /// The response meta data
         /// </summary>
         public ResponseMeta Meta { get; set; }
+
         /// <summary>
         /// The payload data
         /// </summary>
