@@ -1,8 +1,8 @@
 
   <div class="row no-gutters">
     <div class="col-md-12 vh-45"></div>
-      <div class="btn-group btn-block m-2" dropdown>
-        <button id="db1" dropdownToggle type="button" class="btn btn-light btn-block dropdown-toggle"
+      <div class="btn-group btn-outline-dark btn-block m-2" dropdown>
+        <button id="db1" dropdownToggle type="button" class="btn btn-light btn-outline-dark btn-block dropdown-toggle m-2 p-2"
           aria-controls="dbb1">
           {{selectedBuilding == null ? "Edificio" : selectedBuilding?.Name}} <span class="caret"></span>
         </button>
@@ -11,11 +11,11 @@
               (click)="setBuilding(building)">{{building?.Name}}</a></li>
         </ul>
       </div>
-      <div class="btn-group btn-block m-2" dropdown>
+      <div class="btn-group btn-outline-dark btn-block m-2 p-2" dropdown>
         <input type="text" placeholder="Seleziona data" class="form-control m-2" bsDatepicker [(ngModel)]="startDate">
       </div>
       <div>
-        <select class="btn-group btn-block m-2" placeholder="Durata" [(ngModel)]="durata">
+        <select class="btn-group btn-outline-dark btn-block p-2 m-2" placeholder="Durata" [(ngModel)]="durata">
           <option value="0">Mattina</option>
           <option value="1">Pomeriggio</option>
           <option value="2">Un Giorno</option>
@@ -25,5 +25,5 @@
           <option value="6">Cinque Giorni</option>
         </select>
       </div>
-      <button class="btn btn-block btn-warning m-2" (click)="verifica()">Verifica disponibilitá</button>
+      <button class="btn btn-block btn-outline-dark btn-warning m-2 p-2" (click)="verifica()">Verifica disponibilitá</button>
     </div>
