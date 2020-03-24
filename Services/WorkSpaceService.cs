@@ -17,10 +17,12 @@ namespace RoomService.Services
         /// Needed repository for aggregation operations with Reservation
         /// </summary>
         private readonly IMongoCollection<Reservation> _reservationRepo;
+
         /// <summary>
         /// Needed repository for aggregation Workspace reservation repository for time reservations on a workspace
         /// </summary>
         private readonly IMongoCollection<WorkSpaceReservation> _workSpaceReservationRepo;
+
         /// <summary>
         /// Constructor sets the DI
         /// </summary>
@@ -33,6 +35,7 @@ namespace RoomService.Services
             _reservationRepo = Database.GetCollection<Reservation>(settings.ReservationCollection);
             _workSpaceReservationRepo = Database.GetCollection<WorkSpaceReservation>(settings.WorkSpaceReservationCollection);
         }
+
         /// <summary>
         /// Get deleted by building Id
         /// </summary>
@@ -57,6 +60,7 @@ namespace RoomService.Services
             DeleteReservationByWorkSpaceId(id);
             return base.Delete(id);
         }
+
         /// <summary>
         /// Delete all refs Reservation and WorkSpaceReservation from the workspace
         /// </summary>
@@ -67,6 +71,7 @@ namespace RoomService.Services
             DeleteWorkSpaceReservationByWorkSpaceId(id);
             return DeleteReservationByWorkSpaceId(id);
         }
+
         /// <summary>
         /// Delete reservations of targeted WorkSpace
         /// </summary>
@@ -74,6 +79,7 @@ namespace RoomService.Services
         /// <returns>Delete result instance in mongo driver</returns>
         private DeleteResult DeleteWorkSpaceReservationByWorkSpaceId(string id)
             => _workSpaceReservationRepo.DeleteMany(res => res.Owner == id);
+
         /// <summary>
         /// Delete reservations of targeted WorkSpace
         /// </summary>
