@@ -12,6 +12,8 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { SharedModule } from './shareds/shared/shared.module';
 import { IconMenuComponent } from './shareds/icon-menu/icon-menu.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { IconMenuComponent } from './shareds/icon-menu/icon-menu.component';
     SharedModule,
     AppRoutingModule,
     NgxQRCodeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   
 providers: [
