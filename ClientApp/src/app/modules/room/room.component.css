@@ -7,3 +7,8 @@
 border-width: medium;
 border-radius: 10px;
 }
+.btn-green {
+
+    background-color: #5cb85c;
+    color: ghostwhite;
+}
