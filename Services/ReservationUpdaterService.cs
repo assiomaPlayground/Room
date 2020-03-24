@@ -12,7 +12,7 @@ namespace RoomService.Services
 {
     /// <summary>
     /// Update reservation statuses based on calendar/timer
-    /// The tasks runs foreach time hook of type RESSTATUSUPDATE in settings
+    /// The tasks runs foreach time hook of type RESTATUSUPDATE in settings
     /// </summary>
     public class ReservationUpdaterService
     {
