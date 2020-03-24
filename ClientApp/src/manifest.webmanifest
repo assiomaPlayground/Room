@@ -1,11 +1,6 @@
 {
-<<<<<<< Updated upstream
   "name": "Room Service",
   "short_name": "RS",
-=======
-  "name": "RoomService",
-  "short_name": "RoomService",
->>>>>>> Stashed changes
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
