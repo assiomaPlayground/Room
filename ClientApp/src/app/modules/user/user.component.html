@@ -3,9 +3,9 @@
     <div class="col-md-12">
       <h4>CERCA COLLEGHI</h4> 
       <p>Scrivi il nome dei tuoi colleghi per verificare in quale edificio e stanza hanno fatto check in</p>    
-      <input class="form-control py-2" type="search" [(ngModel)]="userFilter.Username" placeholder="Cerca collega" >        
+      <input class="form-control py-2 " type="search" [(ngModel)]="userFilter.Username" placeholder="Cerca collega" >        
           <div *ngFor="let user of users | filterBy: userFilter">       
-            <a routerLink="{{user.Id}}" class="text-left btn btn-outline-dark btn-block ">{{user.Username}}</a>
+            <a routerLink="{{user.Id}}" class="text-left btn btn-outline-dark btn-block my-2 border-thick">{{user.Username}}</a>
           </div>  
          
     </div> 
