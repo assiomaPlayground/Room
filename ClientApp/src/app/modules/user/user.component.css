@@ -8,11 +8,8 @@
     border-radius: 10px;
     }
 .form-control{
-        border-width: medium;
-        border-radius: 10px;
-        color:white;
-        background-color:#DC3545;
-        border-color: #DC3545;
-
-
-    }
+    border-width: medium;
+    border-radius: 10px;
+    color:white;
+    background-color:#5cb85c;
+}
