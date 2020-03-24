@@ -70,7 +70,8 @@ namespace RoomService.Services
                            ReservationId = res.Id,
                            Users = workres.Reservations,
                            Interval = res.Interval,
-                           WorkSpace = workspace
+                           WorkSpace = workspace,
+                           Status = res.Status
                        };
             //Return enumerable result
             return qres.AsEnumerable();

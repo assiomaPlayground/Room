@@ -6,5 +6,6 @@ export class WorkSpaceReservationDTO{
     ReservationId : String;
     WorkSpace : WorkSpace;
     Interval : DeltaTime;
+    Status : number;
     Users : number;
 }

@@ -31,7 +31,10 @@ namespace RoomService.DTO
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public DeltaTime Interval { get; set; }
-
+        /// <summary>
+        /// Reservation Status
+        /// </summary>
+        public Reservation.Statuses Status { get; set; }
         /// <summary>
         /// Number of users with a reservation in the Workspace during Interval time
         /// </summary>

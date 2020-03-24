@@ -1,35 +1,23 @@
-<head> <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"></head>
-    <div class="col-md-4 offset-md-4 ">
-      <div class="card">
-        
-        <div class="card-header">
-             <img class="card-img-top" src="../../assets/Intesa_Sanpaolo.svg.png" alt="Card image cap">
-          </div>
-            <div class="card-body">  
-              <h4 class="card-title">LE MIE PRENOTAZIONI</h4>
-         
-            <div *ngFor="let reservation of wreservations | orderBy: 'reservation.Interval.StartTime'">
-              <ul class="list-group m-2">
-                
-                <li class="list-group-item">Stanza: {{reservation.WorkSpace.Name}}
-                <i class="fa fa-check  fa-2x col-md-1 offset-md-1"style="color:green"routerLink="/qrmap"></i>
-                <i class="fa fa-times fa-2x col-md-2 offset-md-2"style="color:red" (click)="delete(reservation)" ></i></li>
-                <li class="list-group-item">Disponibilitá: {{reservation.WorkSpace.AllSeats - reservation.Users}} su {{reservation.WorkSpace.AllSeats}}</li>
-                <li class="list-group-item">Inizio: {{reservation.Interval.StartTime | amLocale:'it' | amTimeAgo}} </li>
-                <li class="list-group-item">Fino: {{reservation.Interval.EndTime | amLocale:'it' | amCalendar}}</li>
-              </ul>
-            </div>    
-      </div>
-       <div class="card-footer">
-        <i class="fa fa-home fa-2x" aria-hidden="true" routerLink="/home" ></i>
-        
-        <i class="fa fa-calendar fa-2x col-md-4 offset-md-4" aria-hidden="true" routerLink="/reservations"></i>
-
-        <i class="fa fa-user-o  fa-2x col-md-1 offset-md-1  " aria-hidden="true" routerLink="/user"></i>
-        
-      
+<div class="row no-gutters">
+  <div class="col-md-12 text-center">
+    <h3>Le mie prenotazioni</h3>
   </div>
-
 </div>
-      </div>
-
+<div class="card my-2" *ngFor="let reservation of wreservations | orderBy: 'reservation.Interval.StartTime' : 'ture'" >
+  <div class="card-header">
+    <a class="btn btn-sm float-right" routerLink="/qrmap" *ngIf="reservation.Status == 1">
+      <i class="fa fa-check"></i>
+    </a>
+    <a class="btn btn-sm float-right" (click)="delete(reservation)" *ngIf="reservation.Status == 0">
+      <i class="fa fa-times"></i>
+    </a>
+  </div>
+  <div class="card-body" [ngClass]="{'bg-light': reservation.Status == 2}">
+    <h6>Stanza: {{reservation.WorkSpace.Name}}</h6>
+    <h6>Persone: {{reservation.Users}} su {{reservation.WorkSpace.AllSeats}} posti</h6>
+    <h6>
+      Inizio: {{reservation.Interval.StartTime | amLocale:'it' | amTimeAgo }}
+      Fine:   {{reservation.Interval.EndTime   | amLocale:'it' | amCalendar}}
+    </h6>
+  </div>
+</div>
