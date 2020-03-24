@@ -39,6 +39,7 @@ export class ReservationComponent implements OnInit {
     this.service.delete(reservation.Id).subscribe(()=> this.list());
   }
   verifica(){
+    
     this.durata = parseInt(this.durata);
     let endDate : Date;
     let startDate : Date; 
