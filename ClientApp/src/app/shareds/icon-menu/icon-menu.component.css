@@ -2,5 +2,8 @@
     min-height: 4em;
 }
 .background-black{
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(34, 34, 34, 0.171);
+}
+.fa-color{
+    color: dimgrey;
 }

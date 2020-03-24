@@ -19,7 +19,6 @@ export class ReservationComponent implements OnInit {
   reservation: Reservation[];
   buildingList: Building[];
   selectedBuilding : Building;
-
   Durate : string [] = [
     'Mattina', 'Pomeriggio', 'Un Giorno', 'Due Giorni', 
     'Tre Giorni', 'Quattro Giorni', 'Cinque Giorni'

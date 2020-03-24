@@ -6,7 +6,7 @@
     display: block;
     width: 100%;
     border: none;
-    background-color:#DC3545;
+    background-color:#5cb85c;
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
@@ -21,12 +21,20 @@
         border-width: medium;
         border-radius: 10px;
         color:white;
-        background-color:#DC3545;
-        border-color: #DC3545;
+        background-color:#5cb85c;
+        border-color: #5cb85c;
 
 
     }
     .bs-datepicker-head{
 
-       color: #DC3545;
+       color: #5cb85c;
     }
+     .theme-green {
+        background-color: #5cb85c;
+    }
+    .btn-green {
+
+        color: #5cb85c;
+    }
+    
