@@ -1,7 +1,9 @@
 <div class="row no-gutters">
   <div class="col-md-12 vh-45"></div>
       <ng-container *ngIf="foundUserWorkSpace==null else  elseTemplate">
-        <p> In questo momento {{user?.Username}} non ha effettuato il checkin </p>        
+        <div class="alert alert-success">
+          <strong>Info!</strong> In questo momento {{user?.Username}} non ha effettuato nessun checkin.   
+      </div>      
       </ng-container>
       <ng-template #elseTemplate>
         <p class="card-text">in questo momento si trova a: {{foundUserWorkSpace?.WorkSpaceReservation?.WorkSpace?.Name}}</p>
