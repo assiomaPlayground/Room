@@ -1,0 +1,9 @@
+.vh-45{
+
+    min-height: 30vh;
+}
+.border-thick{
+
+border-width: medium;
+border-radius: 10px;
+}

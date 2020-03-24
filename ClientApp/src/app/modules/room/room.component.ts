@@ -44,7 +44,7 @@ export class RoomComponent implements OnInit {
     reservation.Owner = this.authService.currentUserValue.Id;
     reservation.Target = this.selectedRoom.Id;
     this.service.confirmRoom(reservation).subscribe(res =>
-      this.router.navigate(['reservations'])
+      this.router.navigate(['reservation'])
     );
 
 

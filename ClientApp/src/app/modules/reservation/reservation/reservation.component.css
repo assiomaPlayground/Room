@@ -6,9 +6,27 @@
     display: block;
     width: 100%;
     border: none;
-    background-color: #4CAF50;
+    background-color:#DC3545;
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
     text-align: center;
   }
+  .border-thick{
+
+    border-width: medium;
+    border-radius: 10px;
+    }
+    .form-control{
+        border-width: medium;
+        border-radius: 10px;
+        color:white;
+        background-color:#DC3545;
+        border-color: #DC3545;
+
+
+    }
+    .bs-datepicker-head{
+
+       color: #DC3545;
+    }
