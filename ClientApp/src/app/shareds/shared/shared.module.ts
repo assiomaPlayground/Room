@@ -9,9 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import 'moment/locale/it';
 import { CommonModule } from '@angular/common';
+import { IconMenuComponent } from '../icon-menu/icon-menu.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [IconMenuComponent],
   imports: [
     CommonModule,
     ButtonsModule.forRoot(),

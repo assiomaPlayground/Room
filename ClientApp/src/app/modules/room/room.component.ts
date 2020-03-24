@@ -6,7 +6,6 @@ import { WorkSpace } from 'src/model/WorkSpace';
 import { Reservation } from 'src/model/Reservation';
 import { Building } from 'src/model/Building';
 import { DeltaTime } from 'src/model/Types/DeltaTime';
-import { UserService } from 'src/service/user.service';
 import { AuthenticationService } from 'src/service/authenticationservice.service';
 
 @Component({

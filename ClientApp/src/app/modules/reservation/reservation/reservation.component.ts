@@ -15,10 +15,15 @@ import { DeltaTime } from 'src/model/Types/DeltaTime';
 })
 export class ReservationComponent implements OnInit {
   startDate : Date = new Date();
-  durata : any;
+  durata : number = -1;
   reservation: Reservation[];
   buildingList: Building[];
   selectedBuilding : Building;
+
+  Durate : string [] = [
+    'Mattina', 'Pomeriggio', 'Un Giorno', 'Due Giorni', 
+    'Tre Giorni', 'Quattro Giorni', 'Cinque Giorni'
+  ]
   
   constructor(private service: ReservationsService,private roomService: RoomService, private router: Router) { }
 
@@ -39,8 +44,6 @@ export class ReservationComponent implements OnInit {
     this.service.delete(reservation.Id).subscribe(()=> this.list());
   }
   verifica(){
-    
-    this.durata = parseInt(this.durata);
     let endDate : Date;
     let startDate : Date; 
     switch (this.durata) {
