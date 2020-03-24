@@ -11,12 +11,14 @@ import { NgxQRCodeModule} from 'ngx-qrcode2';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { SharedModule } from './shareds/shared/shared.module';
+import { IconMenuComponent } from './shareds/icon-menu/icon-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     AlertComponent,
+    IconMenuComponent,
     RouteComponents,
     ModudeLayouts
   ],
