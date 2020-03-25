@@ -29,7 +29,7 @@ export class PushSubscriberComponent {
         serverPublicKey: publicKey
       })
       // Distribute subscription to the server
-      .then(subscription => this.httpClient.post(this.baseUrl + 'api/PushSubscriptions', subscription, this.httpOptions).subscribe(
+      .then(subscription => this.httpClient.post(this.baseUrl + 'api/PushSubscriptions', subscription).subscribe(
         () => { },
         error => console.error(error)
       ))
