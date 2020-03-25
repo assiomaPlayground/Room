@@ -14,6 +14,7 @@ import { SharedModule } from './shareds/shared/shared.module';
 import { IconMenuComponent } from './shareds/icon-menu/icon-menu.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PushSubscriberComponent } from './push-subscriber/push-subscriber.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { environment } from '../environments/environment';
     AlertComponent,
     IconMenuComponent,
     RouteComponents,
-    ModudeLayouts
+    ModudeLayouts,
+    PushSubscriberComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
