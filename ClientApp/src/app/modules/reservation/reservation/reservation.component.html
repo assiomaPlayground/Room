@@ -14,8 +14,8 @@
       <div class="btn btn-group btn-green border-thick  btn-block m-2 p-2" dropdown>
         <input type="text" placeholder="Seleziona data" class="form-control m-2" bsDatepicker [(ngModel)]="startDate">
       </div>
-      <div class="btn-group btne-green btn-outline-dark btn-block m-2" dropdown>
-        <button id="db1" dropdownToggle type="button" class="btn btn-green btn-outline-dark btn-block dropdown-toggle m-2 p-2"
+      <div class="btn-group btn-green border-thick btn-block m-2" dropdown>
+        <button id="db1" dropdownToggle type="button" class="btn btn-green btn-block border-thick dropdown-toggle m-2 p-2"
           aria-controls="dbb1">
           Durata <span class="caret"></span>
         </button>
@@ -36,5 +36,5 @@
               (click)="durata = 6">Mattina</a></li>     
         </ul>
       </div>
-      <button class="btn btn-block btn-outline-dark btn-green m-2 p-2" (click)="verifica()">Verifica disponibilitá</button>
+      <button class="btn btn-block border-thick btn-green m-2 p-2" (click)="verifica()">Verifica disponibilitá</button>
     </div>
