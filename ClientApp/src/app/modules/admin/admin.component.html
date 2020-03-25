@@ -1,74 +1,8 @@
-<div class="container">
-    <div class="row mt-5">
-      <div class="col-md-1">
-  
-      </div>
-      <div class="col-md-10">
-        <table>
-          <tr>
-            <th>
-              Username
-            </th>
-            <th>
-              Password
-            </th>
-            <th>
-              Usertype
-            </th>
-          
-            <th>
-              Edit
-            </th>
-            <th>
-              User
-            </th>
-            <th>
-              <a routerLink="/admin/qrcodegen" class="btn btn-warning btn-block">QRCode</a>
-            </th>
-          </tr>
-          <tr>
-            <td>
-              <input placeholder="username" [(ngModel)]="usersins.username">
-            </td>
-            <td>
-              <input placeholder="password" [(ngModel)]="usersins.password">
-            </td>
-            <td>
-              <select placeholder="usertype" [(ngModel)]="usersins.usertype">
-                <option value="ADMIN">ADMIN</option>
-                <option value="USER">USER</option>
-              </select>
-            </td>
-            <td>
-              <button (click)="insert(usersins)">Insert</button>
-            </td>
-            <td>
-              <button (click)="clear()">Clear</button>
-            </td>
-          </tr>
-          <tr *ngFor="let user of users">
-            <td>
-              <input [(ngModel)]="user.Username">
-            </td>
-            <td>
-              <select [(ngModel)]="user.UserType">
-                <option [selected]="user.UserType==1" value="1">ADMIN</option>
-                <option [selected]="user.UserType==0" value="0">USER</option>
-              </select>
-            </td>
-            
-            <td>
-              <button (click)=update(user)>Save</button>
-            </td>
-            <td>
-              <button (click)="delete(user)">Delete</button>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="col-md-1">
-  
-      </div>
+<div class="row no-gutters">
+  <div class="col 12">
+    <div id="menu">
+      <app-menu></app-menu>
     </div>
-  </div>
-  
+</div>
+
+    

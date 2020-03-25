@@ -11,7 +11,7 @@ export class IconMenuComponent implements OnInit {
   IsVisible : boolean;
   path : string;
 
-  toHide : string[] = ['/home', '/register', '/login']
+  toHide : string[] = ['/home', '/register', '/login', '/admin']
 
   constructor(private route : Router) { }
 
