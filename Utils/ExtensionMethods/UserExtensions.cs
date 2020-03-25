@@ -19,6 +19,7 @@ namespace RoomService.Utils
         /// <returns>The modified users IEnumerable</returns>
         public static IEnumerable<UserModel> WithoutPasswords(this IEnumerable<UserModel> users)
             => users.Select(x => x.WithoutPassword());
+
         /// <summary>
         /// A pipe that removes the tokens from an users IEnumerable
         /// @TODO: Delete -- token are now ignored by BSON and NewSoftJson
@@ -27,6 +28,7 @@ namespace RoomService.Utils
         /// <returns>The modified users IEnumerable</returns>
         public static IEnumerable<UserModel> WithoutTokens(this IEnumerable<UserModel> users)
             => users.Select(x => x.WithoutToken());
+        
         /// <summary>
         /// A pipe that removes the password from an user
         /// </summary>
@@ -37,6 +39,7 @@ namespace RoomService.Utils
             user.Password = null;
             return user;
         }
+        
         /// <summary>
         /// A pipe that removes the token from an user
         /// @TODO: Delete -- token are now ignored by BSON and NewSoftJson 
@@ -48,6 +51,7 @@ namespace RoomService.Utils
             user.Token = null;
             return user;
         }
+        
         /// <summary>
         /// Validator for UserModel class
         /// <para>
@@ -65,13 +69,18 @@ namespace RoomService.Utils
             );
             if (!usernameRegex.IsMatch(user.Username)) //Invalid username
                 return false;
+            
             //Password regular expression matcher
             var passRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$", 
                 RegexOptions.Compiled, 
                 TimeSpan.FromMilliseconds(1000)
-            ); //Pass validator
-            if (!passRegex.IsMatch(user.Password)) //Invalid password
+            );
+            
+            //Pass validator
+            if (!passRegex.IsMatch(user.Password)) 
+                //Invalid password
                 return false;
+           
             //Success
             return true;
         }

@@ -19,14 +19,17 @@ namespace RoomService.Utils
     /// </summary>
     public class ConfigUtils
     {
+
         /// <summary>
         /// App services collection
         /// </summary>
         private IServiceCollection ServiceCollection { get; set; }
+
         /// <summary>
         /// App Configuration files
         /// </summary>
         private IConfiguration Configuration { get; set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -34,9 +37,11 @@ namespace RoomService.Utils
         /// <param name="configuration">The app configuration files</param>
         public ConfigUtils(IServiceCollection services, IConfiguration configuration)
         {
+
             ServiceCollection = services;
             Configuration = configuration; 
         }
+
         /// <summary>
         /// Whole app config
         /// </summary>
@@ -46,18 +51,22 @@ namespace RoomService.Utils
             GenerateSingletons();
             ConfigureJwt(Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>().Secret);
         }
+
         /// <summary>
         /// Settings file config
         /// </summary>
         public void ConfigureSettings()
         {
+
             //Setup config file class wrapper
             //Mongo cfg
             ServiceCollection.Configure<RoomServiceMongoSettings>(
                 Configuration.GetSection(nameof(RoomServiceMongoSettings)));
+
             //App settings cfg
             ServiceCollection.Configure<AppSettings>(
                 Configuration.GetSection(nameof(AppSettings)));
+
             //Mongo service
             ServiceCollection.AddSingleton<IRoomServiceMongoSettings>(sp =>
                 sp.GetRequiredService<IOptions<RoomServiceMongoSettings>>().Value);
@@ -70,6 +79,7 @@ namespace RoomService.Utils
         /// </summary>
         public void ConfigureJwt(string secret)
         {
+
             var key = Encoding.ASCII.GetBytes(secret);
             ServiceCollection.AddAuthentication(x =>
             {
@@ -94,6 +104,7 @@ namespace RoomService.Utils
         /// </summary>
         public void GenerateSingletons()
         {
+
             //Services as singleton
             ServiceCollection.AddSingleton<UserService>();
             ServiceCollection.AddSingleton<BuildingService>();

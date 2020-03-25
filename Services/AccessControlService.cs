@@ -19,10 +19,12 @@ namespace RoomService.Services
         /// The User service dependency
         /// </summary>
         private readonly UserService        _userService;
+
         /// <summary>
         /// The reservation service dependency
         /// </summary>
         private readonly ReservationService _reservationService;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -33,6 +35,7 @@ namespace RoomService.Services
             this._userService = userService;
             this._reservationService = reservationService;
         }
+
         /// <summary>
         /// Is Admin check
         /// </summary>
@@ -40,6 +43,7 @@ namespace RoomService.Services
         /// <returns>Bool true : Is Adim</returns>
         public bool IsAdmin(string id)
             => ((id != null) && (_userService.Read(id).UserType == UserModel.UserTypes.ADMIN));
+
         /// <summary>
         /// Is Auth check
         /// </summary>
@@ -47,6 +51,7 @@ namespace RoomService.Services
         /// <returns>Bool true : Is Authed</returns>
         public bool IsAuth(string id)
             => id != null;
+
         /// <summary>
         /// Determinate is an user is Owner of a resource
         /// </summary>
@@ -60,6 +65,7 @@ namespace RoomService.Services
             where TService : AbstractMongoCrudService<TModel> 
             where TModel : class, IModel, IOwnable
                 => IsAdmin(id) ? true : _service.Read(tid).Owner == id;
+
         /// <summary>
         /// Is Owner Overload
         /// <seealso cref="IsOwner{TService, TModel}(string, string, in TService)"/>
@@ -71,6 +77,7 @@ namespace RoomService.Services
         public bool IsOwner<TModel>(string id, TModel model)
             where TModel : class, IModel, IOwnable
                 => IsAdmin(id) ? true : model.Owner == id;
+
         /// <summary>
         /// User creation check
         /// Need to be admin or unregistered
@@ -84,6 +91,7 @@ namespace RoomService.Services
                 (IsAdmin(id) ? true : (model.UserType == UserModel.UserTypes.USER)) &&
                 _userService.FindByUserName(model.Username) == null //Unique username
             );
+
         /// <summary>
         /// Can create reservation check
         /// Rely on <see cref="ReservationService.CanCreateReservation(Reservation)"/>
@@ -93,7 +101,8 @@ namespace RoomService.Services
         /// <returns>True : can create</returns>
         public bool CanCreateReservation(string id, Reservation model)
         {
-            if (!IsOwner<Reservation>(id, model)) //Forbid
+            //Forbid
+            if (!IsOwner<Reservation>(id, model)) 
                 return false;
             return _reservationService.CanCreateReservation(model);
         }

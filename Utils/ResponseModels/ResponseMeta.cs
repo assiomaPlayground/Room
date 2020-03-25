@@ -10,6 +10,7 @@ namespace RoomService.Utils
     /// </summary>
     public enum ResponseTypes
     {
+
         /// <summary>
         /// Success status 200
         /// </summary>
@@ -31,6 +32,7 @@ namespace RoomService.Utils
         /// </summary>
         Forbid
     }
+
     /// <summary>
     /// Metatada response archetype
     /// </summary>

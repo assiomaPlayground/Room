@@ -15,6 +15,7 @@ namespace RoomService.Services
     public abstract class AbstractMongoCrudService<TModel> : IMongoCrudService<TModel>
         where TModel : class, IModel
     {
+
         /// <summary>
         /// Database Connection
         /// </summary>
@@ -38,6 +39,7 @@ namespace RoomService.Services
 
             Collection = Database.GetCollection<TModel>(baseCollection);
         }
+
         /// <summary>
         /// Create op
         /// </summary>
@@ -47,6 +49,7 @@ namespace RoomService.Services
             Collection.InsertOne(model);
             return model;
         }
+
         /// <summary>
         /// Delete op
         /// </summary>
@@ -54,6 +57,7 @@ namespace RoomService.Services
         /// <returns>True : success, false : else</returns>
         public virtual DeleteResult Delete(string id) 
             => Collection.DeleteOne(model => model.Id == id);
+
         /// <summary>
         /// get op
         /// </summary>

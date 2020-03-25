@@ -17,17 +17,21 @@ namespace RoomService.Utils
         /// <param name="op">The delegate operation to run</param>
         public void CreateTimeBasedServerTask(DateTime time, Func<bool> op)
         {
+
             //Create a timer from now to time (target time)
             var now      = DateTime.Now;
             var tickTime = (time - now).TotalMilliseconds;
+
             //Validate the timer
             if (tickTime < 1)
                 return;
+
             //Instantiate the timer
             var timer = new Timer(tickTime)
             {
                 AutoReset = false
             };
+
             //Setup and run the delegate func on timer elapsed
             timer.Elapsed += (sender, e) => RaiseEvent(sender, e, op);
             //Start the timer
@@ -52,6 +56,7 @@ namespace RoomService.Utils
     /// </summary>
     public enum TaskTypes
     {
+
         /// <summary>
         /// Status for update task selection
         /// </summary>
@@ -67,18 +72,22 @@ namespace RoomService.Utils
     /// </summary>
     public struct ServerTimeTaskData
     {
+
         /// <summary>
         /// Task name
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// Task description
         /// </summary>
         public string Description { get; set; }
+
         /// <summary>
         /// Task type
         /// </summary>
         public TaskTypes TaskType { get; set; }
+
         /// <summary>
         /// Hour of the day when task will run
         /// </summary>
