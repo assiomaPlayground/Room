@@ -7,7 +7,6 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { QRCodeGenComponent } from './qrcode-gen/qrcode-gen.component';
 import { SharedModule } from 'src/app/shareds/shared/shared.module';
 import { BuildingComponent } from 'src/app/modules/admin/building/building.component';
-import { MenuComponent } from './menu/menu.component';
 import { UsersComponent } from './users/users.component';
 
 @NgModule({
@@ -15,8 +14,7 @@ import { UsersComponent } from './users/users.component';
     AdminComponent,
     QRCodeGenComponent,
     BuildingComponent,
-    MenuComponent,
-    UsersComponent,
+    UsersComponent
   ],
   imports: [
     CommonModule,

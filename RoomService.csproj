@@ -12,7 +12,7 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     
     <!-- For test pwa code use true -->
-    <BuildProductionPWA>true</BuildProductionPWA>
+    <BuildProductionPWA>false</BuildProductionPWA>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

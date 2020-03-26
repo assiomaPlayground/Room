@@ -5,9 +5,19 @@
     <div class="col-12">
         <alert class="sticky-top"></alert>
     </div>
-    <div class="col-12">
-        <router-outlet></router-outlet>
-    </div>
+    <ng-container *ngIf="IsDashboard; else normalTemplate">
+        <div class="col-md-2">
+            <app-menu></app-menu>
+        </div>
+        <div class="col-md-10">
+            <router-outlet></router-outlet>
+        </div>
+    </ng-container>
+    <ng-template #normalTemplate>
+        <div class="col-12">
+            <router-outlet></router-outlet>
+        </div>
+    </ng-template>
     <div class="col-12">
         <app-icon-menu></app-icon-menu>
     </div>

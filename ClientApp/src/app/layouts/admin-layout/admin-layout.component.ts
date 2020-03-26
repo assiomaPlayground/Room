@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-layout',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor() { }
+  IsDashboard : boolean = false;
+  constructor(private route : Router) 
+  { 
+    
+  }
 
   ngOnInit() {
+    this.route.events.subscribe( evnt => {
+      if(evnt['routerEvent']) if(evnt['routerEvent'].url)
+      this.IsDashboard = this.route.url.includes('admin');
+    })
   }
 
 }

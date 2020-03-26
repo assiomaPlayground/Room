@@ -11,7 +11,7 @@ export class IconMenuComponent implements OnInit {
   IsVisible : boolean;
   path : string;
 
-  toHide : string[] = ['/home', '/register', '/login', '/admin']
+  toHide : string[] = ['home', 'register', 'login', 'admin']
 
   constructor(private route : Router) { }
 
@@ -19,17 +19,20 @@ export class IconMenuComponent implements OnInit {
     this.route.events.subscribe( evnt => {
       if(evnt['routerEvent']) if(evnt['routerEvent'].url)
       {
-        this.path = evnt['routerEvent'].url;
+        this.path = this.route.url;
         this.ValidateVisible();
       }
     })
   }
 
   private ValidateVisible(){
-    if(this.toHide.includes(this.path))
-      this.IsVisible = false;
-    else
-      this.IsVisible = true;
+    for (let i = 0; i < this.toHide.length; i++) {
+      if (this.path.includes(this.toHide[i])) {
+        this.IsVisible = false;
+        return;
+      }
+    }
+    this.IsVisible = true;
   }
 
 }

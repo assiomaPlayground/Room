@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { PwaService } from 'src/service/pwa.service';
 import { PushSubscriberComponent } from './push-subscriber/push-subscriber.component';
 import { AlertService } from 'src/service/alertservice.service';
+import { MenuComponent } from './modules/admin/menu/menu.component';
 
 export function getBaseUrl() {
   return document.getElementsByTagName('base')[0].href;
@@ -29,7 +30,8 @@ export function getBaseUrl() {
     IconMenuComponent,
     RouteComponents,
     ModudeLayouts,
-    PushSubscriberComponent
+    PushSubscriberComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
