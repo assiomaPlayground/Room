@@ -23,4 +23,5 @@ constructor(http: HttpClient, @Inject('BASE_URL') baseUrl : String) {
 wUser(id: string):Observable<any>{
   return this.http.get<any>(this.baseUrl+'api/'+this.type+'/find'+'/'+id)
 }
+
 }

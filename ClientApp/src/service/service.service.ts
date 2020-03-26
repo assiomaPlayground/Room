@@ -6,7 +6,7 @@ export interface Service<Entity> {
 
   delete(id: String): Observable<Entity>;
 
-  update(entity: Entity): Observable<Entity> ;
+  update(entity: Entity,Id:String): Observable<Entity> ;
 
   insert(entity: Entity): Observable<Entity>;
 

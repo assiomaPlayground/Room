@@ -21,8 +21,8 @@ export class Abstractservice<Entity>implements Service<Entity> {
   delete(id: String): Observable<Entity> {
     return this.http.delete<Entity>(this.baseUrl + 'api/'+this.type +'/'+ id);
   }
-  update(entity: Entity): Observable<Entity> {
-    return this.http.put<Entity>(this.baseUrl + 'api/'+ this.type , entity)
+  update(entity: Entity,Id:String): Observable<Entity> {
+    return this.http.put<Entity>(this.baseUrl + 'api/'+ this.type +'/'+Id, entity)
   }
   insert(entity: Entity): Observable<any> {
     return this.http.post<Entity>(this.baseUrl + 'api/'+this.type ,entity);
