@@ -115,7 +115,7 @@ namespace RoomService.Services
             var qres = from res in _reservationRepo.AsQueryable()
                        where this._goingStatuses.Contains(res.Status)
                        join user in _userRepo.AsQueryable() on res.Owner equals user.Id
-                       select new UserReservationDTO { Reservation = res, };
+                       select new UserReservationDTO { Reservation = res, User = user };
 
             //Query failed case
             if (qres == null)
