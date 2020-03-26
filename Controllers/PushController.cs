@@ -24,7 +24,7 @@ namespace RoomService.Controllers
             this._publicKey = "BPWObu3Sq-QOaJiOS0CXNEKP9_r2Sm4qWnSXi6k4cDiyb6C-BhviCi9m7VK9jWJcYb75CfPDSrRbcg-M3a4wOV0";
         }
 
-        [HttpPost("SubKey")]
+        [HttpGet("SubKey")]
         public ContentResult GetKey()
         {
             return Content(_publicKey, "text/plain");

@@ -14,10 +14,10 @@ export class AppComponent {
         private authenticationService: AuthenticationService,
         private pwaService : PwaService
     ) {
-        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         window.addEventListener('beforeinstallprompt', event => {
             this.installPwaEvent = event;
         });
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
     installPwa(): void {

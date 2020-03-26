@@ -34,38 +34,37 @@ export class PwaService {
   subscribeToNotifications() {
     if(this.subscription === null){
       this.execSubscribe();
-      this.subscribed = true;
     }
   }
   unsubscribeToNotifications() {
     if(this.subscription != null){
       this.ExecUnsubscribe();
-      this.subscribed = false;
     }
   }
 
   private execSubscribe(){
-    this.httpClient.post(this.baseUrl + 'api/Push/SubKey', {})
+    console.log("requesting")
+    this.httpClient.get(this.baseUrl + 'api/Push/SubKey', { responseType: 'text' })
     .subscribe(publicKey => {
-      let pk = publicKey as string;
-      console.log(pk);
       this.swPush.requestSubscription({
-        serverPublicKey:  pk
+        serverPublicKey:  publicKey
       })
-      .then( subscription => 
-        this.httpClient.post(this.baseUrl + 'api/Push', subscription)
+      .then( subscription => {
+        this.subscribed = true;
+        this.httpClient.post<string>(this.baseUrl + 'api/Push', subscription)
         .subscribe(res => {
-          let message = res as string;
-          this.alertService.info(message);
-          console.log(message);
-        })).catch( e => console.log(e))
+          this.alertService.info(res);
+        })
+      }).catch( e => console.log(e))
     })
   }
 
   private ExecUnsubscribe(){
-    console.log("us");
     this.swPush.unsubscribe()
       .then(() => this.httpClient.delete(this.baseUrl + 'api/Push/' + encodeURIComponent(this.subscription.endpoint))
-      .subscribe(() => { this.alertService.warn("Push notifications disabilitate"); }))
+      .subscribe(() => { 
+        this.subscribed = false;
+        this.alertService.warn("Push notifications disabilitate"); 
+      }))
   }
 }
