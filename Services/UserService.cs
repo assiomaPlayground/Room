@@ -107,7 +107,10 @@ namespace RoomService.Services
         /// <returns>Replace result class by mongo driver</returns>
         public override ReplaceOneResult Update(string id, UserModel newModel)
         {
-            newModel.Password = _cryptProvider.Encrypt(newModel.Password);
+            if (newModel.Password != null)
+                newModel.Password = _cryptProvider.Encrypt(newModel.Password);
+            else
+                newModel.Password = Read(id).Password;
             return base.Update(id, newModel);
         }
 
