@@ -20,8 +20,8 @@ export class FavouritesComponent implements OnInit {
   insert(favourites: Favourites){
     this.service.insert(favourites).subscribe(()=> this.list());
   }
-  update(favourites: Favourites){
-    this.service.update(favourites).subscribe(()=> this.list());
+  update(favourites: Favourites,Id:String){
+    this.service.update(favourites,favourites.Id).subscribe(()=> this.list());
   }
  
 }

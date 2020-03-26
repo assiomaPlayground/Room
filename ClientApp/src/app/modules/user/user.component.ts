@@ -26,8 +26,8 @@ export class UserComponent implements OnInit {
   insert(user: UserModel){
       this.service.insert(user).subscribe(()=> this.List());
   }
-  update(user: UserModel){
-    this.service.update(user).subscribe(()=> this.List());
+  update(user: UserModel,Id:String){
+    this.service.update(user,user.Id).subscribe(()=> this.List());
   }
   delete(user: UserModel){
     this.service.delete(user.Id).subscribe(()=> this.List());
