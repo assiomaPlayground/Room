@@ -12,38 +12,46 @@ using System.Threading.Tasks;
 
 namespace RoomService.Services
 {
+
     /// <summary>
     /// Service for Reservation collection crud ops in abstract
     /// </summary>
     public class ReservationService : AbstractMongoCrudService<Reservation>
     {
+
         /// <summary>
         /// Required external aggregation repository _workSpaceRepo is the WorkSpace collection repo
         /// Main used in <see cref="WorkSpaceService"/>
         /// </summary>
         private readonly IMongoCollection<WorkSpace> _workSpaceRepo;
+
         /// <summary>
         /// Required external aggregation repository _workSpaceReservations is the WorkSpaceReservations collection repo
         /// In this repo are stored the Workspace by date reservations collected is also a main repo of this service.
         /// </summary>
         private readonly IMongoCollection<WorkSpaceReservation> _workSpaceReservationRepo;
+
         //@TODO use settings or database
         private readonly HashSet<Reservation.Statuses> _goingStatuses = new HashSet<Reservation.Statuses>
         { Reservation.Statuses.ATTIVA, Reservation.Statuses.CHECKIN, Reservation.Statuses.INCORSO };
         private readonly HashSet<Reservation.Statuses> _storedStatuses = new HashSet<Reservation.Statuses>
         { Reservation.Statuses.CANCELLATA, Reservation.Statuses.CONCLUSA };
+
         /// <summary>
         /// Constructor gets the mongo settings from DI
         /// </summary>
         /// <param name="settings">The mongo database settings</param>
         public ReservationService(IRoomServiceMongoSettings settings)
         {
+
             //Init base class
             base.Init(settings, settings.ReservationCollection);
+
             //Connect to required extra collections
             _workSpaceRepo = Database.GetCollection<WorkSpace>(settings.WorkSpaceCollection);
             _workSpaceReservationRepo = Database.GetCollection<WorkSpaceReservation>(settings.WorkSpaceReservationCollection);
         }
+
         /// <summary>
         /// Return all reservations of chosen user
         /// </summary>
@@ -51,6 +59,7 @@ namespace RoomService.Services
         /// <returns>IEnumerable of reservations of selected user</returns>
         public IEnumerable<Reservation> GetUserReservations(string id)
             => Collection.Find(res => res.Owner == id).ToEnumerable();
+
         /// <summary>
         /// Execute a join of 3 tables for return util data
         /// Uses the reservation as "middleman" for join workspace and availability in reservation interval
@@ -59,8 +68,10 @@ namespace RoomService.Services
         /// <returns>Joined reservation workspace and availability in the interval DeltaTine of the requested user reservations</returns>
         public IEnumerable<WorkSpaceReservationDTO> GetUserReservationsAndWorkSpaces(string id)
         {
+
             //Get user reservation Note: in mongo query from could be called in only one mongo collection
             var reservations = Collection.Find(res => res.Owner == id).ToEnumerable();
+
             //Start the query
             var qres = from res in reservations.AsQueryable() //From reservation
                        join workspace in _workSpaceRepo.AsQueryable() on res.Target equals workspace.Id //Join workspace using id
@@ -73,9 +84,11 @@ namespace RoomService.Services
                            WorkSpace = workspace,
                            Status = res.Status
                        };
+
             //Return enumerable result
             return qres.AsEnumerable();
         }
+
         /// <summary>
         /// Find Reservation with ongoing status for an user
         /// </summary>
@@ -90,6 +103,7 @@ namespace RoomService.Services
                     res.Owner == UserId &&
                     res.Status == Reservation.Statuses.INCORSO || res.Status == Reservation.Statuses.CHECKIN
                 ).FirstOrDefault()?.Id;
+
         /// <summary>
         /// Create a reservation
         /// Could chain a reservation time split
@@ -98,22 +112,30 @@ namespace RoomService.Services
         /// <returns>Last created reservation or empty if fails</returns>
         public override Reservation Create(Reservation model)
         {
+
             //Clamp reservation interval inside valid times
             model.Interval = model.Interval.Clamp();
+
             //Invalidated after clamp error
             if (!model.Interval.IsValid())
                 return new Reservation();
+
             //Reservation could be only for the future
             if (!model.Interval.IsFuture())
                 return new Reservation();
+
             //Get last reservation interval
             var EndTime = DateTime.Parse(model.Interval.EndTime, null, DateTimeStyles.RoundtripKind);
+
             //Create a candidate building
             var Buffer = new List<Reservation>();
+
             //Clone the model for iterator
             var Iterator = model.Clone();
+
             //Iterate first interval
             Iterator.Interval = Iterator.Interval.First();
+
             //If model is valid ad a copy to add buffer
             if (this.CanCreateReservation(Iterator))
                 Buffer.Add(Iterator.Clone());
@@ -128,17 +150,22 @@ namespace RoomService.Services
                 else
                     return new Reservation(); //Eroor Invalid submodel
             }
+
             //Get last item
             Reservation last = null;
+
             //Create a copy of buffer elements in the database and set last
             foreach (var res in Buffer)
                 last = CreationHelper(res);
+
             //Return last created reservation from cretion buffer
             if (last != null)
                 return last;
+
             //Error? Northing added
             return new Reservation();
         }
+
         /// <summary>
         /// Helper class for reservation creation
         /// </summary>
@@ -162,15 +189,19 @@ namespace RoomService.Services
                     Interval = model.Interval,
                     Reservations = 0
                 };
+
             //Add reservation counter
             target.Reservations++;
+
             //No target in the database -> add else update
             if (target.Id != null)
                 _workSpaceReservationRepo.ReplaceOne<WorkSpaceReservation>(_wsr => _wsr.Id == target.Id, target);
             else _workSpaceReservationRepo.InsertOne(target);
+
             //Update model refs
             model.ReservationSocket = target.Id;
             Update(model.Id, model);
+
             //Return created model in database
             return model;
         }
@@ -197,6 +228,7 @@ namespace RoomService.Services
             //Delete
             return base.Delete(id);
         }
+
         /// <summary>
         /// Execute a check-in add
         /// </summary>
@@ -213,6 +245,7 @@ namespace RoomService.Services
                 || reservation.Status == Reservation.Statuses.ATTIVA
                 )
                 return false;
+
             //Add check-in
             reservation.CheckIn = reservation.CheckIn.Append(data.Date);
             //Switch statis
@@ -220,6 +253,7 @@ namespace RoomService.Services
             //Return update result
             return Update(id, reservation).IsAcknowledged;
         }
+
         /// <summary>
         /// Execute a check-out add
         /// </summary>
@@ -255,6 +289,7 @@ namespace RoomService.Services
             if (workRes == null) return null;
             return new WorkSpaceReservationDTO { WorkSpace = workSpc, Interval = res.Interval, Users = workRes.Reservations };
         }
+
         /// <summary>
         /// Performs controls for Reservation insert availability
         /// @TODO: move into utility class
@@ -295,6 +330,7 @@ namespace RoomService.Services
             //Return success
             return true;
         }
+
         /// <summary>
         /// Determinate if two datetime intervals in isostring overlaps
         /// @TODO move into an utility class

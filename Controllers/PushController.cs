@@ -14,10 +14,18 @@ namespace RoomService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+    // Push Controller
+    // Controller Base
     public class PushController : ControllerBase
     {
         private readonly PushService _pushService;
         private readonly string _publicKey;
+
+        /// <summary>
+        /// push Controller
+        /// </summary>
+        /// <param name="pushService">push Service(publicKey)</param>
         public PushController(PushService pushService)
         {
             this._pushService = pushService;
@@ -30,6 +38,12 @@ namespace RoomService.Controllers
             return Content(_publicKey, "text/plain");
         }
 
+
+        /// <summary>
+        /// Action Result Push Subcription
+        /// </summary>
+        /// <param name="subscription">Action Result Post</param>
+        /// <returns>Insert subscription</returns>
         [HttpPost]
         public ActionResult<PushSubscription> Post([FromBody] PushSubscription subscription)
         {

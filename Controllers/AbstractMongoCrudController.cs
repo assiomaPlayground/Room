@@ -22,6 +22,7 @@ namespace RoomService.Controllers
         where TModel : class, IModel
         where TService : AbstractMongoCrudService<TModel>
     {
+
         /// <summary>
         /// Service ref
         /// </summary>
@@ -47,6 +48,7 @@ namespace RoomService.Controllers
             model = Service.Create(model);
             return new OkObjectResult(model);
         }
+
         /// <summary>
         /// Delete op
         /// </summary>
@@ -81,6 +83,7 @@ namespace RoomService.Controllers
                 return NotFound();
             return new OkObjectResult(res);
         }
+
         /// <summary>
         /// get op
         /// </summary>
@@ -97,6 +100,7 @@ namespace RoomService.Controllers
                 return NotFound();
             return item;
         }
+
         /// <summary>
         /// Update op
         /// </summary>
@@ -113,6 +117,7 @@ namespace RoomService.Controllers
                 return Ok();
             return BadRequest();
         }
+
         //Crud Access Controls
 
             /// <summary>
