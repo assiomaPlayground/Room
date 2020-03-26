@@ -111,7 +111,7 @@ namespace RoomService.Services
             //Create comparison time
             var now = DateTime.Now.ToString("o");
             
-            var reservations = _reservationRepo.Find(res => this._goingStatuses.Contains(res.Status)).AsEnumerable();
+            var reservations = _reservationRepo.Find(res => this._goingStatuses.Contains(res.Status)).ToEnumerable();
             //Query for all on going statuses reservations
             var qres = from res in reservations
                        join user in _userRepo.AsQueryable() on res.Owner equals user.Id

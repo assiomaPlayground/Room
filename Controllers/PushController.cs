@@ -55,6 +55,10 @@ namespace RoomService.Controllers
             return _pushService.Insert(wrp);
         }
 
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="endpoint">Delete push Service</param>
         [HttpDelete("{endpoint}")]
         public void Delete([FromRoute] string endpoint)
         {
