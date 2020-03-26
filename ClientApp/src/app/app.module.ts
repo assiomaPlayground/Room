@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './shareds/nav-menu/nav-menu.component';
-import { getBaseUrl } from 'src/main';
 import { AlertComponent } from './shareds/alert/alert.component';
 import { AppRoutingModule, ModudeLayouts, RouteComponents } from './app.routing';
 import { NgxQRCodeModule} from 'ngx-qrcode2';
@@ -14,7 +13,13 @@ import { SharedModule } from './shareds/shared/shared.module';
 import { IconMenuComponent } from './shareds/icon-menu/icon-menu.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PwaService } from 'src/service/pwa.service';
 import { PushSubscriberComponent } from './push-subscriber/push-subscriber.component';
+import { AlertService } from 'src/service/alertservice.service';
+
+export function getBaseUrl() {
+  return document.getElementsByTagName('base')[0].href;
+}
 
 @NgModule({
   declarations: [
@@ -37,10 +42,11 @@ import { PushSubscriberComponent } from './push-subscriber/push-subscriber.compo
   ],
   
 providers: [
-  {provide:'BASE_URL', useFactory : getBaseUrl},
+  { provide:'BASE_URL', useFactory : getBaseUrl },
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
+  PwaService,
+  AlertService
   // provider used to create fake backend
  
 ],

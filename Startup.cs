@@ -18,6 +18,7 @@ using RoomService.Settings;
 using System.Text;
 using RoomService.Utils;
 using Newtonsoft.Json.Bson;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace RoomService
 {
@@ -65,10 +66,22 @@ namespace RoomService
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors(builder => {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+            });
+
+            FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".webmanifest"] = "application/manifest+json";
 
             app.UseStaticFiles();
-            if (!env.IsDevelopment())
-                app.UseSpaStaticFiles();
+            var IsPwaEnv = Configuration.GetSection("AppSettings").GetValue<bool>("IsPwaEnv");
+
+            if(IsPwaEnv || env.IsProduction())
+                app.UseSpaStaticFiles(new StaticFileOptions()
+                {
+                    ContentTypeProvider = provider
+                });
 
             app.UseEndpoints(endpoints =>
             {
@@ -82,7 +95,7 @@ namespace RoomService
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                if (env.IsDevelopment() && !IsPwaEnv)
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }

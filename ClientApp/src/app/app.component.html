@@ -1,2 +1,4 @@
-<app-layout-selector></app-layout-selector>
+<button  class="btn btn-block btn-success" *ngIf="installPwaEvent != null" (click)="installPwa()">Installa</button>
+<app-push-subscriber></app-push-subscriber>
 <alert></alert>
+<app-layout-selector></app-layout-selector>

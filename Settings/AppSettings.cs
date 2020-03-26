@@ -11,6 +11,8 @@ namespace RoomService.Settings
     /// </summary>
     public class AppSettings : IAppSettings
     {
+        public bool IsPwaEnv { get; set; }
+
         /// <summary>
         /// Used secret for Token Generation
         /// </summary>

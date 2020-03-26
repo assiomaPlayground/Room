@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "startwpwa": "ng build --prod && http-server ./dist -p 8060 -c-1 -o",
     "build": "ng build",
+    "buildprod" : "ng build --prod",
     "build:ssr": "ng run RoomService:server:dev",
     "test": "ng test",
     "lint": "ng lint",

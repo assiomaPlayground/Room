@@ -10,6 +10,9 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    
+    <!-- For test pwa code use true -->
+    <BuildProductionPWA>true</BuildProductionPWA>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,10 +20,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Lib.Net.Http.WebPush" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.2" />
     <PackageReference Include="MongoDB.Driver.Core" Version="2.10.2" />
   </ItemGroup>
@@ -182,6 +187,10 @@
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="RunAngularPWA" AfterTargets="DebugEnsureNodeEnv" Condition="'$(BuildProductionPWA)' == 'true'">
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run buildprod"/>
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

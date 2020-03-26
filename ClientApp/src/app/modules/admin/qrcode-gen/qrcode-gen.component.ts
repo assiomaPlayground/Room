@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class QRCodeGenComponent {
   
   name = 'QRCodeGen';
-
+  url : any;
   elementType : 'url' | 'canvas' | 'img' = 'url';
   value : string = 'facebook.com';
   }

@@ -32,6 +32,8 @@ namespace RoomService.Services
         /// </summary>
         private readonly ServerTaskUtils _serverTaskUtils;
 
+
+        private readonly PushService _pushService;
         /// <summary>
         /// _goingStatuses hashset helper 
         /// @TODO use settings or database
@@ -48,7 +50,8 @@ namespace RoomService.Services
         public ReservationUpdaterService(
             IRoomServiceMongoSettings mongoSettings, 
             IAppSettings appSettings, 
-            ServerTaskUtils serverTaskService
+            ServerTaskUtils serverTaskService,
+            PushService pushService
         )
         {
 
@@ -64,6 +67,10 @@ namespace RoomService.Services
             //Tasks
             _serverTasks     = appSettings.ServerTasks; //Use database for tasks???
             _serverTaskUtils = serverTaskService;
+
+            this._pushService = pushService;
+
+            this._pushService.SendNotifications("Notifica di test");
 
             //Start an update and timer
             this.UpdateReservation();

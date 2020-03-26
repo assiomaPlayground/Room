@@ -115,6 +115,7 @@ namespace RoomService.Utils
             ServiceCollection.AddSingleton<AccessControlService>();
             ServiceCollection.AddSingleton<ReservationUpdaterService>();
             ServiceCollection.AddSingleton<ServerTaskUtils>();
+            ServiceCollection.AddSingleton<PushService>();
         }
     }
 }
