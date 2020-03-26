@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-md-1">
+  
+      </div>
+      <div class="col-md-10">
+        <table>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Features
+            </th>
+            <th>
+              AllSeats
+            </th>
+            <th>
+              SubMap
+            </th>
+            <th>
+              Building
+            </th>
+            <th>
+              Pivot
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <input placeholder="Name" [(ngModel)]="roomtoinsert.Name">
+            </td>
+            <td>
+              <input placeholder="Features" [(ngModel)]="roomtoinsert.Features">
+            </td>
+            <td>
+              <input placeholder="AllSeats" [(ngModel)]="roomtoinsert.AllSeats">
+            </td>
+            <td>
+              <input placeholder="SubMap" [(ngModel)]="roomtoinsert.SubMap">
+            </td>
+            <td>
+              <input placeholder="Building" [(ngModel)]="roomtoinsert.Building">
+            </td>
+            <td>
+              <input placeholder="Pivot" [(ngModel)]="roomtoinsert.Pivot">
+            </td>
+            <td>
+              <button (click)="insert(roomtoinsert)">Insert</button>
+            </td>
+            <td>
+              <button (click)="clear()">Clear</button>
+            </td>
+          </tr>
+          <tr *ngFor="let room of rooms">
+            <td>
+              <input [(ngModel)]="room.Name">
+            </td>
+            <td>
+              <input [(ngModel)]="room.Features">
+            </td>
+            <td>
+              <input [(ngModel)]="room.AllSeats">
+            </td>
+            <td>
+              <input [(ngModel)]="room.SubMap">
+            </td>
+            <td>
+              <input [(ngModel)]="room.Building">
+            </td>
+            <td>
+              <input [(ngModel)]="room.Pivot">
+            </td>
+            <td>
+              <button (click)=update(room)>Save</button>
+            </td>
+            <td>
+              <button (click)="delete(room)">Delete</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-1">
+  
+      </div>
+    </div>
+  </div>

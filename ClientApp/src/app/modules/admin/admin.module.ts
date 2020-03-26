@@ -8,13 +8,17 @@ import { QRCodeGenComponent } from './qrcode-gen/qrcode-gen.component';
 import { SharedModule } from 'src/app/shareds/shared/shared.module';
 import { BuildingComponent } from 'src/app/modules/admin/building/building.component';
 import { UsersComponent } from './users/users.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     QRCodeGenComponent,
     BuildingComponent,
-    UsersComponent
+    RoomsComponent,
+    UsersComponent,
+    MenuComponent,
   ],
   imports: [
     CommonModule,
