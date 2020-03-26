@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using RoomService.Models;
+using RoomService.DTO;
 using RoomService.Settings;
 using RoomService.Utils;
 using System;
@@ -22,6 +23,7 @@ namespace RoomService.Services
         /// </summary>
         private readonly IMongoCollection<Reservation> _reservationRepo;
 
+        private readonly IMongoCollection<UserModel> _userRepo;
         /// <summary>
         /// The server task array got from settings
         /// </summary>
@@ -31,7 +33,6 @@ namespace RoomService.Services
         /// Utility service for timer based task creation got from DI
         /// </summary>
         private readonly ServerTaskUtils _serverTaskUtils;
-
 
         private readonly PushService _pushService;
         /// <summary>
@@ -63,14 +64,14 @@ namespace RoomService.Services
 
             //Connect to target collection repo
             _reservationRepo = database.GetCollection<Reservation>(mongoSettings.ReservationCollection);
-
+            _userRepo = database.GetCollection<UserModel>(mongoSettings.UserCollection);
             //Tasks
             _serverTasks     = appSettings.ServerTasks; //Use database for tasks???
             _serverTaskUtils = serverTaskService;
 
             this._pushService = pushService;
 
-            this._pushService.SendNotifications("Notifica di test");
+            this._pushService.SendBroadcast("Notifica di test");
 
             //Start an update and timer
             this.UpdateReservation();
@@ -106,14 +107,15 @@ namespace RoomService.Services
         /// <returns>Bool : true success/complete</returns>
         private bool UpdateReservation()
         {
-
+            var ToNotify = new HashSet<string>();
             //Create comparison time
             var now = DateTime.Now.ToString("o");
 
             //Query for all on going statuses reservations
             var qres = from res in _reservationRepo.AsQueryable()
                        where this._goingStatuses.Contains(res.Status)
-                       select res;
+                       join user in _userRepo.AsQueryable() on res.Owner equals user.Id
+                       select new UserReservationDTO { Reservation = res, };
 
             //Query failed case
             if (qres == null)
@@ -123,29 +125,32 @@ namespace RoomService.Services
             foreach (var res in qres)
             {
                 //Not yet started set to active
-                if (string.Compare(res.Interval.StartTime, now) > 0) 
+                if (string.Compare(res.Reservation.Interval.StartTime, now) > 0) 
                 {
-                    res.Status = Reservation.Statuses.ATTIVA;
+                    res.Reservation.Status = Reservation.Statuses.ATTIVA;
+                    ToNotify.Add(res.User.Id);
                 }
 
                 //Expired set to ended
-                if(string.Compare(res.Interval.EndTime, now) <= 0) 
+                if(string.Compare(res.Reservation.Interval.EndTime, now) <= 0) 
                 {
-                    res.Status = Reservation.Statuses.CONCLUSA;
+                    res.Reservation.Status = Reservation.Statuses.CONCLUSA;
+                    ToNotify.Add(res.User.Id);
                 }
 
                 //CHECKIN or INCORSO
-                if(string.Compare(res.Interval.StartTime, now) <= 0 && string.Compare(res.Interval.EndTime, now) > 0) 
+                if(string.Compare(res.Reservation.Interval.StartTime, now) <= 0 && string.Compare(res.Reservation.Interval.EndTime, now) > 0) 
                 {
-                    res.Status =
-                    res.Status == Reservation.Statuses.CHECKIN ? //Is cheched-in? or waiting for fist check-in
+                    res.Reservation.Status =
+                    res.Reservation.Status == Reservation.Statuses.CHECKIN ? //Is cheched-in? or waiting for fist check-in
                     Reservation.Statuses.CHECKIN : Reservation.Statuses.INCORSO;
+                    ToNotify.Add(res.User.Id);
                 }
 
                 //Store update in database
-                _reservationRepo.ReplaceOne<Reservation>(dbres => res.Id == dbres.Id, res);
+                _reservationRepo.ReplaceOne<Reservation>(dbres => res.Reservation.Id == dbres.Id, res.Reservation);
             }
-
+            this._pushService.SendNotifications("Lo stato della tua prenotazione è cambiato", ToNotify);
             //Task complete
             return true;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Lib.Net.Http.WebPush;
 using Microsoft.AspNetCore.Authorization;
@@ -47,7 +48,11 @@ namespace RoomService.Controllers
         [HttpPost]
         public ActionResult<PushSubscription> Post([FromBody] PushSubscription subscription)
         {
-            return _pushService.Insert(subscription);
+            var rid = (HttpContext.User.Identity as ClaimsIdentity).FindFirst("userId").Value;
+            var wrp = new SubscriptionWrapper { Subscription = subscription };
+            if (rid != null)
+                wrp.Owner = rid;
+            return _pushService.Insert(wrp);
         }
 
         [HttpDelete("{endpoint}")]

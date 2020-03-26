@@ -42,10 +42,10 @@ namespace RoomService.Services
         /// </summary>
         /// <param name="subscription">Subscrition wrapper</param>
         /// <returns>subscription</returns>
-        public PushSubscription Insert(PushSubscription subscription)
+        public PushSubscription Insert(SubscriptionWrapper subscription)
         {
-            _collection.InsertOne(new SubscriptionWrapper { Subscription = subscription });
-            return subscription;
+            _collection.InsertOne(subscription);
+            return subscription.Subscription;
         }
 
         /// <summary>
@@ -66,11 +66,22 @@ namespace RoomService.Services
             return this._collection.Find(x => true).ToEnumerable().Select(x => x.Subscription);
         }
 
+        public void SendBroadcast(string message)
+        {
+            this.SendNotifications(message, this.GetSubscribers());
+        }
+        public void SendNotifications(string message, HashSet<string> targets)
+        {
+            var subTarg = from sub in _collection.AsQueryable()
+                          where targets.Contains(sub.Owner)
+                          select sub.Subscription;
+            SendNotifications(message, subTarg.AsEnumerable());
+        }
         /// <summary>
         /// Send Notification
         /// </summary>
         /// <param name="message">string message</param>
-        public void SendNotifications(string message)
+        public void SendNotifications(string message, IEnumerable<PushSubscription> targets)
         {
             
             // Notification Push Message
@@ -83,7 +94,7 @@ namespace RoomService.Services
             }.ToPushMessage();
 
             
-            foreach (PushSubscription subscription in GetSubscribers())
+            foreach (PushSubscription subscription in targets)
             {
                 _pushClient.RequestPushMessageDeliveryAsync(subscription, notification);
             }

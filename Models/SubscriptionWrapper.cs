@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RoomService.Models
 {
-    public class SubscriptionWrapper : IModel
+    public class SubscriptionWrapper : IModel, IOwnable
     {
         /// <summary>
         /// Id <see cref="IModel.Id"/>
@@ -18,7 +18,11 @@ namespace RoomService.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string Owner { get; set; }
+
         [BsonRequired][JsonRequired]
         public PushSubscription Subscription { get; set; }
+
     }
 }
