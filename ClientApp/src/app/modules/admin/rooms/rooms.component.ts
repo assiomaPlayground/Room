@@ -28,7 +28,7 @@ export class RoomsComponent implements OnInit {
   }
 
   update(rooms: WorkSpace, Id : String) {
-    this.service.update(rooms,Id).subscribe(() => this.getrooms());
+    this.service.update(rooms,rooms.Id).subscribe(() => this.getrooms());
   }
 
   insert(rooms: WorkSpace) {

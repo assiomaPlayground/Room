@@ -9,7 +9,7 @@ import { SharedModule } from 'src/app/shareds/shared/shared.module';
 import { BuildingComponent } from 'src/app/modules/admin/building/building.component';
 import { UsersComponent } from './users/users.component';
 import { RoomsComponent } from './rooms/rooms.component';
-import { MenuComponent } from './menu/menu.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { MenuComponent } from './menu/menu.component';
     BuildingComponent,
     RoomsComponent,
     UsersComponent,
-    MenuComponent,
+   
   ],
   imports: [
     CommonModule,

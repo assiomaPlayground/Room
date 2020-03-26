@@ -36,8 +36,8 @@ export class ReservationComponent implements OnInit {
   insert(reservation: Reservation){
     this.service.insert(reservation).subscribe(()=> this.list());
   }
-  update(reservation: Reservation){
-    this.service.update(reservation).subscribe(()=> this.list());
+  update(reservation: Reservation,Id : String){
+    this.service.update(reservation, reservation.Id).subscribe(()=> this.list());
   }
   delete(reservation:Reservation){
     this.service.delete(reservation.Id).subscribe(()=> this.list());

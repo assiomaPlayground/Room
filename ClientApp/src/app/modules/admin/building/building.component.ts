@@ -21,8 +21,8 @@ export class BuildingComponent implements OnInit {
   insert(building: Building){
     this.service.insert(building).subscribe(()=>this.list());
   }
-  update(building: Building){
-    this.service.update(building).subscribe(()=> this.list());
+  update(building: Building,Id : String){
+    this.service.update(building,building.Id).subscribe(()=> this.list());
   }
   delete(building: Building){
     this.service.delete(building.Id).subscribe(()=> this.list());
